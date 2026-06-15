@@ -1,0 +1,119 @@
+"use client";
+
+import { useRef } from "react";
+import Reveal from "./Reveal";
+import { aboutIntro, galleryPhotos, communities, favoriteBooks } from "@/lib/data";
+
+export default function About() {
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  // Manual rAF tween — native `behavior: "smooth"` is unreliable inside the
+  // Lenis-managed page, so we animate scrollLeft ourselves.
+  const animateTo = (el: HTMLDivElement, target: number) => {
+    const start = el.scrollLeft;
+    const dist = target - start;
+    const duration = 450;
+    const t0 = performance.now();
+    const step = (now: number) => {
+      const p = Math.min((now - t0) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.scrollLeft = start + dist * eased;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const scrollBy = (dir: number) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const amount = Math.min(el.clientWidth * 0.8, 600);
+    const max = el.scrollWidth - el.clientWidth;
+    const target = Math.max(0, Math.min(el.scrollLeft + dir * amount, max));
+    animateTo(el, target);
+  };
+
+  return (
+    <div className="about-page">
+      {/* Intro */}
+      <Reveal>
+        <h1 className="about__greeting">{aboutIntro.greeting}</h1>
+      </Reveal>
+      <Reveal delay={0.05}>
+        <div className="about__intro">
+          <p>{aboutIntro.paragraphs[0]}</p>
+          <p>{aboutIntro.paragraphs[1]}</p>
+          <ul className="about__hobbies">
+            {aboutIntro.hobbies.map((h) => (
+              <li key={h}>{h}</li>
+            ))}
+          </ul>
+          <p>{aboutIntro.closing}</p>
+        </div>
+      </Reveal>
+
+      {/* Photo gallery */}
+      <Reveal delay={0.05}>
+        <div className="about__gallery">
+          {galleryPhotos.map((p, i) => (
+            <figure key={p.src} className={`gphoto${p.span ? " gphoto--wide" : ""}`} data-i={i}>
+              <img src={p.src} alt={p.alt} loading="lazy" />
+            </figure>
+          ))}
+        </div>
+      </Reveal>
+
+      {/* Communities */}
+      <section className="about__block">
+        <Reveal>
+          <h2 className="about__eyebrow">My Communities</h2>
+        </Reveal>
+        <ul className="communities">
+          {communities.map((c, i) => (
+            <Reveal as="li" key={c.name} className="community" delay={i * 0.06}>
+              <div className="community__head">
+                <span className="community__icon" aria-hidden>{c.icon}</span>
+                <h3 className="community__name">{c.name}</h3>
+              </div>
+              <p className="community__desc">{c.desc}</p>
+              <div className="community__media">
+                <img src={c.img} alt={c.name} loading="lazy" />
+              </div>
+            </Reveal>
+          ))}
+        </ul>
+      </section>
+
+      {/* Favorite things */}
+      <section className="about__block about__block--center">
+        <Reveal>
+          <h2 className="about__eyebrow about__eyebrow--center">A Few of My Favorite Things</h2>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <h3 className="about__faveTitle">Books</h3>
+        </Reveal>
+
+        <div className="carousel">
+          <button className="carousel__arrow carousel__arrow--prev" onClick={() => scrollBy(-1)} aria-label="Previous">
+            ←
+          </button>
+
+          <div className="carousel__track" ref={trackRef}>
+            {favoriteBooks.map((b) => (
+              <article className="book" key={b.title}>
+                <div className="book__cover" style={{ background: `linear-gradient(150deg, ${b.from}, ${b.to})` }}>
+                  <span className="book__coverTitle">{b.title}</span>
+                </div>
+                <h4 className="book__title">{b.title}</h4>
+                <p className="book__author">{b.author}</p>
+              </article>
+            ))}
+          </div>
+
+          <button className="carousel__arrow carousel__arrow--next" onClick={() => scrollBy(1)} aria-label="Next">
+            →
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+}
