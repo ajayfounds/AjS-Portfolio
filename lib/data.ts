@@ -168,10 +168,12 @@ export const aboutIntro = {
   ],
   hobbies: [
     "Sketching and drawing whatever's stuck in my head",
-    "Behind a camera — photography & cinematography",
+    "Behind my camera — photography & cinematography",
     "Cutting edits until the rhythm feels right",
+    "Chasing mountain-valley treks, camera in hand",
     "On a skateboard",
-    "Playing guitar"
+    "Playing guitar",
+    "Hunting for retro gadgets"
   ],
   closing: "Always happy to chat! I'm on the lookout for product design roles and good conversations :)"
 };
@@ -228,6 +230,14 @@ export const favorites: { label: string; items: Fave[] }[] = [
       { title: "Shawn Mendes", from: "#bf5a7a", to: "#cb7836" },
       { title: "Billie Eilish", from: "#242424", to: "#6b6553" },
       { title: "Metro Boomin", note: "beats on loop", from: "#2a8f50", to: "#168b9d" }
+    ]
+  },
+  {
+    label: "Reading",
+    items: [
+      { title: "Psycho-Cybernetics", note: "rewiring the self-image", from: "#cb7836", to: "#bf5a7a" },
+      { title: "The Creative Act", note: "making as a way of being", from: "#2a8f50", to: "#e8c84a" },
+      { title: "Keep Going", note: "show up, keep creating", from: "#168b9d", to: "#cb7836" }
     ]
   }
 ];

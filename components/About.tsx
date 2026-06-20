@@ -55,7 +55,10 @@ export default function About() {
     <div className="about-page">
       {/* Intro */}
       <Reveal>
-        <h1 className="about__greeting">{aboutIntro.greeting}</h1>
+        <h1 className="about__greeting">
+          {aboutIntro.greeting}
+          <span className="about__quack" title="certified overthinker" aria-label="certified overthinker">🦆</span>
+        </h1>
       </Reveal>
       <Reveal delay={0.05}>
         <div className="about__intro">

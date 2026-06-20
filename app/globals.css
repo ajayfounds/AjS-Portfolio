@@ -699,6 +699,13 @@ body.pill-cursor .cursor, body.pill-cursor .cursor-follower { opacity: 0; }
   font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; letter-spacing: -0.01em;
   margin-bottom: 1.5rem;
 }
+.about__quack {
+  display: inline-block; margin-left: 0.5rem; font-size: 0.7em;
+  transform-origin: 60% 90%; animation: quack-wobble 3.2s var(--ease) infinite;
+  cursor: pointer; vertical-align: middle;
+}
+.about__quack:hover { animation-duration: 0.5s; }
+@keyframes quack-wobble { 0%, 70%, 100% { transform: rotate(0); } 78% { transform: rotate(-14deg); } 86% { transform: rotate(12deg); } 94% { transform: rotate(-6deg); } }
 .about__intro { max-width: 78ch; }
 .about__intro p { font-size: 1.05rem; line-height: 1.7; margin-bottom: 1rem; }
 .about__intro p:first-of-type { color: var(--muted); }
