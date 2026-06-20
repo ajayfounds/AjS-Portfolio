@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Reveal from "./Reveal";
-import { aboutIntro, galleryPhotos, communities, favorites, type Fave } from "@/lib/data";
+import { aboutIntro, galleryPhotos, communities, favorites, mantra, hotTakes, toolbox, influences, type Fave } from "@/lib/data";
 
 // one labelled, horizontally-scrollable favourites row
 function FaveRow({ label, items }: { label: string; items: Fave[] }) {
@@ -73,6 +73,13 @@ export default function About() {
         </div>
       </Reveal>
 
+      {/* Mantra */}
+      <Reveal delay={0.05}>
+        <p className="about__mantra">
+          <span aria-hidden>“</span>{mantra}<span aria-hidden>”</span>
+        </p>
+      </Reveal>
+
       {/* Photo gallery */}
       <Reveal delay={0.05}>
         <div className="about__gallery">
@@ -103,6 +110,41 @@ export default function About() {
             </Reveal>
           ))}
         </ul>
+      </section>
+
+      {/* Toolbox + Influences */}
+      <section className="about__block about__cols">
+        <Reveal className="about__col">
+          <h2 className="about__eyebrow">Toolbox</h2>
+          <div className="tagrow">
+            {toolbox.map((t) => (
+              <span className="pill" key={t}>{t}</span>
+            ))}
+          </div>
+        </Reveal>
+        <Reveal className="about__col" delay={0.06}>
+          <h2 className="about__eyebrow">Stealing from</h2>
+          <div className="tagrow">
+            {influences.map((n) => (
+              <span className="pill" key={n}>{n}</span>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Hot takes */}
+      <section className="about__block">
+        <Reveal>
+          <h2 className="about__eyebrow">Hot takes</h2>
+        </Reveal>
+        <ol className="hottakes">
+          {hotTakes.map((t, i) => (
+            <Reveal as="li" className="hottake" key={t} delay={i * 0.06}>
+              <span className="hottake__num">{String(i + 1).padStart(2, "0")}</span>
+              <span className="hottake__text">{t}</span>
+            </Reveal>
+          ))}
+        </ol>
       </section>
 
       {/* Favorite things */}

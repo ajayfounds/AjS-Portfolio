@@ -239,8 +239,30 @@ export const favorites: { label: string; items: Fave[] }[] = [
       { title: "The Creative Act", note: "making as a way of being", from: "#2a8f50", to: "#e8c84a" },
       { title: "Keep Going", note: "show up, keep creating", from: "#168b9d", to: "#cb7836" }
     ]
+  },
+  {
+    label: "Playing",
+    items: [
+      { title: "Alto's Odyssey", note: "skate + minimal art", from: "#168b9d", to: "#e8c84a" },
+      { title: "Marvel's Spider-Man", note: "self-explanatory", from: "#bf5a7a", to: "#242424" },
+      { title: "GTA V", note: "open-world chaos", from: "#cb7836", to: "#168b9d" },
+      { title: "Valorant", note: "reflex therapy", from: "#bf5a7a", to: "#cb7836" }
+    ]
   }
 ];
+
+/* personality blocks */
+export const mantra = "Design for the crash, not just the launch.";
+
+export const hotTakes = [
+  "The error state matters more than the happy path.",
+  "A screen that doesn't move is only half-drawn.",
+  "AI won't take your design job — a designer who uses AI will."
+];
+
+export const toolbox = ["Figma", "Framer", "Spline", "Jitter", "Lottie", "Lightroom", "Premiere", "Mobbin"];
+
+export const influences = ["Aaron Draplin", "Emil Kowalski", "Jordan Singer", "Megan Yap", "Rauno Freiberg"];
 
 /* ── VISITOR GALLERY (seeded, deterministic so SSR === client) ──────── */
 
