@@ -113,6 +113,9 @@ export type Experience = {
   role: string;
   org: string;
   desc: string;
+  short: string;   // chip label for the Journey timeline
+  accent: string;  // card tint for the Journey timeline
+  icon: string;    // chip glyph
 };
 
 export const experience: Experience[] = [
@@ -120,31 +123,46 @@ export const experience: Experience[] = [
     period: "Apr 2026 — Present",
     role: "Product Designer",
     org: "Shyphan AI Solutions Pvt Ltd · Noida",
-    desc: "Designing scalable, user-centric end-to-end experiences across web and product for AI-driven solutions — building UI systems and reusable components, and translating business requirements into user-centered design with cross-functional teams."
+    desc: "Designing scalable, user-centric end-to-end experiences across web and product for AI-driven solutions — building UI systems and reusable components, and translating business requirements into user-centered design with cross-functional teams.",
+    short: "Shyphan AI",
+    accent: "#cb7836",
+    icon: "✦"
   },
   {
     period: "Mar 2025 — Oct 2025",
     role: "UX/UI Designer",
     org: "Google DSC (GDSC) · New Delhi chapter",
-    desc: "Designed the GDSC Ace event website and produced 30+ event creatives and 25+ social posts. Built a consistent visual identity across Instagram, LinkedIn, and print — aligned with Google's design language while reflecting the local community tone."
+    desc: "Designed the GDSC Ace event website and produced 30+ event creatives and 25+ social posts. Built a consistent visual identity across Instagram, LinkedIn, and print — aligned with Google's design language while reflecting the local community tone.",
+    short: "GDSC Delhi",
+    accent: "#168b9d",
+    icon: "◎"
   },
   {
     period: "Jun 2025 — Jul 2025",
     role: "AI/ML Intern",
     org: "Edunet Foundation",
-    desc: "Built an end-to-end Employee Salary Classification & Prediction System — trained Linear Regression and Decision Tree models on 47,000+ records and deployed an interactive Streamlit dashboard for real-time predictions."
+    desc: "Built an end-to-end Employee Salary Classification & Prediction System — trained Linear Regression and Decision Tree models on 47,000+ records and deployed an interactive Streamlit dashboard for real-time predictions.",
+    short: "Edunet",
+    accent: "#2a8f50",
+    icon: "▟"
   },
   {
     period: "Feb 2024 — Feb 2025",
     role: "Designer",
     org: "JSSATEN Photography & Films Club",
-    desc: "Drove +400% engagement growth on event pages and 70% more ticket sales. Built a reusable design-system of templates for recurring events, plus user personas and journey maps to ground decisions."
+    desc: "Drove +400% engagement growth on event pages and 70% more ticket sales. Built a reusable design-system of templates for recurring events, plus user personas and journey maps to ground decisions.",
+    short: "Photo & Films Club",
+    accent: "#bf5a7a",
+    icon: "❒"
   },
   {
     period: "Dec 2023 — Jan 2024",
     role: "Web Developer",
     org: "CodSoft",
-    desc: "Built reusable UI components that improved consistency and reduced redundant code. Collaborated with design and backend teams to integrate APIs and deliver pixel-perfect, responsive layouts."
+    desc: "Built reusable UI components that improved consistency and reduced redundant code. Collaborated with design and backend teams to integrate APIs and deliver pixel-perfect, responsive layouts.",
+    short: "CodSoft",
+    accent: "#9a8f2f",
+    icon: "❮❯"
   }
 ];
 
@@ -250,18 +268,29 @@ export const favorites: { label: string; items: Fave[] }[] = [
   }
 ];
 
-/* personality blocks */
-export const mantra = "Design for the crash, not just the launch.";
+/* "Things I do for fun" — fanned photo deck */
+export type FunPhoto = { src: string; alt: string };
 
-export const hotTakes = [
-  "The error state matters more than the happy path.",
-  "A screen that doesn't move is only half-drawn.",
-  "AI won't take your design job — a designer who uses AI will."
+export const funStack: FunPhoto[] = [
+  { src: "/me/polaroid.jpg", alt: "Polaroid" },
+  { src: "/me/neon.jpg", alt: "Neon night" },
+  { src: "/me/anime.jpg", alt: "Out and about" },
+  { src: "/me/redshot.jpg", alt: "On set" },
+  { src: "/me/community-selfie.jpg", alt: "With the crew" },
+  { src: "/me/conf.jpg", alt: "On stage" },
+  { src: "/me/portrait.jpg", alt: "Portrait" }
 ];
 
-export const toolbox = ["Figma", "Framer", "Spline", "Jitter", "Lottie", "Lightroom", "Premiere", "Mobbin"];
+export const funBlurb =
+  "I studied a little of everything before design found me — sketchbooks, a camera, a skateboard, a guitar. Design, for me, isn't just screens; it's the same itch to make something feel intentional, whether that's a poster, an edit, or a product flow.";
 
-export const influences = ["Aaron Draplin", "Emil Kowalski", "Jordan Singer", "Megan Yap", "Rauno Freiberg"];
+/* "Journey so far" — quote card */
+export const journeyQuote = {
+  lead: "Design is ",
+  emph: "storytelling",
+  tail: ", not just decoration.",
+  emoji: ["💬", "🎬", "🎸", "📷"]
+};
 
 /* ── VISITOR GALLERY (seeded, deterministic so SSR === client) ──────── */
 

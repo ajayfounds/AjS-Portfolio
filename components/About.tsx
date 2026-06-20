@@ -1,8 +1,18 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Reveal from "./Reveal";
-import { aboutIntro, galleryPhotos, communities, favorites, type Fave } from "@/lib/data";
+import {
+  aboutIntro,
+  galleryPhotos,
+  communities,
+  favorites,
+  funStack,
+  funBlurb,
+  journeyQuote,
+  experience,
+  type Fave
+} from "@/lib/data";
 
 // one labelled, horizontally-scrollable favourites row
 function FaveRow({ label, items }: { label: string; items: Fave[] }) {
@@ -50,6 +60,105 @@ function FaveRow({ label, items }: { label: string; items: Fave[] }) {
   );
 }
 
+// "Things I do for fun" — a fanned deck of photos that spreads on hover
+function FunStack() {
+  const n = funStack.length;
+  return (
+    <div className="funstack" role="img" aria-label="A few photos from life outside the screen">
+      {funStack.map((p, i) => {
+        const t = n > 1 ? i / (n - 1) - 0.5 : 0; // -0.5 .. 0.5
+        const rot = t * 26; // fan angle
+        const x = t * 60; // horizontal spread (%)
+        const y = Math.abs(t) * 46; // arc dip
+        return (
+          <figure
+            key={p.src}
+            className="funstack__card"
+            style={
+              {
+                "--i": i,
+                "--rot": `${rot}deg`,
+                "--x": `${x}%`,
+                "--y": `${y}px`,
+                "--z": n - Math.round(Math.abs(t) * 10)
+              } as React.CSSProperties
+            }
+          >
+            <img src={p.src} alt={p.alt} loading="lazy" />
+          </figure>
+        );
+      })}
+    </div>
+  );
+}
+
+// "Journey so far" — click a chip to swap the highlighted role card
+function Journey() {
+  const [active, setActive] = useState(0);
+  const cur = experience[active];
+  const rest = experience.map((e, i) => ({ e, i })).filter((x) => x.i !== active);
+
+  return (
+    <div className="journey">
+      {/* left: interactive timeline */}
+      <div className="journey__left">
+        <Reveal>
+          <h2 className="journey__title">
+            <span className="journey__vinyl" aria-hidden>
+              <span className="journey__vinyl-disc" />
+              <span className="journey__vinyl-arm" />
+            </span>
+            Journey so far
+          </h2>
+        </Reveal>
+
+        <Reveal delay={0.05}>
+          <article className="journey__card" style={{ "--accent": cur.accent } as React.CSSProperties}>
+            <h3 className="journey__role">{cur.org.split(" · ")[0]}</h3>
+            <p className="journey__sub">{cur.role}</p>
+            <p className="journey__desc">{cur.desc}</p>
+            <span className="journey__period">{cur.period}</span>
+          </article>
+        </Reveal>
+
+        <div className="journey__chips">
+          {rest.map(({ e, i }) => (
+            <button
+              key={e.org}
+              className="journey__chip"
+              onClick={() => setActive(i)}
+              style={{ "--accent": e.accent } as React.CSSProperties}
+            >
+              <span className="journey__chip-icon" aria-hidden>{e.icon}</span>
+              <span className="journey__chip-text">
+                <span className="journey__chip-name">{e.short}</span>
+                <span className="journey__chip-role">{e.role}</span>
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* right: quote card */}
+      <Reveal delay={0.1} className="journey__quoteWrap">
+        <div className="journey__quote">
+          <div className="journey__tabs" aria-hidden>
+            {journeyQuote.emoji.map((em) => (
+              <span key={em} className="journey__tab">{em}</span>
+            ))}
+          </div>
+          <blockquote className="journey__quoteText">
+            {journeyQuote.lead}
+            <em>{journeyQuote.emph}</em>
+            {journeyQuote.tail}
+          </blockquote>
+          <div className="journey__quoteSky" aria-hidden />
+        </div>
+      </Reveal>
+    </div>
+  );
+}
+
 export default function About() {
   return (
     <div className="about-page">
@@ -73,7 +182,6 @@ export default function About() {
         </div>
       </Reveal>
 
-
       {/* Photo gallery */}
       <Reveal delay={0.05}>
         <div className="about__gallery">
@@ -84,6 +192,24 @@ export default function About() {
           ))}
         </div>
       </Reveal>
+
+      {/* Things I do for fun */}
+      <section className="about__block about__block--center">
+        <Reveal>
+          <h2 className="about__display">Things I do for fun</h2>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <p className="about__displaySub">{funBlurb}</p>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <FunStack />
+        </Reveal>
+      </section>
+
+      {/* Journey so far */}
+      <section className="about__block">
+        <Journey />
+      </section>
 
       {/* Communities */}
       <section className="about__block">
