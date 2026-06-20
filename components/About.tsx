@@ -60,34 +60,75 @@ function FaveRow({ label, items }: { label: string; items: Fave[] }) {
   );
 }
 
-// "Things I do for fun" — a fanned deck of photos that spreads on hover
+// "Things I do for fun" — a swipeable / draggable photo carousel
 function FunStack() {
-  const n = funStack.length;
+  const trackRef = useRef<HTMLDivElement>(null);
+  const drag = useRef({ down: false, startX: 0, startLeft: 0, moved: false });
+
+  // mouse drag-to-scroll (touch devices use native momentum scroll)
+  const onDown = (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    const el = trackRef.current;
+    if (!el) return;
+    drag.current = { down: true, startX: e.clientX, startLeft: el.scrollLeft, moved: false };
+    el.classList.add("is-dragging");
+    el.setPointerCapture(e.pointerId);
+  };
+  const onMove = (e: React.PointerEvent) => {
+    if (!drag.current.down) return;
+    const el = trackRef.current;
+    if (!el) return;
+    const dx = e.clientX - drag.current.startX;
+    if (Math.abs(dx) > 3) drag.current.moved = true;
+    el.scrollLeft = drag.current.startLeft - dx;
+  };
+  const onUp = (e: React.PointerEvent) => {
+    const el = trackRef.current;
+    if (!el) return;
+    drag.current.down = false;
+    el.classList.remove("is-dragging");
+    try {
+      el.releasePointerCapture(e.pointerId);
+    } catch {}
+  };
+
+  // arrow nudge — manual rAF tween (native smooth scroll unreliable under Lenis)
+  const nudge = (dir: number) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const amount = Math.min(el.clientWidth * 0.8, 560);
+    const max = el.scrollWidth - el.clientWidth;
+    const target = Math.max(0, Math.min(el.scrollLeft + dir * amount, max));
+    const start = el.scrollLeft;
+    const dist = target - start;
+    const t0 = performance.now();
+    const step = (now: number) => {
+      const p = Math.min((now - t0) / 480, 1);
+      el.scrollLeft = start + dist * (1 - Math.pow(1 - p, 3));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
   return (
-    <div className="funstack" role="img" aria-label="A few photos from life outside the screen">
-      {funStack.map((p, i) => {
-        const t = n > 1 ? i / (n - 1) - 0.5 : 0; // -0.5 .. 0.5
-        const rot = t * 26; // fan angle
-        const x = t * 60; // horizontal spread (%)
-        const y = Math.abs(t) * 46; // arc dip
-        return (
-          <figure
-            key={p.src}
-            className="funstack__card"
-            style={
-              {
-                "--i": i,
-                "--rot": `${rot}deg`,
-                "--x": `${x}%`,
-                "--y": `${y}px`,
-                "--z": n - Math.round(Math.abs(t) * 10)
-              } as React.CSSProperties
-            }
-          >
-            <img src={p.src} alt={p.alt} loading="lazy" />
+    <div className="funstack">
+      <button className="funstack__arrow funstack__arrow--prev" onClick={() => nudge(-1)} aria-label="Previous">←</button>
+      <div
+        className="funstack__track"
+        ref={trackRef}
+        onPointerDown={onDown}
+        onPointerMove={onMove}
+        onPointerUp={onUp}
+        onPointerLeave={onUp}
+        data-lenis-prevent
+      >
+        {funStack.map((p, i) => (
+          <figure key={p.src} className="funstack__card" style={{ "--i": i } as React.CSSProperties}>
+            <img src={p.src} alt={p.alt} loading="lazy" draggable={false} />
           </figure>
-        );
-      })}
+        ))}
+      </div>
+      <button className="funstack__arrow funstack__arrow--next" onClick={() => nudge(1)} aria-label="Next">→</button>
     </div>
   );
 }
