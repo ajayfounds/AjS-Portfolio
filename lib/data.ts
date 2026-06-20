@@ -180,11 +180,10 @@ export const aboutIntro = {
 
 export type GalleryPhoto = { src: string; alt: string; span?: boolean };
 
-// TODO: drop real photos into /public and swap these src values
 export const galleryPhotos: GalleryPhoto[] = [
-  { src: "https://picsum.photos/seed/ajay-portrait/640/720", alt: "Ajay" },
-  { src: "https://picsum.photos/seed/ajay-travel/1100/720", alt: "A place I loved", span: true },
-  { src: "https://picsum.photos/seed/ajay-street/640/720", alt: "Out and about" }
+  { src: "/me/polaroid.jpg", alt: "Ajay — polaroid" },
+  { src: "/me/portrait.jpg", alt: "Ajay" },
+  { src: "/me/anime.jpg", alt: "Out and about" }
 ];
 
 export type Community = { name: string; icon: string; desc: string; img: string };
@@ -194,19 +193,19 @@ export const communities: Community[] = [
     name: "JSSATEN Photography & Films Club",
     icon: "📷",
     desc: "",
-    img: "https://picsum.photos/seed/photoclub/700/440"
+    img: "/me/neon.jpg"
   },
   {
     name: "GDSC — New Delhi chapter",
     icon: "🟢",
     desc: "",
-    img: "https://picsum.photos/seed/gdsc/700/440"
+    img: "/me/conf.jpg"
   },
   {
     name: "Designare",
     icon: "✦",
     desc: "",
-    img: "https://picsum.photos/seed/designare/700/440"
+    img: "/me/community-group.jpg"
   }
 ];
 
