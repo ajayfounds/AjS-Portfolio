@@ -145,6 +145,7 @@ export default function Intro() {
 
   const cardRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const warpRef = useRef<HTMLCanvasElement>(null);
   const drawing = useRef(false);
   const last = useRef<{ x: number; y: number } | null>(null);
 
@@ -200,9 +201,65 @@ export default function Intro() {
     };
   }, [show, step, orbX, orbY]);
 
+  // hyperspace warp — seamless starfield streaking out from centre (canvas)
+  useEffect(() => {
+    if (!show) return;
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const cv = warpRef.current;
+    const ctx = cv?.getContext("2d");
+    if (!cv || !ctx) return;
+
+    const PALETTE = ["#f3f1eb", "#f3f1eb", "#f3f1eb", "#cb7836", "#168b9d", "#e8c84a", "#bf5a7a"];
+    const COUNT = 240;
+    let w = 0, h = 0, cx = 0, cy = 0, raf = 0, last = performance.now();
+    type Star = { x: number; y: number; z: number; pz: number; c: string };
+    const stars: Star[] = [];
+
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = cv.clientWidth; h = cv.clientHeight;
+      cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cx = w / 2; cy = h / 2;
+    };
+    const spawn = (s: Star, fresh = false) => {
+      s.x = (Math.random() - 0.5) * w;
+      s.y = (Math.random() - 0.5) * h;
+      s.z = fresh ? Math.random() * w : w;
+      s.pz = s.z;
+      s.c = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+    };
+    resize();
+    for (let i = 0; i < COUNT; i++) { const s = { x: 0, y: 0, z: 0, pz: 0, c: "#fff" }; spawn(s, true); stars.push(s); }
+
+    const draw = (t: number) => {
+      const dt = Math.min(40, t - last); last = t;
+      ctx.fillStyle = "rgba(21,20,15,0.32)"; // motion-trail fade over the intro bg
+      ctx.fillRect(0, 0, w, h);
+      const step = (w * 0.018 * dt) / 16;
+      for (const s of stars) {
+        s.pz = s.z; s.z -= step;
+        if (s.z < 1) { spawn(s); continue; }
+        const k = 130 / s.z, px = cx + s.x * k, py = cy + s.y * k;
+        const k2 = 130 / s.pz, ox = cx + s.x * k2, oy = cy + s.y * k2;
+        if (px < -20 || px > w + 20 || py < -20 || py > h + 20) { spawn(s); continue; }
+        const f = 1 - s.z / w;
+        ctx.strokeStyle = s.c;
+        ctx.globalAlpha = Math.min(1, f * 1.3);
+        ctx.lineWidth = Math.max(0.4, f * 2.2);
+        ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(px, py); ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      raf = requestAnimationFrame(draw);
+    };
+    raf = requestAnimationFrame(draw);
+    window.addEventListener("resize", resize);
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
+  }, [show]);
+
   const stars = useMemo(
     () =>
-      Array.from({ length: 70 }, (_, i) => ({
+      Array.from({ length: 48 }, (_, i) => ({
         id: i, top: Math.random() * 100, left: Math.random() * 100,
         size: Math.random() * 2 + 1, delay: Math.random() * 4, duration: 2.5 + Math.random() * 3,
         color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)]
@@ -348,12 +405,22 @@ export default function Intro() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
           >
-            <motion.div className="intro__orb" style={{ x: ox, y: oy }} aria-hidden />
+            <canvas className="intro__warp" ref={warpRef} aria-hidden />
+
+            <motion.div className="intro__orb" style={{ x: ox, y: oy }} aria-hidden>
+              <i className="intro__orb-ring" />
+            </motion.div>
 
             <div className="intro__stars" aria-hidden>
               {stars.map((s) => (
                 <span key={s.id} style={{ top: `${s.top}%`, left: `${s.left}%`, width: `${s.size}px`, height: `${s.size}px`, background: s.color, animationDelay: `${s.delay}s`, animationDuration: `${s.duration}s` }} />
               ))}
+            </div>
+
+            <div className="intro__shoots" aria-hidden>
+              <span className="intro__shoot" />
+              <span className="intro__shoot" />
+              <span className="intro__shoot" />
             </div>
 
             <div className="intro__center">

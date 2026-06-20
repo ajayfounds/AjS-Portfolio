@@ -49,17 +49,26 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
    CUSTOM CURSOR
 ============================================================ */
 .cursor, .cursor-follower {
-  position: fixed; top: 0; left: 0;
-  border-radius: 50%; pointer-events: none; z-index: 9999;
-  transform: translate(-50%, -50%);
+  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
 }
-.cursor { width: 8px; height: 8px; background: var(--fg); }
+/* minimal designer arrow — tip sits at the pointer hotspot */
+.cursor {
+  width: 22px; height: 22px; margin: -2px 0 0 -3px;
+  transition: transform .18s var(--ease);
+}
+.cursor__arrow { display: block; overflow: visible; filter: drop-shadow(0 2px 4px rgba(36, 36, 36, 0.28)); }
+.cursor__arrow-fill { fill: var(--fg); stroke: var(--bg); stroke-width: 1.4; stroke-linejoin: round; }
+.cursor__arrow-dot { fill: var(--accent); transition: r .2s var(--ease); }
+.cursor.is-hover { transform: scale(0.78) rotate(-12deg); }
+.cursor.is-hover .cursor__arrow-dot { r: 2.6; }
+/* soft accent ring follows behind */
 .cursor-follower {
-  width: 42px; height: 42px;
-  border: 1px solid rgba(36, 36, 36, 0.45);
+  width: 30px; height: 30px; border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 1.5px solid rgba(203, 120, 54, 0.5);
   transition: background .3s var(--ease), border-color .3s var(--ease);
 }
-.cursor-follower.is-hover { background: rgba(203, 120, 54, 0.12); border-color: var(--accent); }
+.cursor-follower.is-hover { background: rgba(203, 120, 54, 0.1); border-color: var(--accent); }
 @media (hover: none) { .cursor, .cursor-follower { display: none; } body { cursor: auto; } }
 
 /* ============================================================
@@ -71,15 +80,40 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
   color: var(--bg);
   overflow: hidden;
 }
-.intro__stars { position: absolute; inset: 0; }
+/* hyperspace warp field (canvas) sits behind everything */
+.intro__warp { position: absolute; inset: 0; z-index: 0; display: block; width: 100%; height: 100%; }
+
+.intro__stars { position: absolute; inset: 0; z-index: 1; }
 .intro__stars span {
   position: absolute; border-radius: 50%;
   animation: twinkle linear infinite;
 }
 @keyframes twinkle { 0%, 100% { opacity: 0.12; } 50% { opacity: 0.95; } }
 
+/* shooting stars streaking diagonally now and then */
+.intro__shoots { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
+.intro__shoot {
+  position: absolute; top: 0; left: 0; width: 3px; height: 3px; border-radius: 50%;
+  background: #fff; box-shadow: 0 0 9px 2px rgba(255, 255, 255, 0.75);
+  opacity: 0; animation: shoot 8s linear infinite;
+}
+.intro__shoot::before {
+  content: ""; position: absolute; right: 2px; top: 50%; width: 92px; height: 1.5px;
+  transform: translateY(-50%); border-radius: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7));
+}
+.intro__shoot:nth-child(1) { animation-delay: 0.8s; }
+.intro__shoot:nth-child(2) { animation-delay: 4.2s; }
+.intro__shoot:nth-child(3) { animation-delay: 6.6s; }
+@keyframes shoot {
+  0%   { transform: translate(-12vw, -20vh) rotate(40deg); opacity: 0; }
+  3%   { opacity: 1; }
+  16%  { transform: translate(80vw, 74vh) rotate(40deg); opacity: 0; }
+  100% { transform: translate(80vw, 74vh) rotate(40deg); opacity: 0; }
+}
+
 .intro__center {
-  position: absolute; top: 50%; left: 50%;
+  position: absolute; top: 50%; left: 50%; z-index: 4;
   transform: translate(-50%, -50%);
   display: flex; flex-direction: column; align-items: center; text-align: center;
   width: min(90vw, 640px);
@@ -122,7 +156,7 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
 .intro__tagline b { color: rgba(243, 241, 235, 0.85); font-weight: 500; }
 
 .intro__status {
-  position: absolute; left: var(--pad); bottom: var(--pad);
+  position: absolute; left: var(--pad); bottom: var(--pad); z-index: 4;
   display: flex; flex-direction: column; gap: 0.25rem;
 }
 .intro__time {
@@ -139,16 +173,22 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
   display: inline-block; animation: pulse-dot 2.4s var(--ease) infinite;
 }
 
-/* glowing moon-orb cursor on the dark intro */
+/* little ringed planet cursor on the dark intro (space theme) */
 .intro__orb {
-  position: absolute; top: 0; left: 0; z-index: 5;
-  width: 16px; height: 16px; border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #fff, #f3f1eb 55%, rgba(243,241,235,0.2) 75%);
-  margin: -8px 0 0 -8px; pointer-events: none;
-  box-shadow: 0 0 22px 8px rgba(243, 241, 235, 0.45), 0 0 60px 22px rgba(243, 241, 235, 0.18);
+  position: absolute; top: 0; left: 0; z-index: 6;
+  width: 15px; height: 15px; border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #ffffff, #bcd3ff 52%, #6d83c4 100%);
+  margin: -7.5px 0 0 -7.5px; pointer-events: none;
+  box-shadow: 0 0 16px 5px rgba(150, 190, 255, 0.5), 0 0 44px 16px rgba(120, 160, 255, 0.2);
   animation: orb-pulse 3.2s var(--ease) infinite;
 }
-@keyframes orb-pulse { 0%, 100% { box-shadow: 0 0 22px 8px rgba(243,241,235,0.4), 0 0 60px 22px rgba(243,241,235,0.16); } 50% { box-shadow: 0 0 26px 10px rgba(243,241,235,0.5), 0 0 72px 26px rgba(243,241,235,0.22); } }
+.intro__orb-ring {
+  position: absolute; left: 50%; top: 50%; width: 32px; height: 11px;
+  border: 1.5px solid rgba(214, 226, 255, 0.7); border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(-24deg);
+  box-shadow: 0 0 8px rgba(150, 190, 255, 0.35);
+}
+@keyframes orb-pulse { 0%, 100% { box-shadow: 0 0 16px 5px rgba(150,190,255,0.45), 0 0 40px 14px rgba(120,160,255,0.18); } 50% { box-shadow: 0 0 20px 7px rgba(150,190,255,0.6), 0 0 54px 20px rgba(120,160,255,0.26); } }
 body.orb-active { cursor: none; }
 body.orb-active .cursor, body.orb-active .cursor-follower { display: none; }
 
@@ -1218,7 +1258,12 @@ body.pill-cursor .cursor, body.pill-cursor .cursor-follower { opacity: 0; }
   background: var(--accent); box-shadow: 0 6px 12px -6px rgba(203, 120, 54, 0.75);
 }
 
-@media (max-width: 640px) { .buddy-stage { display: none; } }
+/* pet stays on phone/tablet too — physics hitbox is fixed-size so we keep the
+   visual size, just make the speech bubble/menu comfortably tappable */
+@media (max-width: 640px) {
+  .buddy__bubble { font-size: 0.64rem; }
+  .buddy__hat-btn { width: 40px; height: 40px; }
+}
 
 /* ============================================================
    RESPONSIVE LAYER

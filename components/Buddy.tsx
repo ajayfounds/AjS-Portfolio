@@ -13,9 +13,17 @@ const HATS: { key: HatKey; label: string }[] = [
   { key: "sprout", label: "sprout" }
 ];
 
-const IDLE_PHRASES = ["sup?", "hello :)", "just vibing", "sniff sniff", "◡̈", "wander time", "boop"];
+const IDLE_PHRASES = [
+  "sup?", "hello :)", "just vibing", "sniff sniff", "◡̈", "boop", "wander time",
+  "ooh shiny", "you still here?", "design is hard", "need coffee", "pixel hunting",
+  "hmm…", "what's that?", "weee", "kerning…", "snack?", "is it 8px or 12?"
+];
+const CLINGY = ["wait for me!", "where you going?", "coming!", "don't leave :(", "follow you!", "hi hi hi", "psst, hey"];
+const CLUMSY = ["whoa!", "oof", "oops", "tripped!", "i meant to do that", "ow", "wobble"];
+const HAPPY = ["hehe", "boop! :)", "pet me more", "yay!", "<3", "you found me!"];
 const rand = (a: number, b: number) => a + Math.random() * (b - a);
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
+const pick = (a: string[]) => a[Math.floor(Math.random() * a.length)];
 
 function Hat({ type }: { type: HatKey }) {
   switch (type) {
@@ -88,7 +96,8 @@ export default function Buddy() {
     mode: "idle", modeUntil: 0, targetX: 40,
     px: 0, py: 0, plx: 0, ply: 0, pt: 0, pvx: 0, pvy: 0,
     grabX: 0, grabY: 0, downCX: 0, downCY: 0,
-    ball: { x: 110, y: 200, vx: 0, vy: 0 }
+    ball: { x: 110, y: 200, vx: 0, vy: 0 },
+    cursorX: 0, cursorY: 0, lastMove: -9999
   }).current;
 
   useEffect(() => {
@@ -115,34 +124,42 @@ export default function Buddy() {
 
     const chooseAction = (now: number) => {
       const mx = maxX();
+      const cxNow = s.x + PET_W / 2;
+      const cursorFresh = now - s.lastMove < 2600 && Math.abs(s.cursorX - cxNow) > 40;
       // walkable range — when standing on a card, mostly stay on it (walk along it),
       // and only sometimes wander off to roam the rest of the page
       let lo = M, hi = mx;
-      if (s.supportEl && Math.random() < 0.7) {
+      if (s.supportEl && Math.random() < 0.6) {
         const sr = s.supportEl.getBoundingClientRect();
         lo = clamp(sr.left + 2, M, mx);
         hi = clamp(sr.right - PET_W - 2, M, mx);
         if (hi <= lo) { lo = M; hi = mx; }
       }
       const r = Math.random();
-      if (r < 0.55) {
+      // clingy: chase the cursor whenever it has moved recently
+      if (cursorFresh && r < 0.5) {
+        s.mode = "walk";
+        s.targetX = clamp(s.cursorX - PET_W / 2, M, mx);
+        s.modeUntil = now + 6000;
+        if (Math.random() > 0.45) say(pick(CLINGY), 1600);
+      } else if (r < 0.74) {
         s.mode = "walk";
         s.targetX = clamp(rand(lo, hi), M, mx);
-        s.modeUntil = now + 8000;
-      } else if (r < 0.74) {
+        s.modeUntil = now + 7000;
+      } else if (r < 0.86) {
         s.mode = "idle";
-        s.modeUntil = now + rand(1200, 2800);
-        if (Math.random() > 0.6) say(IDLE_PHRASES[Math.floor(Math.random() * IDLE_PHRASES.length)]);
-      } else if (r < 0.88) {
+        s.modeUntil = now + rand(900, 2200);
+        if (Math.random() > 0.45) say(pick(IDLE_PHRASES));
+      } else if (r < 0.95) {
         s.mode = "idle";
         s.vy = -760; // hop
         s.grounded = false;
         s.modeUntil = now + 1400;
-        if (Math.random() > 0.5) say("hop!", 1100);
+        if (Math.random() > 0.4) say(pick(["hop!", "boing", "wheee"]), 1100);
       } else {
         s.mode = "sit";
-        s.modeUntil = now + rand(2600, 5200);
-        say("zzz…", 2600);
+        s.modeUntil = now + rand(2200, 4600);
+        say("zzz…", 2400);
       }
     };
 
@@ -237,6 +254,11 @@ export default function Buddy() {
             if (Math.abs(d) < 3) {
               s.vx = 0; s.mode = "idle"; s.modeUntil = now + rand(900, 2200);
               cls("is-walking", false);
+            } else if (Math.random() < 0.006) {
+              // clumsy stumble mid-walk
+              doSquash(); s.vx = -Math.sign(d) * 90; s.facing = d > 0 ? 1 : -1;
+              s.mode = "idle"; s.modeUntil = now + rand(500, 1000);
+              cls("is-walking", false); say(pick(CLUMSY), 1200);
             } else {
               s.facing = d > 0 ? 1 : -1;
               s.vx = Math.sign(d) * WALK;
@@ -245,6 +267,8 @@ export default function Buddy() {
           } else if (s.mode === "sit") {
             s.vx *= 0.6; cls("is-walking", false); cls("is-sitting", true);
           } else {
+            // idle: turn to look at the cursor (clingy attention)
+            if (now - s.lastMove < 2600) s.facing = s.cursorX > cx() ? 1 : -1;
             s.vx *= 0.6; cls("is-walking", false); cls("is-sitting", false);
           }
         } else {
@@ -277,9 +301,16 @@ export default function Buddy() {
       raf = requestAnimationFrame(step);
     };
 
+    // track the pointer so the pet can be clingy and chase / look at it
+    const onPointer = (e: PointerEvent) => {
+      s.cursorX = e.clientX; s.cursorY = e.clientY; s.lastMove = performance.now();
+    };
+    window.addEventListener("pointermove", onPointer, { passive: true });
+
     raf = requestAnimationFrame(step);
     return () => {
       cancelAnimationFrame(raf);
+      window.removeEventListener("pointermove", onPointer);
       clearTimeout(bubbleTimer.current);
       clearTimeout(squashTimer.current);
     };
@@ -325,6 +356,7 @@ export default function Buddy() {
       s.modeUntil = performance.now() + 700;
     } else {
       setMenuOpen((v) => !v);
+      if (Math.random() > 0.4) say(pick(HAPPY), 1400);
     }
     s.dragging = false;
   };
