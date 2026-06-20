@@ -777,6 +777,8 @@ body.pill-cursor .cursor, body.pill-cursor .cursor-follower { opacity: 0; }
   transition: background .3s var(--ease), color .3s var(--ease);
 }
 .carousel__arrow:hover { background: var(--fg); color: var(--bg); }
+.fave-rows { display: flex; flex-direction: column; gap: 2.6rem; }
+.fave-row .about__faveTitle { margin-bottom: 1.2rem; }
 .book { flex: 0 0 auto; width: 152px; scroll-snap-align: start; text-align: left; }
 .book__cover {
   aspect-ratio: 2/3; border-radius: 8px; overflow: hidden;

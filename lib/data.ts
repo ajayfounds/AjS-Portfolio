@@ -208,18 +208,28 @@ export const communities: Community[] = [
   }
 ];
 
-export type Book = { title: string; author: string; from: string; to: string };
+export type Fave = { title: string; note?: string; from: string; to: string };
 
-// stylised gradient covers (no external assets needed)
-export const favoriteBooks: Book[] = [
-  { title: "The Design of Everyday Things", author: "Don Norman", from: "#cb7836", to: "#e8c84a" },
-  { title: "Refactoring UI", author: "Wathan & Schoger", from: "#168b9d", to: "#2a8f50" },
-  { title: "Don't Make Me Think", author: "Steve Krug", from: "#bf5a7a", to: "#cb7836" },
-  { title: "Hooked", author: "Nir Eyal", from: "#242424", to: "#6b6553" },
-  { title: "Thinking, Fast and Slow", author: "Daniel Kahneman", from: "#168b9d", to: "#bf5a7a" },
-  { title: "Atomic Habits", author: "James Clear", from: "#2a8f50", to: "#e8c84a" },
-  { title: "Sprint", author: "Jake Knapp", from: "#cb7836", to: "#168b9d" },
-  { title: "Laws of UX", author: "Jon Yablonski", from: "#bf5a7a", to: "#242424" }
+// "A few of my favorite things" — grouped rows; add categories freely
+export const favorites: { label: string; items: Fave[] }[] = [
+  {
+    label: "On Screen",
+    items: [
+      { title: "Across the Spider-Verse", note: "every frame a new art style", from: "#bf5a7a", to: "#168b9d" },
+      { title: "The Flash", note: "for the chem + physics nerd in me", from: "#cb7836", to: "#e8c84a" },
+      { title: "Haikyū!!", note: "storytelling that hits", from: "#cb7836", to: "#2a8f50" },
+      { title: "One Piece", note: "Zoro supremacy", from: "#168b9d", to: "#242424" }
+    ]
+  },
+  {
+    label: "On Repeat",
+    items: [
+      { title: "Alec Benjamin", note: "a whole story in three minutes", from: "#168b9d", to: "#bf5a7a" },
+      { title: "Shawn Mendes", from: "#bf5a7a", to: "#cb7836" },
+      { title: "Billie Eilish", from: "#242424", to: "#6b6553" },
+      { title: "Metro Boomin", note: "beats on loop", from: "#2a8f50", to: "#168b9d" }
+    ]
+  }
 ];
 
 /* ── VISITOR GALLERY (seeded, deterministic so SSR === client) ──────── */

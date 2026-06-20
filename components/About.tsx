@@ -2,36 +2,55 @@
 
 import { useRef } from "react";
 import Reveal from "./Reveal";
-import { aboutIntro, galleryPhotos, communities, favoriteBooks } from "@/lib/data";
+import { aboutIntro, galleryPhotos, communities, favorites, type Fave } from "@/lib/data";
 
-export default function About() {
+// one labelled, horizontally-scrollable favourites row
+function FaveRow({ label, items }: { label: string; items: Fave[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
 
-  // Manual rAF tween — native `behavior: "smooth"` is unreliable inside the
-  // Lenis-managed page, so we animate scrollLeft ourselves.
-  const animateTo = (el: HTMLDivElement, target: number) => {
-    const start = el.scrollLeft;
-    const dist = target - start;
-    const duration = 450;
-    const t0 = performance.now();
-    const step = (now: number) => {
-      const p = Math.min((now - t0) / duration, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      el.scrollLeft = start + dist * eased;
-      if (p < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  };
-
+  // manual rAF tween — native smooth scroll is unreliable under Lenis
   const scrollBy = (dir: number) => {
     const el = trackRef.current;
     if (!el) return;
     const amount = Math.min(el.clientWidth * 0.8, 600);
     const max = el.scrollWidth - el.clientWidth;
     const target = Math.max(0, Math.min(el.scrollLeft + dir * amount, max));
-    animateTo(el, target);
+    const start = el.scrollLeft;
+    const dist = target - start;
+    const t0 = performance.now();
+    const step = (now: number) => {
+      const p = Math.min((now - t0) / 450, 1);
+      el.scrollLeft = start + dist * (1 - Math.pow(1 - p, 3));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
   };
 
+  return (
+    <div className="fave-row">
+      <Reveal delay={0.05}>
+        <h3 className="about__faveTitle">{label}</h3>
+      </Reveal>
+      <div className="carousel">
+        <button className="carousel__arrow carousel__arrow--prev" onClick={() => scrollBy(-1)} aria-label="Previous">←</button>
+        <div className="carousel__track" ref={trackRef}>
+          {items.map((f) => (
+            <article className="book" key={f.title}>
+              <div className="book__cover" style={{ background: `linear-gradient(150deg, ${f.from}, ${f.to})` }}>
+                <span className="book__coverTitle">{f.title}</span>
+              </div>
+              <h4 className="book__title">{f.title}</h4>
+              {f.note && <p className="book__author">{f.note}</p>}
+            </article>
+          ))}
+        </div>
+        <button className="carousel__arrow carousel__arrow--next" onClick={() => scrollBy(1)} aria-label="Next">→</button>
+      </div>
+    </div>
+  );
+}
+
+export default function About() {
   return (
     <div className="about-page">
       {/* Intro */}
@@ -88,30 +107,10 @@ export default function About() {
         <Reveal>
           <h2 className="about__eyebrow about__eyebrow--center">A Few of My Favorite Things</h2>
         </Reveal>
-        <Reveal delay={0.05}>
-          <h3 className="about__faveTitle">Books</h3>
-        </Reveal>
-
-        <div className="carousel">
-          <button className="carousel__arrow carousel__arrow--prev" onClick={() => scrollBy(-1)} aria-label="Previous">
-            ←
-          </button>
-
-          <div className="carousel__track" ref={trackRef}>
-            {favoriteBooks.map((b) => (
-              <article className="book" key={b.title}>
-                <div className="book__cover" style={{ background: `linear-gradient(150deg, ${b.from}, ${b.to})` }}>
-                  <span className="book__coverTitle">{b.title}</span>
-                </div>
-                <h4 className="book__title">{b.title}</h4>
-                <p className="book__author">{b.author}</p>
-              </article>
-            ))}
-          </div>
-
-          <button className="carousel__arrow carousel__arrow--next" onClick={() => scrollBy(1)} aria-label="Next">
-            →
-          </button>
+        <div className="fave-rows">
+          {favorites.map((cat) => (
+            <FaveRow key={cat.label} label={cat.label} items={cat.items} />
+          ))}
         </div>
       </section>
     </div>
