@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal";
 import {
   aboutIntro,
@@ -14,9 +14,39 @@ import {
   type Fave
 } from "@/lib/data";
 
-// one labelled, horizontally-scrollable favourites row
+// one labelled, horizontally-scrollable favourites row — 3D coverflow tilt
 function FaveRow({ label, items }: { label: string; items: Fave[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
+  const rafTilt = useRef<number | undefined>(undefined);
+
+  // tilt each card in 3D based on its distance from the track centre (coverflow)
+  const updateTilt = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    const w = el.clientWidth || 1;
+    const mid = el.scrollLeft + w / 2;
+    el.querySelectorAll<HTMLElement>(".book").forEach((card) => {
+      const c = card.offsetLeft + card.offsetWidth / 2;
+      const d = Math.max(-1, Math.min(1, ((c - mid) / w) * 1.25));
+      card.style.setProperty("--ry", (d * -17).toFixed(2) + "deg");
+      card.style.setProperty("--sc", (1 - Math.abs(d) * 0.08).toFixed(3));
+      card.style.setProperty("--ty", (Math.abs(d) * 12).toFixed(1) + "px");
+    });
+  };
+
+  const onScroll = () => {
+    if (rafTilt.current) return;
+    rafTilt.current = requestAnimationFrame(() => {
+      rafTilt.current = undefined;
+      updateTilt();
+    });
+  };
+
+  useEffect(() => {
+    requestAnimationFrame(updateTilt);
+    window.addEventListener("resize", updateTilt);
+    return () => window.removeEventListener("resize", updateTilt);
+  }, []);
 
   // manual rAF tween — native smooth scroll is unreliable under Lenis
   const scrollBy = (dir: number) => {
@@ -31,6 +61,7 @@ function FaveRow({ label, items }: { label: string; items: Fave[] }) {
     const step = (now: number) => {
       const p = Math.min((now - t0) / 450, 1);
       el.scrollLeft = start + dist * (1 - Math.pow(1 - p, 3));
+      updateTilt();
       if (p < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
@@ -43,11 +74,18 @@ function FaveRow({ label, items }: { label: string; items: Fave[] }) {
       </Reveal>
       <div className="carousel">
         <button className="carousel__arrow carousel__arrow--prev" onClick={() => scrollBy(-1)} aria-label="Previous">←</button>
-        <div className="carousel__track" ref={trackRef}>
+        <div className="carousel__track" ref={trackRef} onScroll={onScroll}>
           {items.map((f) => (
             <article className="book" key={f.title}>
-              <div className="book__cover" style={{ background: `linear-gradient(150deg, ${f.from}, ${f.to})` }}>
-                <span className="book__coverTitle">{f.title}</span>
+              <div
+                className="book__cover"
+                style={f.img ? undefined : { background: `linear-gradient(150deg, ${f.from}, ${f.to})` }}
+              >
+                {f.img ? (
+                  <img src={f.img} alt={f.title} loading="lazy" draggable={false} />
+                ) : (
+                  <span className="book__coverTitle">{f.title}</span>
+                )}
               </div>
               <h4 className="book__title">{f.title}</h4>
               {f.note && <p className="book__author">{f.note}</p>}

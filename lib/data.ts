@@ -227,7 +227,7 @@ export const communities: Community[] = [
   }
 ];
 
-export type Fave = { title: string; note?: string; from: string; to: string };
+export type Fave = { title: string; note?: string; from: string; to: string; img?: string };
 
 // "A few of my favorite things" — grouped rows; add categories freely
 export const favorites: { label: string; items: Fave[] }[] = [
