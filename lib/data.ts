@@ -167,9 +167,11 @@ export const aboutIntro = {
     "When I'm not dreaming up product ideas, you can find me:"
   ],
   hobbies: [
-    "Behind a camera with the Photography & Films Club",
-    "Tinkering with motion in Framer, Jitter, and Spline",
-    "Doing teardowns of apps I love (and the ones I don't)"
+    "Sketching and drawing whatever's stuck in my head",
+    "Behind a camera — photography & cinematography",
+    "Cutting edits until the rhythm feels right",
+    "On a skateboard",
+    "Playing guitar"
   ],
   closing: "Always happy to chat! I'm on the lookout for product design roles and good conversations :)"
 };
