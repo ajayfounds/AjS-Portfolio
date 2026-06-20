@@ -189,22 +189,22 @@ export type Community = { name: string; icon: string; desc: string; img: string 
 
 export const communities: Community[] = [
   {
-    name: "Google DSC (GDSC)",
-    icon: "🟢",
-    desc: "As UX/UI Designer for the New Delhi chapter I shaped the GDSC Ace website and 50+ creatives — learning to design fast, on-brand, and for a real community.",
-    img: "https://picsum.photos/seed/gdsc/700/440"
-  },
-  {
-    name: "Photography & Films Club",
+    name: "JSSATEN Photography & Films Club",
     icon: "📷",
-    desc: "JSSATEN's Photography & Films Club is where I first fell for visual storytelling — running events, building a template system, and growing engagement +400%.",
+    desc: "",
     img: "https://picsum.photos/seed/photoclub/700/440"
   },
   {
-    name: "Edunet Foundation",
-    icon: "🤖",
-    desc: "An AI/ML internship community where I built an end-to-end salary prediction system — a reminder that good design has to respect the data underneath it.",
-    img: "https://picsum.photos/seed/edunet/700/440"
+    name: "GDSC — New Delhi chapter",
+    icon: "🟢",
+    desc: "",
+    img: "https://picsum.photos/seed/gdsc/700/440"
+  },
+  {
+    name: "Designare",
+    icon: "✦",
+    desc: "",
+    img: "https://picsum.photos/seed/designare/700/440"
   }
 ];
 

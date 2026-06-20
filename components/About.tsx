@@ -93,7 +93,7 @@ export default function About() {
                 <span className="community__icon" aria-hidden>{c.icon}</span>
                 <h3 className="community__name">{c.name}</h3>
               </div>
-              <p className="community__desc">{c.desc}</p>
+              {c.desc && <p className="community__desc">{c.desc}</p>}
               <div className="community__media">
                 <img src={c.img} alt={c.name} loading="lazy" />
               </div>
