@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Magnetic from "./Magnetic";
+import OrnateCursor from "./OrnateCursor";
 import { site, seedVisitors, VISITOR_COLORS, mulberry32 } from "@/lib/data";
 
 const firstName = site.name.split(" ")[0];
@@ -409,8 +410,8 @@ export default function Intro() {
           >
             <canvas className="intro__warp" ref={warpRef} aria-hidden />
 
-            <motion.div className="intro__orb" style={{ x: ox, y: oy }} aria-hidden>
-              <i className="intro__orb-ring" />
+            <motion.div className="intro__cursor" style={{ x: ox, y: oy }} aria-hidden>
+              <OrnateCursor variant="azure" />
             </motion.div>
 
             <div className="intro__stars" aria-hidden>
