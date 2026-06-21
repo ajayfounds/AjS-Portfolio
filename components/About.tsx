@@ -131,75 +131,123 @@ function FaveDeck() {
   );
 }
 
-// "Things I do for fun" — a swipeable / draggable photo carousel
+// "Things I do for fun" — auto-scrolling photo strip; the card nearest the
+// centre grows largest (coverflow), seamless loop, drag + hover-pause
 function FunStack() {
+  const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const drag = useRef({ down: false, startX: 0, startLeft: 0, moved: false });
+  const offset = useRef(0);
+  const paused = useRef(false);
+  const rafRef = useRef<number | undefined>(undefined);
+  const drag = useRef({ down: false, startX: 0, startOff: 0, moved: false });
 
-  // mouse drag-to-scroll (touch devices use native momentum scroll)
+  // duplicate the photos so the strip can loop seamlessly
+  const items = [...funStack, ...funStack];
+
+  useEffect(() => {
+    const track = trackRef.current;
+    const vp = viewportRef.current;
+    if (!track || !vp) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const SPEED = 26; // px/s, left -> right
+    let last = performance.now();
+
+    // scale/tilt each card by its distance from the viewport centre
+    const shape = () => {
+      const vr = vp.getBoundingClientRect();
+      const cx = vr.left + vr.width / 2;
+      const half = vr.width / 2 || 1;
+      for (const card of Array.from(track.children) as HTMLElement[]) {
+        const r = card.getBoundingClientRect();
+        const d = Math.max(-1, Math.min(1, ((r.left + r.width / 2) - cx) / half));
+        const a = Math.abs(d);
+        card.style.setProperty("--s", (1.12 - a * 0.5).toFixed(3));
+        card.style.setProperty("--r", (d * 9).toFixed(2) + "deg");
+        card.style.setProperty("--o", (1 - a * 0.35).toFixed(3));
+        card.style.zIndex = String(100 - Math.round(a * 100));
+      }
+    };
+
+    offset.current = -(track.scrollWidth / 2);
+    const tick = (now: number) => {
+      const dt = Math.min(40, now - last) / 1000;
+      last = now;
+      const half = track.scrollWidth / 2 || 1;
+      if (!paused.current && !drag.current.down && !reduce) offset.current += SPEED * dt;
+      // keep offset in (-half, 0] for a seamless wrap
+      if (offset.current > 0) offset.current -= half;
+      if (offset.current <= -half) offset.current += half;
+      track.style.transform = `translate3d(${offset.current.toFixed(2)}px,0,0)`;
+      shape();
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
   const onDown = (e: React.PointerEvent) => {
-    if (e.pointerType !== "mouse") return;
-    const el = trackRef.current;
-    if (!el) return;
-    drag.current = { down: true, startX: e.clientX, startLeft: el.scrollLeft, moved: false };
-    el.classList.add("is-dragging");
-    el.setPointerCapture(e.pointerId);
+    drag.current = { down: true, startX: e.clientX, startOff: offset.current, moved: false };
+    viewportRef.current?.setPointerCapture?.(e.pointerId);
   };
   const onMove = (e: React.PointerEvent) => {
     if (!drag.current.down) return;
-    const el = trackRef.current;
-    if (!el) return;
     const dx = e.clientX - drag.current.startX;
     if (Math.abs(dx) > 3) drag.current.moved = true;
-    el.scrollLeft = drag.current.startLeft - dx;
+    offset.current = drag.current.startOff + dx;
   };
   const onUp = (e: React.PointerEvent) => {
-    const el = trackRef.current;
-    if (!el) return;
     drag.current.down = false;
-    el.classList.remove("is-dragging");
     try {
-      el.releasePointerCapture(e.pointerId);
+      viewportRef.current?.releasePointerCapture?.(e.pointerId);
     } catch {}
   };
 
-  // arrow nudge — manual rAF tween (native smooth scroll unreliable under Lenis)
+  // arrows tween the offset by ~one card (pauses auto-scroll briefly)
   const nudge = (dir: number) => {
-    const el = trackRef.current;
-    if (!el) return;
-    const amount = Math.min(el.clientWidth * 0.8, 560);
-    const max = el.scrollWidth - el.clientWidth;
-    const target = Math.max(0, Math.min(el.scrollLeft + dir * amount, max));
-    const start = el.scrollLeft;
-    const dist = target - start;
+    const track = trackRef.current;
+    if (!track) return;
+    const first = track.children[0] as HTMLElement | undefined;
+    const step = (first?.offsetWidth ?? 220) + 28;
+    const start = offset.current;
+    const target = start + dir * step;
     const t0 = performance.now();
-    const step = (now: number) => {
-      const p = Math.min((now - t0) / 480, 1);
-      el.scrollLeft = start + dist * (1 - Math.pow(1 - p, 3));
-      if (p < 1) requestAnimationFrame(step);
+    paused.current = true;
+    const anim = (now: number) => {
+      const p = Math.min((now - t0) / 460, 1);
+      offset.current = start + (target - start) * (1 - Math.pow(1 - p, 3));
+      if (p < 1) requestAnimationFrame(anim);
+      else paused.current = false;
     };
-    requestAnimationFrame(step);
+    requestAnimationFrame(anim);
   };
 
   return (
     <div className="funstack">
-      <button className="funstack__arrow funstack__arrow--prev" onClick={() => nudge(-1)} aria-label="Previous">←</button>
+      <button className="funstack__arrow funstack__arrow--prev" onClick={() => nudge(1)} aria-label="Previous">←</button>
       <div
-        className="funstack__track"
-        ref={trackRef}
+        className="funstack__viewport"
+        ref={viewportRef}
         onPointerDown={onDown}
         onPointerMove={onMove}
         onPointerUp={onUp}
-        onPointerLeave={onUp}
+        onPointerEnter={() => (paused.current = true)}
+        onPointerLeave={(e) => {
+          paused.current = false;
+          onUp(e);
+        }}
         data-lenis-prevent
       >
-        {funStack.map((p, i) => (
-          <figure key={p.src} className="funstack__card" style={{ "--i": i } as React.CSSProperties}>
-            <img src={p.src} alt={p.alt} loading="lazy" draggable={false} />
-          </figure>
-        ))}
+        <div className="funstack__track" ref={trackRef}>
+          {items.map((p, i) => (
+            <figure key={i} className="funstack__card">
+              <img src={p.src} alt={p.alt} loading="lazy" draggable={false} />
+            </figure>
+          ))}
+        </div>
       </div>
-      <button className="funstack__arrow funstack__arrow--next" onClick={() => nudge(1)} aria-label="Next">→</button>
+      <button className="funstack__arrow funstack__arrow--next" onClick={() => nudge(-1)} aria-label="Next">→</button>
     </div>
   );
 }
@@ -294,18 +342,7 @@ export default function About() {
         </div>
       </Reveal>
 
-      {/* Photo gallery */}
-      <Reveal delay={0.05}>
-        <div className="about__gallery">
-          {galleryPhotos.map((p, i) => (
-            <figure key={p.src} className={`gphoto${p.span ? " gphoto--wide" : ""}`} data-i={i}>
-              <img src={p.src} alt={p.alt} loading="lazy" />
-            </figure>
-          ))}
-        </div>
-      </Reveal>
-
-      {/* Things I do for fun */}
+      {/* Things I do for fun — right after the intro/hobbies */}
       <section className="about__block about__block--center">
         <Reveal>
           <h2 className="about__display">Things I do for fun</h2>
@@ -317,6 +354,17 @@ export default function About() {
           <FunStack />
         </Reveal>
       </section>
+
+      {/* Photo gallery */}
+      <Reveal delay={0.05}>
+        <div className="about__gallery">
+          {galleryPhotos.map((p, i) => (
+            <figure key={p.src} className={`gphoto${p.span ? " gphoto--wide" : ""}`} data-i={i}>
+              <img src={p.src} alt={p.alt} loading="lazy" />
+            </figure>
+          ))}
+        </div>
+      </Reveal>
 
       {/* Journey so far */}
       <section className="about__block">
