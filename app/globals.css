@@ -119,8 +119,10 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
   font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 500; letter-spacing: 0.01em;
   margin-bottom: 2rem;
 }
-/* futuristic wordmark — palette-synced gradient + soft light, drifts slowly */
+/* royal wordmark — Playfair Display bold italic, palette-synced gradient + soft light */
 .brandmark {
+  font-family: var(--font-royal), Georgia, serif;
+  font-weight: 800; font-style: italic; letter-spacing: 0.005em;
   background-image: linear-gradient(100deg, #ffd24a, #cb7836, #bf5a7a, #168b9d, #6fd0ff, #ffd24a);
   background-size: 240% 100%; background-repeat: no-repeat;
   -webkit-background-clip: text; background-clip: text;
@@ -155,6 +157,14 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
   color: rgba(243, 241, 235, 0.45);
 }
 .intro__tagline b { color: rgba(243, 241, 235, 0.85); font-weight: 500; }
+/* each tagline word lights up as the cursor passes near it */
+.intro__word {
+  --base: 0.4;
+  color: rgba(243, 241, 235, calc(var(--base) + (1 - var(--base)) * var(--lit, 0)));
+  text-shadow: 0 0 calc(14px * var(--lit, 0)) rgba(255, 247, 230, calc(0.55 * var(--lit, 0)));
+  transition: color .18s linear, text-shadow .18s linear;
+}
+.intro__word.is-strong { --base: 0.62; font-weight: 500; }
 
 .intro__status {
   position: absolute; left: var(--pad); bottom: var(--pad); z-index: 4;
@@ -257,7 +267,7 @@ body.orb-active .cursor { display: none; }
   pointer-events: none; text-align: right; overflow: hidden;
 }
 .vcard__brand-row { display: flex; align-items: flex-start; justify-content: space-between; position: relative; z-index: 1; }
-.vcard__brand { font-family: var(--font-serif), serif; font-size: 1.2rem; font-weight: 500; }
+.vcard__brand { font-family: var(--font-royal), Georgia, serif; font-size: 1.2rem; font-weight: 700; font-style: italic; }
 .vcard__clear {
   background: rgba(243, 241, 235, 0.18); border: none; cursor: none; color: currentColor;
   font-family: var(--font-mono), monospace; font-size: 0.56rem; letter-spacing: 0.12em;

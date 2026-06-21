@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond, Source_Code_Pro } from "next/font/google";
+import { Inter, Cormorant_Garamond, Source_Code_Pro, Playfair_Display } from "next/font/google";
 import { site } from "@/lib/data";
 import Shell from "@/components/Shell";
 import "./globals.css";
@@ -28,6 +28,15 @@ const mono = Source_Code_Pro({
   display: "swap"
 });
 
+// royal display face — the "HAZEL Verse" wordmark (bold italic)
+const royal = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["700", "800", "900"],
+  style: ["normal", "italic"],
+  variable: "--font-royal",
+  display: "swap"
+});
+
 export const metadata: Metadata = {
   title: `${site.name} — ${site.role}`,
   description: site.statement,
@@ -40,7 +49,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${serif.variable} ${mono.variable}`}>
+    <html lang="en" className={`${inter.variable} ${serif.variable} ${mono.variable} ${royal.variable}`}>
       <body>
         <Shell>{children}</Shell>
       </body>

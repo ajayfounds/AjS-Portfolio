@@ -1,6 +1,6 @@
 export const site = {
   name: "Ajay Srivastava",
-  brand: "Ajay Verse",
+  brand: "HAZEL Verse",
   initials: "AS",
   role: "Product & UX/UI Designer",
   affiliation: "B.Tech CSE @ JSSATEN",

@@ -22,13 +22,6 @@ function sigPath(seed: number) {
   return d;
 }
 
-// sparkle burst used when the cards dissolve into the site
-const SPARKS = [
-  { x: -160, y: -30, c: "#cb7836" }, { x: 170, y: -55, c: "#168b9d" },
-  { x: -100, y: 80, c: "#bf5a7a" }, { x: 120, y: 90, c: "#2a8f50" },
-  { x: 0, y: -100, c: "#e8c84a" }, { x: 70, y: -8, c: "#cb7836" }, { x: -50, y: -70, c: "#168b9d" }
-];
-
 type EnterCardData = { color: string; name: string; no: string; issued: string; matrix: string; sig?: string | null; seed?: number };
 
 function EnterCard({ d, dx, center, phase }: { d: EnterCardData; dx: number; center?: boolean; phase: "in" | "out" }) {
@@ -37,13 +30,13 @@ function EnterCard({ d, dx, center, phase }: { d: EnterCardData; dx: number; cen
     <motion.div
       className={`vcard entcard${center ? " entcard--center" : ""}`}
       style={{ background: c.bg, color: c.fg }}
-      initial={{ opacity: 0, x: dx, y: 16, scale: 0.86 }}
+      initial={{ opacity: 0, x: dx, y: center ? 90 : 18, scale: center ? 0.8 : 0.86 }}
       animate={
         phase === "out"
           ? center
-            ? { opacity: 0, scale: 1.7, y: -64, transition: { duration: 0.62, ease: [0.6, 0, 0.2, 1] } } // launch into the site
-            : { opacity: 0, scale: 0.4, y: 52, transition: { duration: 0.46, ease: [0.7, 0, 0.84, 0] } } // sides fall away
-          : { opacity: 1, x: 0, y: 0, scale: center ? 1.04 : 0.92, transition: { type: "spring", stiffness: 210, damping: 22, delay: center ? 0.08 : 0.02 } }
+            ? { opacity: 0, scale: 0.97, y: -6, transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1], delay: 0.12 } } // lingers, fades last
+            : { opacity: 0, scale: 0.9, y: 12, transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] } } // gently recede
+          : { opacity: 1, x: 0, y: 0, scale: center ? 1.04 : 0.92, transition: { type: "spring", stiffness: 200, damping: 24, delay: center ? 0.05 : 0.16 } }
       }
     >
       <pre className="vcard__matrix" aria-hidden>{d.matrix}</pre>
@@ -63,6 +56,13 @@ function EnterCard({ d, dx, center, phase }: { d: EnterCardData; dx: number; cen
     </motion.div>
   );
 }
+
+// tagline split into words so each can light up near the cursor
+const TAGLINE: { t: string; b?: boolean }[] = [
+  { t: "Discoveries", b: true }, { t: "are" }, { t: "out" }, { t: "there," }, { t: "waiting" },
+  { t: "\n" },
+  { t: "to" }, { t: "be" }, { t: "made." }, { t: "Why" }, { t: "not" }, { t: "by", b: true }, { t: "you?", b: true }
+];
 
 const STAR_COLORS = [
   "rgba(243,241,235,0.9)", "rgba(243,241,235,0.9)", "rgba(243,241,235,0.9)", "rgba(243,241,235,0.9)",
@@ -150,6 +150,7 @@ export default function Intro() {
   const cardRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const warpRef = useRef<HTMLCanvasElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
   const drawing = useRef(false);
   const last = useRef<{ x: number; y: number } | null>(null);
 
@@ -190,13 +191,20 @@ export default function Intro() {
     return () => clearInterval(id);
   }, [show, step]);
 
-  // orb cursor tracking + hide default cursor during the dark intro
+  // orb cursor tracking + proximity glow on the tagline words (objects react to cursor)
   useEffect(() => {
     if (!show || step !== "intro") return;
     document.body.classList.add("orb-active");
     const move = (e: MouseEvent) => {
       orbX.set(e.clientX);
       orbY.set(e.clientY);
+      const words = taglineRef.current?.querySelectorAll<HTMLElement>(".intro__word");
+      if (!words) return;
+      for (const el of words) {
+        const r = el.getBoundingClientRect();
+        const d = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2));
+        el.style.setProperty("--lit", Math.max(0, 1 - d / 150).toFixed(2));
+      }
     };
     window.addEventListener("mousemove", move);
     return () => {
@@ -407,9 +415,9 @@ export default function Intro() {
             key="intro"
             className="intro"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 1.06, filter: "blur(8px)", transition: { duration: 0.6, ease: [0.6, 0, 0.2, 1] } }}
-            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+            animate={{ opacity: step === "enter" && enterPhase === "out" ? 0 : 1 }}
+            exit={{ opacity: 0, scale: 1.05, filter: "blur(7px)", transition: { duration: 0.6, ease: [0.6, 0, 0.2, 1] } }}
+            transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
           >
             <canvas className="intro__warp" ref={warpRef} aria-hidden />
 
@@ -438,8 +446,14 @@ export default function Intro() {
                 </Magnetic>
               </motion.div>
               <motion.button className="intro__skip" onClick={dismiss} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.7 }}>Skip Intro</motion.button>
-              <motion.p className="intro__tagline" {...fadeUp} transition={{ duration: 0.6, delay: 0.85 }}>
-                <b>Discoveries</b> are out there, waiting<br />to be made. Why not <b>by you?</b>
+              <motion.p ref={taglineRef} className="intro__tagline" {...fadeUp} transition={{ duration: 0.6, delay: 0.85 }}>
+                {TAGLINE.map((w, i) =>
+                  w.t === "\n" ? (
+                    <br key={i} />
+                  ) : (
+                    <span key={i} className={`intro__word${w.b ? " is-strong" : ""}`}>{w.t}{" "}</span>
+                  )
+                )}
               </motion.p>
             </div>
 
@@ -560,26 +574,15 @@ export default function Intro() {
             key="enter"
             className="welcome-exit"
             initial={{ opacity: 1, scale: 1 }}
-            animate={{ opacity: enterPhase === "out" ? 0 : 1, scale: enterPhase === "out" ? 1.08 : 1 }}
+            animate={{ opacity: enterPhase === "out" ? 0 : 1, scale: enterPhase === "out" ? 1.015 : 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: [0.6, 0, 0.2, 1], delay: enterPhase === "out" ? 0.28 : 0 }}
+            transition={{ duration: 0.75, ease: [0.4, 0, 0.2, 1], delay: enterPhase === "out" ? 0.15 : 0 }}
           >
             <div className="entrow">
-              <EnterCard d={enterSet.left} dx={-70} phase={enterPhase} />
+              <EnterCard d={enterSet.left} dx={-72} phase={enterPhase} />
               <EnterCard d={enterSet.center} dx={0} center phase={enterPhase} />
-              <EnterCard d={enterSet.right} dx={70} phase={enterPhase} />
+              <EnterCard d={enterSet.right} dx={72} phase={enterPhase} />
             </div>
-            <span className="entdot" />
-            {enterPhase === "out" && SPARKS.map((sp, i) => (
-              <motion.span
-                key={i}
-                className="entspark"
-                style={{ background: sp.c }}
-                initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
-                animate={{ opacity: [0, 1, 0], scale: [0, 1.1, 0.3], x: sp.x, y: sp.y }}
-                transition={{ duration: 0.6, delay: 0.08 + i * 0.03, ease: "easeOut" }}
-              />
-            ))}
           </motion.div>
         )}
       </AnimatePresence>
