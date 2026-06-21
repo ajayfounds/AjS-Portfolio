@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { site } from "@/lib/data";
 
-const firstName = site.name.split(" ")[0];
-
 const COLORS: Record<string, { bg: string; fg: string }> = {
   teal: { bg: "#168b9d", fg: "#f3f1eb" },
   green: { bg: "#2a8f50", fg: "#f3f1eb" },
@@ -100,7 +98,7 @@ export default function VisitorCardButton() {
                 <div className="vcard" style={{ background: c.bg, color: c.fg }}>
                   <pre className="vcard__matrix" aria-hidden>{matrix}</pre>
                   <div className="vcard__brand-row">
-                    <span className="vcard__brand">{firstName}&apos;s World</span>
+                    <span className="vcard__brand">{site.brand}</span>
                   </div>
                   <div className="vcard__mid">
                     <span><i className="vcard__label">Visitor</i><span className="vcard__value vcard__name">{card.name}</span></span>

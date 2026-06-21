@@ -4,8 +4,6 @@ import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { site, seedVisitors, guestCount, VISITOR_COLORS, mulberry32, type VisitorEntry } from "@/lib/data";
 
-const firstName = site.name.split(" ")[0];
-
 // deterministic dot-matrix burst per card seed
 const M_COLS = 24, M_ROWS = 13, M_CHARS = ["·", "˙", ":", "+", "x", "*", "▪"];
 function genMatrix(seed: number) {
@@ -64,7 +62,7 @@ function GalleryCard({ card, i }: { card: Card; i: number }) {
       <pre className="vcard__matrix" aria-hidden>{matrix}</pre>
 
       <div className="vcard__brand-row">
-        <span className="vcard__brand">{firstName}&apos;s World</span>
+        <span className="vcard__brand">{site.brand}</span>
       </div>
       <div className="vcard__mid">
         <span><i className="vcard__label">Visitor</i><span className="vcard__value vcard__name">{card.name}</span></span>

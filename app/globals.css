@@ -79,7 +79,7 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
   position: absolute; border-radius: 50%;
   animation: twinkle linear infinite;
 }
-@keyframes twinkle { 0%, 100% { opacity: 0.12; } 50% { opacity: 0.95; } }
+@keyframes twinkle { 0%, 100% { opacity: 0.08; } 50% { opacity: 0.5; } }
 
 /* shooting stars streaking diagonally now and then */
 .intro__shoots { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
@@ -119,6 +119,16 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
   font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 500; letter-spacing: 0.01em;
   margin-bottom: 2rem;
 }
+/* futuristic wordmark — palette-synced gradient + soft light, drifts slowly */
+.brandmark {
+  background-image: linear-gradient(100deg, #ffd24a, #cb7836, #bf5a7a, #168b9d, #6fd0ff, #ffd24a);
+  background-size: 240% 100%; background-repeat: no-repeat;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(0 0 12px rgba(203, 120, 54, 0.3)) drop-shadow(0 0 30px rgba(58, 168, 255, 0.16));
+  animation: brand-shift 9s linear infinite;
+}
+@keyframes brand-shift { to { background-position: 240% 0; } }
 .intro__explore {
   font-family: var(--font-mono), monospace;
   font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em;

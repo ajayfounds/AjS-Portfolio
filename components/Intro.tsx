@@ -7,8 +7,6 @@ import Magnetic from "./Magnetic";
 import OrnateCursor from "./OrnateCursor";
 import { site, seedVisitors, VISITOR_COLORS, mulberry32 } from "@/lib/data";
 
-const firstName = site.name.split(" ")[0];
-
 // deterministic hand-drawn-looking signature (matches the gallery)
 function sigPath(seed: number) {
   const rng = mulberry32(seed ^ 0x9e3779b9);
@@ -44,7 +42,7 @@ function EnterCard({ d, dx, center, phase }: { d: EnterCardData; dx: number; cen
       transition={phase === "out" ? { duration: 0.4, ease: [0.7, 0, 0.84, 0] } : { duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: center ? 0.1 : 0 }}
     >
       <pre className="vcard__matrix" aria-hidden>{d.matrix}</pre>
-      <div className="vcard__brand-row"><span className="vcard__brand">{firstName}&apos;s World</span></div>
+      <div className="vcard__brand-row"><span className="vcard__brand">{site.brand}</span></div>
       <div className="vcard__mid">
         <span><i className="vcard__label">Visitor</i><span className="vcard__value vcard__name">{d.name}</span></span>
         <span><i className="vcard__label">Issued on</i><span className="vcard__value">{d.issued}</span></span>
@@ -211,7 +209,7 @@ export default function Intro() {
     if (!cv || !ctx) return;
 
     const PALETTE = ["#f3f1eb", "#f3f1eb", "#f3f1eb", "#cb7836", "#168b9d", "#e8c84a", "#bf5a7a"];
-    const COUNT = 240;
+    const COUNT = 120;
     let w = 0, h = 0, cx = 0, cy = 0, raf = 0, last = performance.now();
     type Star = { x: number; y: number; z: number; pz: number; c: string };
     const stars: Star[] = [];
@@ -237,9 +235,9 @@ export default function Intro() {
       const dt = Math.min(40, t - last); last = t;
       ctx.fillStyle = "rgba(21,20,15,0.32)"; // motion-trail fade over the intro bg
       ctx.fillRect(0, 0, w, h);
-      // warp speed eases along a smooth ~10s curve — never extreme fast or slow
+      // warp speed eases along a smooth ~10s curve — gentle, never extreme
       const factor = 0.9 + 0.2 * Math.sin(t * 0.0006); // 0.7 .. 1.1
-      const step = (w * 0.014 * factor * dt) / 16;
+      const step = (w * 0.0075 * factor * dt) / 16;
       for (const s of stars) {
         s.pz = s.z; s.z -= step;
         if (s.z < 1) { spawn(s); continue; }
@@ -248,8 +246,8 @@ export default function Intro() {
         if (px < -20 || px > w + 20 || py < -20 || py > h + 20) { spawn(s); continue; }
         const f = 1 - s.z / w;
         ctx.strokeStyle = s.c;
-        ctx.globalAlpha = Math.min(1, f * 1.3);
-        ctx.lineWidth = Math.max(0.4, f * 2.2);
+        ctx.globalAlpha = Math.min(0.5, f * 0.6);
+        ctx.lineWidth = Math.max(0.35, f * 1.5);
         ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(px, py); ctx.stroke();
       }
       ctx.globalAlpha = 1;
@@ -262,7 +260,7 @@ export default function Intro() {
 
   const stars = useMemo(
     () =>
-      Array.from({ length: 48 }, (_, i) => ({
+      Array.from({ length: 28 }, (_, i) => ({
         id: i, top: Math.random() * 100, left: Math.random() * 100,
         size: Math.random() * 2 + 1, delay: Math.random() * 4, duration: 2.5 + Math.random() * 3,
         color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)]
@@ -428,7 +426,7 @@ export default function Intro() {
 
             <div className="intro__center">
               <motion.p className="intro__eyebrow" {...fadeUp} transition={{ duration: 0.6, delay: 0.2 }}>Welcome to</motion.p>
-              <motion.h1 className="intro__title" {...fadeUp} transition={{ duration: 0.7, delay: 0.3 }}>{firstName}&apos;s World</motion.h1>
+              <motion.h1 className="intro__title brandmark" {...fadeUp} transition={{ duration: 0.7, delay: 0.3 }}>{site.brand}</motion.h1>
               <motion.div {...fadeUp} transition={{ duration: 0.6, delay: 0.5 }}>
                 <Magnetic strength={0.4}>
                   <button className="intro__explore" onClick={() => setStep("card")}>Explore <span aria-hidden>→</span></button>
@@ -495,7 +493,7 @@ export default function Intro() {
                     <pre className="vcard__matrix" aria-hidden>{matrix}</pre>
 
                     <div className="vcard__brand-row">
-                      <span className="vcard__brand">{firstName}&apos;s World</span>
+                      <span className="vcard__brand">{site.brand}</span>
                       {penMode && hasInk && (
                         <button className="vcard__clear" onClick={clearInk}>Clear</button>
                       )}
