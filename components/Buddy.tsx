@@ -72,7 +72,6 @@ export default function Buddy() {
 
   const rootRef = useRef<HTMLDivElement>(null);
   const flipRef = useRef<HTMLDivElement>(null);
-  const ballRef = useRef<HTMLDivElement>(null);
 
   const menuOpenRef = useRef(false);
   const bubbleTimer = useRef<ReturnType<typeof setTimeout>>();
@@ -96,12 +95,11 @@ export default function Buddy() {
     mode: "idle", modeUntil: 0, targetX: 40,
     px: 0, py: 0, plx: 0, ply: 0, pt: 0, pvx: 0, pvy: 0,
     grabX: 0, grabY: 0, downCX: 0, downCY: 0,
-    ball: { x: 110, y: 200, vx: 0, vy: 0 },
     cursorX: 0, cursorY: 0, lastMove: -9999
   }).current;
 
   useEffect(() => {
-    const PET_W = 44, PET_H = 52, BALL = 15, M = 8;
+    const PET_W = 44, PET_H = 52, M = 8;
     const G = 2400, REST = 0.5, FR = 0.86, AIR = 0.99, WALK = 60;
 
     const floorY = () => window.innerHeight - PET_H - M;
@@ -111,8 +109,6 @@ export default function Buddy() {
     s.x = clamp(40, M, maxX());
     s.y = floorY();
     s.grounded = true;
-    s.ball.x = clamp(s.x + 64, M, window.innerWidth - BALL - M);
-    s.ball.y = window.innerHeight - BALL - M;
 
     const cls = (name: string, on: boolean) => rootRef.current?.classList.toggle(name, on);
 
@@ -284,20 +280,6 @@ export default function Buddy() {
         s.lastFacing = s.facing;
       }
 
-      // companion ball — its own gravity + bounce, gently drifts toward the pet
-      const b = s.ball;
-      const bFloor = window.innerHeight - BALL - M;
-      const bMaxX = window.innerWidth - BALL - M;
-      b.vy += G * dt;
-      const want = s.x + (s.facing > 0 ? -26 : PET_W + 12);
-      b.vx += clamp(want - b.x, -180, 180) * dt * 1.1;
-      b.x += b.vx * dt;
-      b.y += b.vy * dt;
-      if (b.x < M) { b.x = M; b.vx = Math.abs(b.vx) * 0.6; }
-      if (b.x > bMaxX) { b.x = bMaxX; b.vx = -Math.abs(b.vx) * 0.6; }
-      if (b.y >= bFloor) { b.y = bFloor; b.vy = b.vy > 120 ? -b.vy * 0.6 : 0; b.vx *= 0.92; }
-      if (ballRef.current) ballRef.current.style.transform = `translate3d(${b.x}px, ${b.y}px, 0)`;
-
       raf = requestAnimationFrame(step);
     };
 
@@ -363,10 +345,6 @@ export default function Buddy() {
 
   return (
     <div className="buddy-stage" aria-hidden>
-      <div className="buddy__ball" ref={ballRef}>
-        <span className="buddy__ball-inner" />
-      </div>
-
       <div className="buddy" ref={rootRef} onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp}>
         <AnimatePresence>
           {bubble && (

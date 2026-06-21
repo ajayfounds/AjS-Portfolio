@@ -236,7 +236,9 @@ export default function Intro() {
       const dt = Math.min(40, t - last); last = t;
       ctx.fillStyle = "rgba(21,20,15,0.32)"; // motion-trail fade over the intro bg
       ctx.fillRect(0, 0, w, h);
-      const step = (w * 0.018 * dt) / 16;
+      // warp speed eases along a smooth ~10s curve — never extreme fast or slow
+      const factor = 0.9 + 0.2 * Math.sin(t * 0.0006); // 0.7 .. 1.1
+      const step = (w * 0.014 * factor * dt) / 16;
       for (const s of stars) {
         s.pz = s.z; s.z -= step;
         if (s.z < 1) { spawn(s); continue; }

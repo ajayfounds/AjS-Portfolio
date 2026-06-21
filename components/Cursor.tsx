@@ -43,7 +43,6 @@ export default function Cursor() {
             className="cursor__arrow-fill"
             d="M5.5 3.2 L5.5 18.8 L9.6 14.9 L12.3 20.8 L14.6 19.8 L11.9 14 L17.4 14 Z"
           />
-          <circle className="cursor__arrow-dot" cx="5.5" cy="3.2" r="1.7" />
         </svg>
       </motion.div>
       <motion.div

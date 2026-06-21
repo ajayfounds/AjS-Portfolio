@@ -58,9 +58,7 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
 }
 .cursor__arrow { display: block; overflow: visible; filter: drop-shadow(0 2px 4px rgba(36, 36, 36, 0.28)); }
 .cursor__arrow-fill { fill: var(--fg); stroke: var(--bg); stroke-width: 1.4; stroke-linejoin: round; }
-.cursor__arrow-dot { fill: var(--accent); transition: r .2s var(--ease); }
 .cursor.is-hover { transform: scale(0.78) rotate(-12deg); }
-.cursor.is-hover .cursor__arrow-dot { r: 2.6; }
 /* soft accent ring follows behind */
 .cursor-follower {
   width: 30px; height: 30px; border-radius: 50%;
@@ -1252,12 +1250,6 @@ body.pill-cursor .cursor, body.pill-cursor .cursor-follower { opacity: 0; }
 .buddy__hat-btn.is-active { background: rgba(243, 241, 235, 0.3); }
 .buddy__none { color: rgba(243, 241, 235, 0.6); font-size: 1rem; line-height: 1; }
 
-.buddy__ball { position: absolute; left: 0; top: 0; pointer-events: none; will-change: transform; }
-.buddy__ball-inner {
-  display: block; width: 15px; height: 15px; border-radius: 50%;
-  background: var(--accent); box-shadow: 0 6px 12px -6px rgba(203, 120, 54, 0.75);
-}
-
 /* pet stays on phone/tablet too — physics hitbox is fixed-size so we keep the
    visual size, just make the speech bubble/menu comfortably tappable */
 @media (max-width: 640px) {
@@ -1317,10 +1309,6 @@ body.pill-cursor .cursor, body.pill-cursor .cursor-follower { opacity: 0; }
 .sidebar__grip { display: flex; flex-direction: column; gap: 3px; }
 .sidebar__grip i { width: 3px; height: 3px; border-radius: 50%; background: currentColor; }
 .sidebar__handle-chev { color: var(--fg); }
-.sidebar__handle-dot {
-  position: absolute; left: 50%; bottom: 0.5rem; transform: translateX(-50%);
-  width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
-}
 
 .sidebar__close {
   position: absolute; top: 1rem; right: 1rem; z-index: 3;
