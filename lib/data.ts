@@ -231,7 +231,7 @@ export const communities: Community[] = [
 export type Fave = { title: string; note?: string; from: string; to: string; img?: string };
 
 // "A few of my favorite things" — grouped rows; add categories freely
-export const favorites: { label: string; items: Fave[] }[] = [
+export const favorites: { label: string; items: Fave[]; square?: boolean }[] = [
   {
     label: "On Screen",
     items: [
@@ -242,7 +242,8 @@ export const favorites: { label: string; items: Fave[] }[] = [
     ]
   },
   {
-    label: "On Repeat",
+    label: "Music",
+    square: true,
     items: [
       { title: "Alec Benjamin", note: "a whole story in three minutes", from: "#168b9d", to: "#bf5a7a" },
       { title: "Shawn Mendes", from: "#bf5a7a", to: "#cb7836" },
@@ -251,7 +252,7 @@ export const favorites: { label: string; items: Fave[] }[] = [
     ]
   },
   {
-    label: "Reading",
+    label: "Books",
     items: [
       { title: "Psycho-Cybernetics", note: "rewiring the self-image", from: "#cb7836", to: "#bf5a7a" },
       { title: "The Creative Act", note: "making as a way of being", from: "#2a8f50", to: "#e8c84a" },
@@ -259,7 +260,7 @@ export const favorites: { label: string; items: Fave[] }[] = [
     ]
   },
   {
-    label: "Playing",
+    label: "Games",
     items: [
       { title: "Alto's Odyssey", note: "skate + minimal art", from: "#168b9d", to: "#e8c84a" },
       { title: "Marvel's Spider-Man", note: "self-explanatory", from: "#bf5a7a", to: "#242424" },

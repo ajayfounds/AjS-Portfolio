@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Reveal from "./Reveal";
 import {
   aboutIntro,
@@ -10,14 +11,17 @@ import {
   funStack,
   funBlurb,
   journeyQuote,
-  experience,
-  type Fave
+  experience
 } from "@/lib/data";
 
-// one labelled, horizontally-scrollable favourites row — 3D coverflow tilt
-function FaveRow({ label, items }: { label: string; items: Fave[] }) {
+// "A few of my favorite things" — one category at a time, arrows cycle categories,
+// cards get a 3D coverflow tilt + idle float
+function FaveDeck() {
+  const [active, setActive] = useState(0);
+  const [dir, setDir] = useState(1);
   const trackRef = useRef<HTMLDivElement>(null);
   const rafTilt = useRef<number | undefined>(undefined);
+  const cat = favorites[active];
 
   // tilt each card in 3D based on its distance from the track centre (coverflow)
   const updateTilt = () => {
@@ -28,9 +32,9 @@ function FaveRow({ label, items }: { label: string; items: Fave[] }) {
     el.querySelectorAll<HTMLElement>(".book").forEach((card) => {
       const c = card.offsetLeft + card.offsetWidth / 2;
       const d = Math.max(-1, Math.min(1, ((c - mid) / w) * 1.25));
-      card.style.setProperty("--ry", (d * -17).toFixed(2) + "deg");
-      card.style.setProperty("--sc", (1 - Math.abs(d) * 0.08).toFixed(3));
-      card.style.setProperty("--ty", (Math.abs(d) * 12).toFixed(1) + "px");
+      card.style.setProperty("--ry", (d * -15).toFixed(2) + "deg");
+      card.style.setProperty("--sc", (1 - Math.abs(d) * 0.07).toFixed(3));
+      card.style.setProperty("--ty", (Math.abs(d) * 10).toFixed(1) + "px");
     });
   };
 
@@ -42,57 +46,86 @@ function FaveRow({ label, items }: { label: string; items: Fave[] }) {
     });
   };
 
+  // re-tilt whenever the active category (and its track) changes, and on resize
   useEffect(() => {
-    requestAnimationFrame(updateTilt);
+    const id = requestAnimationFrame(updateTilt);
     window.addEventListener("resize", updateTilt);
-    return () => window.removeEventListener("resize", updateTilt);
-  }, []);
-
-  // manual rAF tween — native smooth scroll is unreliable under Lenis
-  const scrollBy = (dir: number) => {
-    const el = trackRef.current;
-    if (!el) return;
-    const amount = Math.min(el.clientWidth * 0.8, 600);
-    const max = el.scrollWidth - el.clientWidth;
-    const target = Math.max(0, Math.min(el.scrollLeft + dir * amount, max));
-    const start = el.scrollLeft;
-    const dist = target - start;
-    const t0 = performance.now();
-    const step = (now: number) => {
-      const p = Math.min((now - t0) / 450, 1);
-      el.scrollLeft = start + dist * (1 - Math.pow(1 - p, 3));
-      updateTilt();
-      if (p < 1) requestAnimationFrame(step);
+    return () => {
+      cancelAnimationFrame(id);
+      window.removeEventListener("resize", updateTilt);
     };
-    requestAnimationFrame(step);
+  }, [active]);
+
+  const go = (d: number) => {
+    setDir(d);
+    setActive((a) => (a + d + favorites.length) % favorites.length);
+  };
+  const jump = (i: number) => {
+    if (i === active) return;
+    setDir(i > active ? 1 : -1);
+    setActive(i);
+  };
+
+  const variants = {
+    enter: (d: number) => ({ opacity: 0, x: d > 0 ? 56 : -56 }),
+    center: { opacity: 1, x: 0 },
+    exit: (d: number) => ({ opacity: 0, x: d > 0 ? -56 : 56 })
   };
 
   return (
-    <div className="fave-row">
-      <Reveal delay={0.05}>
-        <h3 className="about__faveTitle">{label}</h3>
-      </Reveal>
-      <div className="carousel">
-        <button className="carousel__arrow carousel__arrow--prev" onClick={() => scrollBy(-1)} aria-label="Previous">←</button>
-        <div className="carousel__track" ref={trackRef} onScroll={onScroll}>
-          {items.map((f) => (
-            <article className="book" key={f.title}>
+    <div className="favedeck">
+      <div className="favedeck__row">
+        <button className="carousel__arrow" onClick={() => go(-1)} aria-label="Previous category">←</button>
+        <div className="favedeck__stage">
+          <AnimatePresence custom={dir} initial={false}>
+            <motion.div
+              key={cat.label}
+              custom={dir}
+              className="favedeck__panel"
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.34, ease: [0.4, 0, 0.2, 1] }}
+              onAnimationComplete={() => requestAnimationFrame(updateTilt)}
+            >
+              <h3 className="favedeck__title">{cat.label}</h3>
               <div
-                className="book__cover"
-                style={f.img ? undefined : { background: `linear-gradient(150deg, ${f.from}, ${f.to})` }}
+                className={`carousel__track favedeck__track${cat.square ? " is-square" : ""}`}
+                ref={trackRef}
+                onScroll={onScroll}
               >
-                {f.img ? (
-                  <img src={f.img} alt={f.title} loading="lazy" draggable={false} />
-                ) : (
-                  <span className="book__coverTitle">{f.title}</span>
-                )}
+                {cat.items.map((f) => (
+                  <article className="book" key={f.title}>
+                    <div
+                      className="book__cover"
+                      style={f.img ? undefined : { background: `linear-gradient(150deg, ${f.from}, ${f.to})` }}
+                    >
+                      {f.img ? (
+                        <img src={f.img} alt={f.title} loading="lazy" draggable={false} />
+                      ) : (
+                        <span className="book__coverTitle">{f.title}</span>
+                      )}
+                    </div>
+                    <h4 className="book__title">{f.title}</h4>
+                    {f.note && <p className="book__author">{f.note}</p>}
+                  </article>
+                ))}
               </div>
-              <h4 className="book__title">{f.title}</h4>
-              {f.note && <p className="book__author">{f.note}</p>}
-            </article>
-          ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
-        <button className="carousel__arrow carousel__arrow--next" onClick={() => scrollBy(1)} aria-label="Next">→</button>
+        <button className="carousel__arrow" onClick={() => go(1)} aria-label="Next category">→</button>
+      </div>
+      <div className="favedeck__dots">
+        {favorites.map((c, i) => (
+          <button
+            key={c.label}
+            className={`favedeck__dot${i === active ? " is-active" : ""}`}
+            onClick={() => jump(i)}
+            aria-label={c.label}
+          />
+        ))}
       </div>
     </div>
   );
@@ -316,11 +349,7 @@ export default function About() {
         <Reveal>
           <h2 className="about__eyebrow about__eyebrow--center">A Few of My Favorite Things</h2>
         </Reveal>
-        <div className="fave-rows">
-          {favorites.map((cat) => (
-            <FaveRow key={cat.label} label={cat.label} items={cat.items} />
-          ))}
-        </div>
+        <FaveDeck />
       </section>
     </div>
   );

@@ -861,6 +861,31 @@ body.pill-cursor .cursor { opacity: 0; }
 .carousel__arrow:hover { background: var(--fg); color: var(--bg); }
 .fave-rows { display: flex; flex-direction: column; gap: 2.6rem; }
 .fave-row .about__faveTitle { margin-bottom: 1.2rem; }
+
+/* favorite things — one category at a time, arrows cycle */
+.favedeck { display: flex; flex-direction: column; align-items: center; gap: 1.4rem; margin-top: 1.6rem; }
+.favedeck__row { display: flex; align-items: center; justify-content: center; gap: clamp(.4rem, 2vw, 1.4rem); width: 100%; }
+.favedeck__stage { flex: 1; max-width: 900px; min-height: 430px; position: relative; }
+.favedeck__panel { position: absolute; inset: 0; width: 100%; }
+.favedeck__title {
+  text-align: center; font-family: var(--font-serif), serif;
+  font-size: clamp(1.5rem, 3.4vw, 2.1rem); font-weight: 500; margin-bottom: 1.1rem;
+}
+.favedeck__track { justify-content: center; }
+/* square album art for the Music category */
+.favedeck__track.is-square .book__cover { aspect-ratio: 1/1; }
+.favedeck__dots { display: flex; gap: .55rem; }
+.favedeck__dot {
+  width: 8px; height: 8px; border-radius: 50%; cursor: none;
+  border: 1px solid var(--line-strong); background: transparent;
+  transition: background .25s var(--ease), transform .25s var(--ease);
+}
+.favedeck__dot:hover { transform: scale(1.25); }
+.favedeck__dot.is-active { background: var(--fg); border-color: var(--fg); }
+@media (max-width: 760px) {
+  .favedeck__stage { min-height: 380px; }
+  .favedeck__track { justify-content: flex-start; }
+}
 .book {
   flex: 0 0 auto; width: clamp(168px, 18vw, 208px); scroll-snap-align: center; text-align: left;
   transform: rotateY(var(--ry, 0deg)) translateY(var(--ty, 0px)) scale(var(--sc, 1));
