@@ -37,9 +37,14 @@ function EnterCard({ d, dx, center, phase }: { d: EnterCardData; dx: number; cen
     <motion.div
       className={`vcard entcard${center ? " entcard--center" : ""}`}
       style={{ background: c.bg, color: c.fg }}
-      initial={{ opacity: 0, x: dx, scale: 0.9 }}
-      animate={phase === "out" ? { opacity: 0, scale: 0.55, y: -26 } : { opacity: 1, x: 0, scale: center ? 1 : 0.94 }}
-      transition={phase === "out" ? { duration: 0.4, ease: [0.7, 0, 0.84, 0] } : { duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: center ? 0.1 : 0 }}
+      initial={{ opacity: 0, x: dx, y: 16, scale: 0.86 }}
+      animate={
+        phase === "out"
+          ? center
+            ? { opacity: 0, scale: 1.7, y: -64, transition: { duration: 0.62, ease: [0.6, 0, 0.2, 1] } } // launch into the site
+            : { opacity: 0, scale: 0.4, y: 52, transition: { duration: 0.46, ease: [0.7, 0, 0.84, 0] } } // sides fall away
+          : { opacity: 1, x: 0, y: 0, scale: center ? 1.04 : 0.92, transition: { type: "spring", stiffness: 210, damping: 22, delay: center ? 0.08 : 0.02 } }
+      }
     >
       <pre className="vcard__matrix" aria-hidden>{d.matrix}</pre>
       <div className="vcard__brand-row"><span className="vcard__brand">{site.brand}</span></div>
@@ -377,12 +382,12 @@ export default function Intro() {
   useEffect(() => {
     if (step !== "enter") return;
     setEnterPhase("in");
-    const t1 = setTimeout(() => setEnterPhase("out"), 1050);
+    const t1 = setTimeout(() => setEnterPhase("out"), 1150);
     const t2 = setTimeout(() => {
       sessionStorage.setItem("intro-seen", "1");
       setShow(false);
       router.push("/");
-    }, 1900);
+    }, 2150);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [step, router]);
 
@@ -403,7 +408,7 @@ export default function Intro() {
             className="intro"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            exit={{ opacity: 0, scale: 1.06, filter: "blur(8px)", transition: { duration: 0.6, ease: [0.6, 0, 0.2, 1] } }}
             transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
           >
             <canvas className="intro__warp" ref={warpRef} aria-hidden />
@@ -461,9 +466,9 @@ export default function Intro() {
 
             <motion.div
               className="welcome__inner"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, y: 18, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ type: "spring", stiffness: 130, damping: 18, delay: 0.26 }}
             >
               <p className="welcome__hi">
                 Welcome, visitor.<span>I hope you enjoy your time here.</span>
@@ -477,7 +482,12 @@ export default function Intro() {
                 </div>
               </div>
 
-              <div className="vcard-float">
+              <motion.div
+                className="vcard-float"
+                initial={{ opacity: 0, scale: 0.8, y: 24 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ type: "spring", stiffness: 170, damping: 17, delay: 0.42 }}
+              >
                 <motion.div
                   className="vcard-float__bob"
                   animate={{ y: [0, -7, 0] }}
@@ -520,7 +530,7 @@ export default function Intro() {
                     />
                   </motion.div>
                 </motion.div>
-              </div>
+              </motion.div>
 
               <div className="welcome__swatches">
                 {SWATCHES.map((s) => (
@@ -549,10 +559,10 @@ export default function Intro() {
           <motion.div
             key="enter"
             className="welcome-exit"
-            initial={{ opacity: 1 }}
-            animate={{ opacity: enterPhase === "out" ? 0 : 1 }}
+            initial={{ opacity: 1, scale: 1 }}
+            animate={{ opacity: enterPhase === "out" ? 0 : 1, scale: enterPhase === "out" ? 1.08 : 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, delay: enterPhase === "out" ? 0.35 : 0 }}
+            transition={{ duration: 0.6, ease: [0.6, 0, 0.2, 1], delay: enterPhase === "out" ? 0.28 : 0 }}
           >
             <div className="entrow">
               <EnterCard d={enterSet.left} dx={-70} phase={enterPhase} />

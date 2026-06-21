@@ -862,10 +862,16 @@ body.pill-cursor .cursor { opacity: 0; }
   display: flex; align-items: flex-end; padding: .9rem; background: var(--bg-2);
   box-shadow: 0 26px 46px -22px rgba(36, 36, 36, 0.6); margin-bottom: .9rem;
   transition: box-shadow .3s var(--ease);
+  animation: bookFloat 6.5s ease-in-out infinite; will-change: transform;
 }
+/* gentle, seamless idle float — staggered so the row breathes like the reference */
+@keyframes bookFloat { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-7px) } }
+.book:nth-child(2n) .book__cover { animation-delay: -1.6s; animation-duration: 7.2s; }
+.book:nth-child(3n) .book__cover { animation-delay: -3.4s; animation-duration: 6s; }
+.book:nth-child(4n) .book__cover { animation-delay: -4.8s; }
 .book__cover img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 .book:hover { transform: rotateY(0deg) translateY(-6px) scale(1.05); transition: transform .35s var(--ease); }
-.book:hover .book__cover { box-shadow: 0 40px 64px -26px rgba(36, 36, 36, 0.72); }
+.book:hover .book__cover { box-shadow: 0 40px 64px -26px rgba(36, 36, 36, 0.72); animation-play-state: paused; }
 .book__coverTitle {
   font-family: var(--font-serif), serif; color: var(--bg);
   font-size: 1.05rem; line-height: 1.15; font-weight: 600;
@@ -877,6 +883,7 @@ body.pill-cursor .cursor { opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .book { transform: none !important; transition: none; }
+  .book__cover { animation: none !important; }
 }
 
 /* big display heading (Things I do for fun / Journey) */

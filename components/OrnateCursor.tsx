@@ -1,58 +1,51 @@
-// Ornate carved-arrowhead cursor — a stone/bronze frame around a glowing gem arrow.
-// "amber" is used across the main site, "azure" on the entry gate.
-// The pointer hotspot is the top tip of the frame (~5,3 in the 40px viewBox).
+// Ornate carved-arrowhead cursor — stone/bronze frame with a gold sediment band
+// and a faceted glowing gem arrow. "amber" across the site, "azure" on the entry.
+// Pointer hotspot = the top tip (~5,3 in the 40px viewBox).
 
-const CORE: Record<string, { stops: [string, string, string]; glow: string; crease: string }> = {
-  amber: { stops: ["#fff6c2", "#ffce45", "#ef9a1a"], glow: "#ffb020", crease: "#fff4cf" },
-  azure: { stops: ["#e3f6ff", "#5cc6ff", "#1f86d8"], glow: "#3aa8ff", crease: "#e6f6ff" }
+type Variant = "amber" | "azure";
+const GEM: Record<Variant, { light: string; mid: string; dark: string; ring: string; glow: string; crease: string }> = {
+  amber: { light: "#fff0a8", mid: "#ffce45", dark: "#e89a1a", ring: "#7a4a16", glow: "#ffb020", crease: "#fff6cf" },
+  azure: { light: "#dff4ff", mid: "#7cd0ff", dark: "#2f93e0", ring: "#1f6fd0", glow: "#3aa8ff", crease: "#eaf7ff" }
 };
 
-export default function OrnateCursor({ variant = "amber" }: { variant?: "amber" | "azure" }) {
-  const c = CORE[variant] ?? CORE.amber;
+export default function OrnateCursor({ variant = "amber" }: { variant?: Variant }) {
+  const g = GEM[variant];
   return (
     <svg className="ornate" width="40" height="40" viewBox="0 0 40 40" aria-hidden>
       <defs>
         <linearGradient id={`oc-frame-${variant}`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#dcc8a6" />
-          <stop offset="0.55" stopColor="#8f7252" />
-          <stop offset="1" stopColor="#52402c" />
+          <stop offset="0" stopColor="#e0cca8" />
+          <stop offset="0.5" stopColor="#9a7a55" />
+          <stop offset="1" stopColor="#4c3622" />
         </linearGradient>
-        <radialGradient id={`oc-core-${variant}`} cx="0.46" cy="0.4" r="0.75">
-          <stop offset="0" stopColor={c.stops[0]} />
-          <stop offset="0.5" stopColor={c.stops[1]} />
-          <stop offset="1" stopColor={c.stops[2]} />
-        </radialGradient>
-        <filter id={`oc-glow-${variant}`} x="-60%" y="-60%" width="220%" height="220%">
-          <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor={c.glow} floodOpacity="0.85" />
+        <filter id={`oc-glow-${variant}`} x="-70%" y="-70%" width="240%" height="240%">
+          <feDropShadow dx="0" dy="0" stdDeviation="1.8" floodColor={g.glow} floodOpacity="0.9" />
         </filter>
       </defs>
 
       {/* carved stone/bronze frame */}
-      <path
-        d="M5 3 L29 16 L20 37 L8 20 Z"
-        fill={`url(#oc-frame-${variant})`}
-        stroke="#20180f"
-        strokeWidth="2.3"
-        strokeLinejoin="round"
-      />
-      {/* light inner bevel */}
-      <path d="M8.5 7 L25.4 16.2 L19 32 L11 20 Z" fill="none" stroke="#efe2c9" strokeWidth="0.8" opacity="0.5" />
-      {/* engraved swirl lines */}
-      <path d="M10 9 C14 14, 16 20, 16 28" fill="none" stroke="#3a2c1c" strokeWidth="0.5" opacity="0.35" />
-      <path d="M22 13 C20 19, 19 25, 18 31" fill="none" stroke="#3a2c1c" strokeWidth="0.5" opacity="0.3" />
+      <path d="M5 3 L34 24 L18 38 L6 21 Z" fill={`url(#oc-frame-${variant})`} stroke="#20160d" strokeWidth="2.6" strokeLinejoin="round" />
 
-      {/* glowing gem arrow */}
-      <path
-        d="M14.5 12 L25 21 L13.5 27 Z"
-        fill={`url(#oc-core-${variant})`}
-        filter={`url(#oc-glow-${variant})`}
-        stroke="#ffffff"
-        strokeWidth="0.5"
-        strokeOpacity="0.7"
-        strokeLinejoin="round"
-      />
-      {/* facet crease */}
-      <path d="M14.5 12 L17.6 22" fill="none" stroke={c.crease} strokeWidth="0.6" opacity="0.55" />
+      {/* gold sediment band hugging the bottom edges */}
+      <path d="M6.5 24 Q17 39 30 25" fill="none" stroke="#f0a81c" strokeWidth="2.3" strokeLinecap="round" opacity="0.92" />
+      <path d="M8.5 22 Q16.5 33 26 23" fill="none" stroke="#d98c14" strokeWidth="1.3" strokeLinecap="round" opacity="0.7" />
+
+      {/* light inner bevel along the top edges */}
+      <path d="M7.6 20 L7.6 6 L31 24" fill="none" stroke="#efe0c4" strokeWidth="0.9" opacity="0.5" strokeLinejoin="round" />
+      {/* carved swirl grooves near the tip */}
+      <path d="M9 8 Q12 15 12 23" fill="none" stroke="#372a1b" strokeWidth="0.5" opacity="0.35" />
+      <path d="M13 7 Q15 13 15 20" fill="none" stroke="#372a1b" strokeWidth="0.5" opacity="0.3" />
+
+      {/* faceted glowing gem (3 facets around a centre point) */}
+      <g filter={`url(#oc-glow-${variant})`}>
+        <path d="M13 11 L8 19 L14.8 19.8 Z" fill={g.light} />
+        <path d="M8 19 L15 29 L23 20 L14.8 19.8 Z" fill={g.mid} />
+        <path d="M13 11 L23 20 L14.8 19.8 Z" fill={g.dark} />
+        {/* crease lines from the centre point */}
+        <path d="M14.8 19.8 L13 11 M14.8 19.8 L8 19 M14.8 19.8 L15 29 M14.8 19.8 L23 20" fill="none" stroke={g.crease} strokeWidth="0.5" opacity="0.5" />
+        {/* gem border ring */}
+        <path d="M13 11 L23 20 L15 29 L8 19 Z" fill="none" stroke={g.ring} strokeWidth="1.4" strokeLinejoin="round" />
+      </g>
     </svg>
   );
 }
