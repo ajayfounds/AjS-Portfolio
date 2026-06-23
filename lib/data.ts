@@ -134,7 +134,7 @@ export type Experience = {
 
 export const experience: Experience[] = [
   {
-    period: "Apr 2026 — Present",
+    period: "Apr 2026 — June 2026",
     role: "Product Designer",
     org: "Shyphan AI Solutions Pvt Ltd · Noida",
     desc: "Designing scalable, user-centric end-to-end experiences across web and product for AI-driven solutions — building UI systems and reusable components, and translating business requirements into user-centered design with cross-functional teams.",
@@ -207,10 +207,13 @@ export const aboutIntro = {
     "Playing guitar",
     "Hunting for retro gadgets"
   ],
+
+export type GalleryPhoto = { src: string; alt: string; span?: boolean };
+  
   closing: "Always happy to chat! I'm on the lookout for product design roles and good conversations :)"
 };
 
-export type GalleryPhoto = { src: string; alt: string; span?: boolean };
+
 
 export const galleryPhotos: GalleryPhoto[] = [
  { src: "/me/polaroid.jpg", alt: "Ajay — polaroid" },
