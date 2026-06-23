@@ -212,11 +212,11 @@ export const aboutIntro = {
 
 export type GalleryPhoto = { src: string; alt: string; span?: boolean };
 
-export const galleryPhotos: GalleryPhoto[] = [
-  { src: "/me/polaroid.jpg", alt: "Ajay — polaroid" },
-  { src: "/me/portrait.jpg", alt: "Ajay" },
-  { src: "/me/anime.jpg", alt: "Out and about" }
-];
+//export const galleryPhotos: GalleryPhoto[] = [
+//  { src: "/me/polaroid.jpg", alt: "Ajay — polaroid" },
+//  { src: "/me/portrait.jpg", alt: "Ajay" },
+//  { src: "/me/anime.jpg", alt: "Out and about" }
+//];
 
 export type Community = { name: string; icon: string; desc: string; img: string };
 
