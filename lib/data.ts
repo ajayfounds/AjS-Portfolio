@@ -208,11 +208,11 @@ export const aboutIntro = {
     "Hunting for retro gadgets"
   ],
 
-export type GalleryPhoto = { src: string; alt: string; span?: boolean };
   
   closing: "Always happy to chat! I'm on the lookout for product design roles and good conversations :)"
 };
 
+export type GalleryPhoto = { src: string; alt: string; span?: boolean };
 
 
 export const galleryPhotos: GalleryPhoto[] = [
