@@ -2,7 +2,7 @@ export const site = {
   name: "Ajay Srivastava",
   brand: "HAZEL Verse",
   initials: "AS",
-  role: "Product & UX/UI Designer",
+  role: "Product Designer",
   affiliation: "B.Tech CSE @ JSSATEN",
   location: "Noida / New Delhi",
   status: "Open to work",
@@ -33,13 +33,13 @@ export const outbound: Outbound[] = [
   { label: "LinkedIn", href: "https://linkedin.com/in/ajaysri8" },
   { label: "Behance", href: "https://behance.net/ajay_srivastava" },
   { label: "X", href: "https://x.com/hazel_creates" },
-  { label: "Resume", href: "RESUME_DRIVE_LINK" }
+  { label: "Resume", href: "https://drive.google.com/file/d/136OF_MCumJ0F-e4sxRCRXlVyVjQB4ehu/view" }
 ];
 
 export const latestLog = {
-  date: "Jun 7, 2026",
+  date: "Jun 22, 2026",
   // bracketed names become styled inline links in LatestLog.tsx
-  text: "I just started as a Product Designer @[Shyphan AI Solutions], building UI systems for AI-driven products end to end. On the side I'm reworking @[Payment Limbo] into a fuller case study, and sketching out a small tool to help fellow designers turn Figma flows into annotated walkthroughs."
+  text: "Currently deep in a Blinkit feature case study... dissecting the edge cases most designers skip over: promo code conflicts when multiple offers stack or cancel each other out, and substitution logic when items go out of stock mid-order. The focus is on designing recovery flows that feel considered, not bolted on."
 };
 
 export type Project = {
@@ -81,7 +81,7 @@ export const projects: Project[] = [
     desc: "A behavior-driven finance app built around \"Pulse\" — a feature that nudges spending habits instead of just tracking them.",
     role: "Product Designer",
     team: "Solo",
-    timeframe: "2025"
+    timeframe: "2026"
   },
   {
     num: "03",
@@ -94,8 +94,21 @@ export const projects: Project[] = [
     desc: "A credit-recovery experience designed to make a stressful financial moment feel guided rather than punitive.",
     role: "Product Designer",
     team: "Solo",
-    timeframe: "2024 – 2025"
+    timeframe: "2025"
   },
+  {
+    num: "04",
+    name: "Payment Limbo",
+    cat: "UPI Failure & Anxiety Recovery",
+    tags: ["Product", "Research"],
+    status: "IN PROGRESS",
+    href: "https://behance.net/ajay_srivastava",
+    img: "https://picsum.photos/seed/limbo/700/500",
+    desc: "A recovery system for the in-between moment when a UPI payment fails — designed around the anxiety of not knowing where your money went.",
+    role: "Product Designer, Researcher",
+    team: "Solo",
+    timeframe: "2026"
+  }
   {
     num: "04",
     name: "Payment Limbo",
