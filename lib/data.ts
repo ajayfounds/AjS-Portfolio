@@ -106,11 +106,11 @@ export const projects: Project[] = [
     role: "Product Designer, Researcher",
     team: "Solo",
     timeframe: "2026"
-  }
+  },
   {
-    num: "04",
-    name: "Payment Limbo",
-    cat: "UPI Failure & Anxiety Recovery",
+    num: "05",
+    name: "Blinkit Case Study",
+    cat: "New category addition",
     tags: ["Product", "Research"],
     status: "IN PROGRESS",
     href: "https://behance.net/ajay_srivastava",
@@ -118,7 +118,7 @@ export const projects: Project[] = [
     desc: "A recovery system for the in-between moment when a UPI payment fails — designed around the anxiety of not knowing where your money went.",
     role: "Product Designer, Researcher",
     team: "Solo",
-    timeframe: "2025 – present"
+    timeframe: "2026"
   }
 ];
 
