@@ -8,7 +8,7 @@ export const site = {
   status: "Open to work",
   email: "ajaysriacads@gmail.com",
   statement: "A designer guided by clarity and purpose, shaping ideas with intention and transforming structure into visual meaning.",
-  bioLine: "I balance user needs with business goals across research, prototyping, and visual design — and I'm especially drawn to designing for failure states and emotional recovery.",
+  bioLine: "Previous intern @Shyphan AI Solutions @GDG-New Delhi @Edunet Foundation @JSSATEN-PFC @WoB '25 @GSSoC '24",
   // TODO: replace with your Google Drive resume link
   resume: "RESUME_DRIVE_LINK"
 };
