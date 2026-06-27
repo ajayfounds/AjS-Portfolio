@@ -62,7 +62,7 @@ export const projects: Project[] = [
     tags: ["UX/UI"],
     status: "CASE STUDY",
     href: "https://www.behance.net/gallery/247912507/Wanderly",
-    img: "https://picsum.photos/seed/wanderly/700/500",
+    img: "/me/polaroid.jpg", alt: "Wanderly",
     desc: "An end-to-end travel planning app that turns scattered research into a single itinerary — from discovery to day-by-day planning.",
     role: "Product Designer",
     team: "Solo",
