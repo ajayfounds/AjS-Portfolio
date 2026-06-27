@@ -113,7 +113,7 @@ export const projects: Project[] = [
     cat: "New category addition",
     tags: ["Product", "Research"],
     status: "IN PROGRESS",
-    href: "#",
+    href: "",
     img: "https://picsum.photos/seed/limbo/700/500",
     desc: "A recovery system for the in-between moment when a UPI payment fails — designed around the anxiety of not knowing where your money went.",
     role: "Product Designer, Researcher",
