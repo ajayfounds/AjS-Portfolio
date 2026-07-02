@@ -31,7 +31,7 @@ export const outbound: Outbound[] = [
   { label: "LinkedIn", href: "https://linkedin.com/in/ajaysri8" },
   { label: "Behance", href: "https://behance.net/ajay_srivastava" },
   { label: "X", href: "https://x.com/hazel_creates" },
-  { label: "Resume", href: "https://drive.google.com/file/d/1M7q9qC4wE_nsMAE42gQIs1r0-bXsKGDW/view?usp=sharing" }
+  { label: "Resume", href: "https://drive.google.com/file/d/1_ghrKRNOP7hjKbNmJB3p8ZznBYGnWJIx/view?usp=sharing" }
 ];
 
 export const latestLog = {
