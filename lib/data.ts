@@ -212,15 +212,6 @@ export const aboutIntro = {
   closing: "Always happy to chat! I'm on the lookout for product design roles and good conversations :)"
 };
 
-export type GalleryPhoto = { src: string; alt: string; span?: boolean };
-
-
-export const galleryPhotos: GalleryPhoto[] = [
- { src: "/me/polaroid.jpg", alt: "Ajay — polaroid" },
-  { src: "/me/portrait.jpg", alt: "Ajay" },
-  { src: "/me/anime.jpg", alt: "Out and about" }
-];
-
 export type Community = { name: string; icon: string; desc: string; img: string };
 
 export const communities: Community[] = [

@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import Reveal from "./Reveal";
 import {
   aboutIntro,
-  galleryPhotos,
   communities,
   favorites,
   funStack,
@@ -354,17 +353,6 @@ export default function About() {
           <FunStack />
         </Reveal>
       </section>
-
-      {/* Photo gallery */}
-      <Reveal delay={0.05}>
-        <div className="about__gallery">
-          {galleryPhotos.map((p, i) => (
-            <figure key={p.src} className={`gphoto${p.span ? " gphoto--wide" : ""}`} data-i={i}>
-              <img src={p.src} alt={p.alt} loading="lazy" />
-            </figure>
-          ))}
-        </div>
-      </Reveal>
 
       {/* Journey so far */}
       <section className="about__block">

@@ -795,19 +795,6 @@ body.pill-cursor .cursor { opacity: 0; }
   width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
 }
 
-/* gallery */
-.about__gallery { display: flex; gap: 1.25rem; margin: 3rem 0 1rem; }
-.gphoto {
-  flex: 1 1 0; border-radius: 14px; overflow: hidden; aspect-ratio: 4/4.6;
-  box-shadow: 0 18px 40px -26px rgba(36, 36, 36, 0.45);
-}
-.gphoto--wide { flex: 1.9 1 0; }
-.gphoto img { transition: transform 1.2s var(--ease); }
-.gphoto:hover img { transform: scale(1.05); }
-@media (max-width: 760px) {
-  .about__gallery { flex-direction: column; }
-  .gphoto, .gphoto--wide { aspect-ratio: 16/10; }
-}
 
 /* blocks / eyebrows */
 .about__block { margin-top: clamp(3rem, 6vw, 5rem); }
@@ -1311,12 +1298,6 @@ body.pill-cursor .cursor { opacity: 0; }
   :root { --pad: clamp(1.25rem, 4vw, 6rem); }
   .layout__body { max-width: 2040px; }
   .footer__inner, .footer__bottom { max-width: 2040px; }
-}
-
-/* ---- TABLET PORTRAIT: stack the about gallery a touch earlier so photos breathe ---- */
-@media (max-width: 820px) {
-  .about__gallery { flex-direction: column; }
-  .gphoto, .gphoto--wide { aspect-ratio: 16 / 10; }
 }
 
 /* ---- MOBILE NAV DRAWER ----
