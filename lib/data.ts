@@ -237,20 +237,36 @@ export const communities: Community[] = [
 
 export type Fave = { title: string; note?: string; img: string };
 
-// "A few of my favorite things" — one continuous strip, categories mixed.
+// "A few of my favorite things" — one sliding strip per section.
 // Covers live in /public/covers and are all cropped to the same ratio.
-export const favorites: Fave[] = [
-  { title: "Across the Spider-Verse", note: "every frame a new art style", img: "/covers/spider-verse.jpg" },
-  { title: "Alec Benjamin", note: "a whole story in three minutes", img: "/covers/alec-benjamin.jpg" },
-  { title: "The Creative Act", note: "making as a way of being", img: "/covers/creative-act.jpg" },
-  { title: "The Flash", note: "for the chem + physics nerd in me", img: "/covers/the-flash.jpg" },
-  { title: "Billie Eilish", note: "hit me hard and soft", img: "/covers/billie-eilish.jpg" },
-  { title: "Psycho-Cybernetics", note: "rewiring the self-image", img: "/covers/psycho-cybernetics.jpg" },
-  { title: "Haikyū!!", note: "storytelling that hits", img: "/covers/haikyu.jpg" },
-  { title: "Shawn Mendes", note: "on repeat, endlessly", img: "/covers/shawn-mendes.jpg" },
-  { title: "Keep Going", note: "show up, keep creating", img: "/covers/keep-going.jpg" },
-  { title: "One Piece", note: "Zoro supremacy", img: "/covers/one-piece.jpg" },
-  { title: "Spider-Punk", note: "Hobie steals every scene", img: "/covers/spider-punk.jpg" }
+export const favorites: { label: string; items: Fave[]; square?: boolean }[] = [
+  {
+    label: "On Screen",
+    items: [
+      { title: "Across the Spider-Verse", note: "every frame a new art style", img: "/covers/spider-verse.jpg" },
+      { title: "Spider-Punk", note: "Hobie steals every scene", img: "/covers/spider-punk.jpg" },
+      { title: "The Flash", note: "for the chem + physics nerd in me", img: "/covers/the-flash.jpg" },
+      { title: "Haikyū!!", note: "storytelling that hits", img: "/covers/haikyu.jpg" },
+      { title: "One Piece", note: "Zoro supremacy", img: "/covers/one-piece.jpg" }
+    ]
+  },
+  {
+    label: "Music",
+    square: true,
+    items: [
+      { title: "Alec Benjamin", note: "a whole story in three minutes", img: "/covers/alec-benjamin.jpg" },
+      { title: "Shawn Mendes", note: "on repeat, endlessly", img: "/covers/shawn-mendes.jpg" },
+      { title: "Billie Eilish", note: "hit me hard and soft", img: "/covers/billie-eilish.jpg" }
+    ]
+  },
+  {
+    label: "Books",
+    items: [
+      { title: "Psycho-Cybernetics", note: "rewiring the self-image", img: "/covers/psycho-cybernetics.jpg" },
+      { title: "The Creative Act", note: "making as a way of being", img: "/covers/creative-act.jpg" },
+      { title: "Keep Going", note: "show up, keep creating", img: "/covers/keep-going.jpg" }
+    ]
+  }
 ];
 
 /* "Things I do for fun" — fanned photo deck */

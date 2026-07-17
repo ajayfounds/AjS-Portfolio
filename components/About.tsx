@@ -13,82 +13,103 @@ import {
   experience
 } from "@/lib/data";
 
-// "A few of my favorite things" — one continuous cover strip that slides
-// left -> right; seamless loop, hover to pause, drag to scrub
-function FaveMarquee() {
+// "A few of my favorite things" — one category at a time, arrows cycle categories,
+// cards get a 3D coverflow tilt + idle float
+function FaveDeck() {
+  const [active, setActive] = useState(0);
+  const [dir, setDir] = useState(1);
   const trackRef = useRef<HTMLDivElement>(null);
-  const vpRef = useRef<HTMLDivElement>(null);
-  const offset = useRef(0);
-  const paused = useRef(false);
-  const drag = useRef({ down: false, startX: 0, startOff: 0 });
+  const rafTilt = useRef<number | undefined>(undefined);
+  const cat = favorites[active];
 
-  // duplicate the list so the strip can wrap without a seam
-  const items = [...favorites, ...favorites];
+  // tilt each card in 3D based on its distance from the track centre (coverflow)
+  const updateTilt = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    const w = el.clientWidth || 1;
+    const mid = el.scrollLeft + w / 2;
+    el.querySelectorAll<HTMLElement>(".book").forEach((card) => {
+      const c = card.offsetLeft + card.offsetWidth / 2;
+      const d = Math.max(-1, Math.min(1, ((c - mid) / w) * 1.25));
+      card.style.setProperty("--ry", (d * -15).toFixed(2) + "deg");
+      card.style.setProperty("--sc", (1 - Math.abs(d) * 0.07).toFixed(3));
+      card.style.setProperty("--ty", (Math.abs(d) * 10).toFixed(1) + "px");
+    });
+  };
 
+  const onScroll = () => {
+    if (rafTilt.current) return;
+    rafTilt.current = requestAnimationFrame(() => {
+      rafTilt.current = undefined;
+      updateTilt();
+    });
+  };
+
+  // re-tilt whenever the active category (and its track) changes, and on resize
   useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const SPEED = 30; // px/s, left -> right
-    let last = performance.now();
-    let raf = 0;
-
-    offset.current = -(track.scrollWidth / 2);
-    const tick = (now: number) => {
-      const dt = Math.min(40, now - last) / 1000;
-      last = now;
-      const half = track.scrollWidth / 2 || 1;
-      if (!paused.current && !drag.current.down && !reduce) offset.current += SPEED * dt;
-      if (offset.current > 0) offset.current -= half;
-      if (offset.current <= -half) offset.current += half;
-      track.style.transform = `translate3d(${offset.current.toFixed(2)}px,0,0)`;
-      raf = requestAnimationFrame(tick);
+    const id = requestAnimationFrame(updateTilt);
+    window.addEventListener("resize", updateTilt);
+    return () => {
+      cancelAnimationFrame(id);
+      window.removeEventListener("resize", updateTilt);
     };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, []);
+  }, [active]);
 
-  const onDown = (e: React.PointerEvent) => {
-    drag.current = { down: true, startX: e.clientX, startOff: offset.current };
-    vpRef.current?.setPointerCapture?.(e.pointerId);
+  const go = (d: number) => {
+    setDir(d);
+    setActive((a) => (a + d + favorites.length) % favorites.length);
   };
-  const onMove = (e: React.PointerEvent) => {
-    if (!drag.current.down) return;
-    offset.current = drag.current.startOff + (e.clientX - drag.current.startX);
-  };
-  const onUp = (e: React.PointerEvent) => {
-    drag.current.down = false;
-    try { vpRef.current?.releasePointerCapture?.(e.pointerId); } catch {}
+
+  const variants = {
+    enter: (d: number) => ({ opacity: 0, x: d > 0 ? 56 : -56 }),
+    center: { opacity: 1, x: 0 },
+    exit: (d: number) => ({ opacity: 0, x: d > 0 ? -56 : 56 })
   };
 
   return (
-    <div
-      className="favemq"
-      ref={vpRef}
-      onPointerDown={onDown}
-      onPointerMove={onMove}
-      onPointerUp={onUp}
-      onPointerEnter={() => (paused.current = true)}
-      onPointerLeave={(e) => { paused.current = false; onUp(e); }}
-      data-lenis-prevent
-    >
-      <div className="favemq__track" ref={trackRef}>
-        {items.map((f, i) => (
-          <article className="favemq__card" key={i}>
-            <div className="favemq__cover">
-              {/* until a cover file exists the tile stays blank rather than showing a broken icon */}
-              <img
-                src={f.img}
-                alt={f.title}
-                loading="lazy"
-                draggable={false}
-                onError={(e) => (e.currentTarget.style.visibility = "hidden")}
-              />
-            </div>
-            <h4 className="favemq__title">{f.title}</h4>
-            {f.note && <p className="favemq__note">{f.note}</p>}
-          </article>
-        ))}
+    <div className="favedeck">
+      <div className="favedeck__row">
+        <button className="carousel__arrow" onClick={() => go(-1)} aria-label="Previous category">←</button>
+        <div className="favedeck__stage">
+          <AnimatePresence custom={dir} initial={false}>
+            <motion.div
+              key={cat.label}
+              custom={dir}
+              className="favedeck__panel"
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.34, ease: [0.4, 0, 0.2, 1] }}
+              onAnimationComplete={() => requestAnimationFrame(updateTilt)}
+            >
+              <h3 className="favedeck__title">{cat.label}</h3>
+              <div
+                className={`carousel__track favedeck__track${cat.square ? " is-square" : ""}`}
+                ref={trackRef}
+                onScroll={onScroll}
+              >
+                {cat.items.map((f) => (
+                  <article className="book" key={f.title}>
+                    <div className="book__cover">
+                      {/* blank until the cover file exists, no broken icon */}
+                      <img
+                        src={f.img}
+                        alt={f.title}
+                        loading="lazy"
+                        draggable={false}
+                        onError={(e) => (e.currentTarget.style.visibility = "hidden")}
+                      />
+                    </div>
+                    <h4 className="book__title">{f.title}</h4>
+                    {f.note && <p className="book__author">{f.note}</p>}
+                  </article>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+        <button className="carousel__arrow" onClick={() => go(1)} aria-label="Next category">→</button>
       </div>
     </div>
   );
@@ -377,7 +398,7 @@ export default function About() {
         <Reveal>
           <h2 className="about__eyebrow about__eyebrow--center">A Few of My Favorite Things</h2>
         </Reveal>
-        <FaveMarquee />
+        <FaveDeck />
       </section>
     </div>
   );
