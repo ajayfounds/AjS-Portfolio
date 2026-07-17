@@ -229,9 +229,9 @@ function FunStack() {
 function Journey() {
   const [active, setActive] = useState(0);
   const [quote, setQuote] = useState(0);
-  const cur = experience[active];
   const q = journeyQuotes[quote];
-  const rest = experience.map((e, i) => ({ e, i })).filter((x) => x.i !== active);
+  // active role first (big), the rest follow (mini) — reorder drives the FLIP
+  const ordered = [experience[active], ...experience.filter((_, i) => i !== active)];
 
   return (
     <div className="journey">
@@ -247,48 +247,43 @@ function Journey() {
           </h2>
         </Reveal>
 
-        <Reveal delay={0.05}>
-          <article className="journey__card" style={{ "--accent": cur.accent } as React.CSSProperties}>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={cur.org}
-                className="journey__cardInner"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+        <motion.div className="journey__stack" layout>
+          {ordered.map((e, pos) => {
+            const isBig = pos === 0;
+            const realIdx = experience.indexOf(e);
+            return (
+              <motion.button
+                layout
+                key={e.org}
+                type="button"
+                onClick={() => setActive(realIdx)}
+                className={`journey__slot ${isBig ? "is-big" : "is-mini"}`}
+                style={{ "--accent": e.accent } as React.CSSProperties}
+                transition={{ layout: { duration: 0.55, ease: [0.32, 0.72, 0, 1] } }}
+                aria-pressed={isBig}
               >
-                <h3 className="journey__role">{cur.org.split(" · ")[0]}</h3>
-                <p className="journey__sub">{cur.role}</p>
-                <ul className="journey__desc">
-                  {cur.desc.map((d) => (
-                    <li key={d}>{d}</li>
-                  ))}
-                </ul>
-                <span className="journey__period">{cur.period}</span>
-              </motion.div>
-            </AnimatePresence>
-          </article>
-        </Reveal>
-
-        <div className="journey__chips">
-          {rest.map(({ e, i }) => (
-            <button
-              key={e.org}
-              className="journey__chip"
-              onClick={() => setActive(i)}
-              style={{ "--accent": e.accent } as React.CSSProperties}
-            >
-              <span className="journey__chip-icon" aria-hidden>
-                <Logo src={e.logo} glyph={e.icon} />
-              </span>
-              <span className="journey__chip-text">
-                <span className="journey__chip-name">{e.short}</span>
-                <span className="journey__chip-role">{e.role}</span>
-              </span>
-            </button>
-          ))}
-        </div>
+                {isBig ? (
+                  <motion.div layout="position" className="journey__bigInner">
+                    <h3 className="journey__role">{e.org.split(" · ")[0]}</h3>
+                    <p className="journey__sub">{e.role}</p>
+                    <p className="journey__blurb">{e.blurb}</p>
+                    <span className="journey__period">{e.period}</span>
+                  </motion.div>
+                ) : (
+                  <motion.div layout="position" className="journey__miniInner">
+                    <span className="journey__mini-icon" aria-hidden>
+                      <Logo src={e.logo} glyph={e.icon} />
+                    </span>
+                    <span className="journey__mini-text">
+                      <span className="journey__mini-name">{e.short}</span>
+                      <span className="journey__mini-role">{e.role}</span>
+                    </span>
+                  </motion.div>
+                )}
+              </motion.button>
+            );
+          })}
+        </motion.div>
       </div>
 
       {/* right: emoji-tabbed quote panel */}

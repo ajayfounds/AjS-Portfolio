@@ -9,8 +9,7 @@ export const site = {
   email: "ajaysriacads@gmail.com",
   statement: "A designer guided by clarity and purpose, shaping ideas with intention and transforming structure into visual meaning.",
   bioLine: "Previous intern @Shyphan AI Solutions \ @GDG-New Delhi @Edunet Foundation \ @JSSATEN-PFC @WoB '25 @GSSoC '24",
-  // TODO: replace with your Google Drive resume link
-  resume: "RESUME_DRIVE_LINK"
+  resume: "https://drive.google.com/file/d/1_ghrKRNOP7hjKbNmJB3p8ZznBYGnWJIx/view?usp=sharing"
 };
 
 export type ExploreLink = { num: string; label: string; href: string };
@@ -127,11 +126,12 @@ export type Experience = {
   role: string;
   org: string;        // "Company · Internship/Part-time"
   location: string;
-  desc: string[];     // exact bullet points (verbatim)
+  desc: string[];     // exact bullet points (verbatim) — shown on the Experience page
+  blurb: string;      // short 1–2 liner — shown on the About "Journey" card
   short: string;      // chip label for the Journey timeline
   accent: string;     // card tint for the Journey timeline
   icon: string;       // fallback glyph if the logo image is missing
-  logo: string;       // /logos/*.png
+  logo: string;       // /logos/*.jpg
 };
 
 export const experience: Experience[] = [
@@ -145,10 +145,11 @@ export const experience: Experience[] = [
       "Designed a patient healthcare ecosystem spanning 7 core modules, 120+ screens, and 100+ user flows, including teleconsultation, medical records, home healthcare marketplace, digital wallet, and patient profile management.",
       "Created reusable design system components, interaction patterns, and responsive UI layouts in Figma, improving design consistency and accelerating developer handoff."
     ],
+    blurb: "Designed a 120+ screen patient-care app end to end.",
     short: "Shyphan AI",
     accent: "#cb7836",
     icon: "✦",
-    logo: "/logos/shyphan.png"
+    logo: "/logos/shyphan.jpg"
   },
   {
     period: "Mar 2025 — Oct 2025",
@@ -161,10 +162,11 @@ export const experience: Experience[] = [
       "Developed a consistent visual identity across Instagram, LinkedIn, and print collaterals that aligned with Google’s design language while reflecting the chapter’s local community tone.",
       "Collaborated closely with the core team and event leads to deliver time-bound design assets for speaker sessions, study jams, and community outreach campaigns."
     ],
+    blurb: "Event website + 55 creatives for the Delhi chapter.",
     short: "GDG Delhi",
     accent: "#168b9d",
     icon: "◎",
-    logo: "/logos/gdg.png"
+    logo: "/logos/gdg.jpg"
   },
   {
     period: "Jun 2025 — Jul 2025",
@@ -177,10 +179,11 @@ export const experience: Experience[] = [
       "Applied data preprocessing techniques, including one-hot encoding and feature scaling, to enhance prediction accuracy.",
       "Gained hands-on experience in machine learning algorithms and data analysis in a dynamic startup environment."
     ],
+    blurb: "Built an ML salary-prediction system on 47k+ records.",
     short: "Edunet",
     accent: "#2a8f50",
     icon: "◟",
-    logo: "/logos/edunet.png"
+    logo: "/logos/edunet.jpg"
   },
   {
     period: "Feb 2024 — Feb 2025",
@@ -192,10 +195,11 @@ export const experience: Experience[] = [
       "Built a reusable design system of templates for recurring events, reducing turnaround time for social creatives and ensuring visual consistency across all chapter communications.",
       "Created high-quality 3D models of candles for realistic product visualization, boosting customer engagement and purchase confidence"
     ],
+    blurb: "Grew event engagement +400% with a reusable design system.",
     short: "Photo & Films Club",
     accent: "#bf5a7a",
     icon: "❒",
-    logo: "/logos/jssaten-pfc.png"
+    logo: "/logos/jssaten-pfc.jpg"
   },
   {
     period: "Oct 2024 — Jan 2025",
@@ -207,10 +211,11 @@ export const experience: Experience[] = [
       "Successfully collaborated with maintainers across distributed teams, contributing through GitHub Pull Requests, issue tracking, and peer-reviewed development workflows.",
       "Improved code quality by writing reusable, modular, and maintainable frontend components while following modern software engineering best practices."
     ],
+    blurb: "Shipped 10+ frontend fixes for open-source blockchain projects.",
     short: "Winter of Blockchain",
     accent: "#3f72c9",
     icon: "❄",
-    logo: "/logos/wob.png"
+    logo: "/logos/wob.jpg"
   },
   {
     period: "May 2024 — Aug 2024",
@@ -222,10 +227,11 @@ export const experience: Experience[] = [
       "Collaborated with 15+ maintainers and contributors through GitHub Issues, Pull Requests, and code reviews, reducing issue resolution time and maintaining high code quality.",
       "Enhanced UI responsiveness, reusable components, and frontend architecture, improving maintainability while following Agile development practices and Git workflows."
     ],
+    blurb: "20+ merged PRs across 5+ open-source repos.",
     short: "GirlScript SoC",
     accent: "#e8722e",
     icon: "‹›",
-    logo: "/logos/gssoc.png"
+    logo: "/logos/gssoc.jpg"
   },
   {
     period: "Jun 2024 — Jul 2024",
@@ -237,10 +243,27 @@ export const experience: Experience[] = [
       "Collaborated with distributed development teams through GitHub, participating in issue triaging, pull requests, documentation, and peer code reviews across 10+ development tasks.",
       "Improved application usability by developing reusable components, optimizing frontend code structure, and ensuring cross-browser compatibility."
     ],
+    blurb: "15+ frontend contributions across open-source repos.",
     short: "Social",
     accent: "#c94f4a",
     icon: "◈",
-    logo: "/logos/social.png"
+    logo: "/logos/social.jpg"
+  },
+  {
+    period: "Dec 2023 — Jan 2024",
+    role: "Web Developer",
+    org: "CodSoft · Part-time",
+    location: "Remote",
+    desc: [
+      "Designed a landing page for QuicTric (academic study material website) with functionalities (with responsiveness).",
+      "Designed a full working Portfolio website using Javascript (with responsiveness).",
+      "Maked a fully functional calculator for basic use."
+    ],
+    blurb: "Built responsive landing, portfolio & calculator sites.",
+    short: "CodSoft",
+    accent: "#9a8f2f",
+    icon: "❮❯",
+    logo: "/logos/codsoft.jpg"
   }
 ];
 
@@ -284,14 +307,14 @@ export const communities: Community[] = [
     icon: "📷",
     desc: "",
     img: "/me/neon.jpg",
-    logo: "/logos/jssaten-pfc.png"
+    logo: "/logos/jssaten-pfc.jpg"
   },
   {
     name: "GDSC — New Delhi chapter",
     icon: "🟢",
     desc: "",
     img: "/me/conf.jpg",
-    logo: "/logos/gdg.png"
+    logo: "/logos/gdg.jpg"
   },
   {
     name: "Designare",

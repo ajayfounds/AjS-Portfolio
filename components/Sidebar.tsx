@@ -62,11 +62,25 @@ export default function Sidebar() {
         </button>
 
         <div className="sidebar__top">
-          <div className="sidebar__mark" ref={logoRef} aria-hidden>
-            <span />
-            <span />
-            <span />
-            <span />
+          <div className="sidebar__markrow">
+            <div className="sidebar__mark" ref={logoRef} aria-hidden>
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+            <a
+              className="sidebar__resume"
+              href={site.resume}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-link
+            >
+              Résumé
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M7 17L17 7M8 7h9v9" />
+              </svg>
+            </a>
           </div>
 
           <h1 className="sidebar__name">{site.name}</h1>

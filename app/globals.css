@@ -438,10 +438,25 @@ body.is-resizing * { cursor: col-resize !important; }
   transition: background .35s var(--ease);
 }
 .sidebar:hover::-webkit-scrollbar-thumb { background: var(--line-strong); background-clip: padding-box; }
+.sidebar__markrow {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.75rem;
+}
 .sidebar__mark {
   display: grid; grid-template-columns: 1fr 1fr; gap: 3px;
-  width: 22px; height: 22px; margin-bottom: 1.75rem;
+  width: 22px; height: 22px;
 }
+.sidebar__resume {
+  display: inline-flex; align-items: center; gap: .35rem; cursor: none;
+  font-family: var(--font-mono), monospace; font-size: .68rem;
+  text-transform: uppercase; letter-spacing: .1em; color: var(--fg);
+  padding: .4rem .75rem; border-radius: 100px;
+  border: 1px solid var(--line-strong); background: var(--bg);
+  transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
+}
+.sidebar__resume svg { transition: transform .3s var(--ease); }
+.sidebar__resume:hover { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.sidebar__resume:hover svg { transform: translate(2px, -2px); }
 .sidebar__mark span { border-radius: 2px; }
 .sidebar__mark span:nth-child(1) { background: var(--accent-pink); }
 .sidebar__mark span:nth-child(2) { background: var(--accent-teal); }
@@ -1021,62 +1036,61 @@ body.pill-cursor .cursor { opacity: 0; }
 }
 @keyframes about-spin { to { transform: rotate(360deg); } }
 
-.journey__card {
-  border-radius: 20px; padding: clamp(1.4rem, 2.4vw, 2rem); min-height: 230px;
-  background: color-mix(in srgb, var(--accent) 16%, var(--bg));
-  border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line));
-  display: flex; flex-direction: column; position: relative;
-  transition: background .45s var(--ease), border-color .45s var(--ease);
+/* FLIP stack — the active role is the big card, the rest are mini cards;
+   clicking one reorders the list and framer animates every card to its new box */
+.journey__stack { display: flex; flex-wrap: wrap; gap: .7rem; }
+.journey__slot {
+  cursor: none; text-align: left; border-radius: 18px; overflow: hidden;
+  border: 1px solid var(--line); background: var(--bg-2);
 }
-.journey__cardInner { flex: 1; display: flex; flex-direction: column; gap: .55rem; }
+.journey__slot.is-big {
+  flex: 0 0 100%; min-height: 190px; padding: clamp(1.4rem, 2.4vw, 1.9rem);
+  background: color-mix(in srgb, var(--accent) 16%, var(--bg));
+  border-color: color-mix(in srgb, var(--accent) 32%, var(--line));
+}
+.journey__slot.is-mini {
+  flex: 1 1 calc(33.333% - .48rem); min-width: 128px; min-height: 104px;
+  padding: .75rem;
+  transition: transform .3s var(--ease), border-color .3s var(--ease);
+}
+.journey__slot.is-mini:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+}
+
+.journey__bigInner { display: flex; flex-direction: column; height: 100%; gap: .5rem; }
 .journey__role {
   font-family: var(--font-serif), serif; font-size: clamp(1.4rem, 2.6vw, 1.9rem);
   font-weight: 600; line-height: 1.1;
   color: color-mix(in srgb, var(--accent) 78%, var(--fg));
 }
 .journey__sub { color: var(--muted); font-size: .95rem; font-weight: 500; }
-.journey__desc {
-  display: flex; flex-direction: column; gap: .45rem; margin-top: .4rem;
-  color: var(--fg); font-size: .9rem; line-height: 1.5; opacity: .82;
-}
-.journey__desc li { position: relative; padding-left: 1.1rem; }
-.journey__desc li::before {
-  content: ""; position: absolute; left: 0; top: .55em;
-  width: 5px; height: 5px; border-radius: 50%;
-  background: color-mix(in srgb, var(--accent) 70%, var(--fg));
-}
+.journey__blurb { color: var(--fg); font-size: .95rem; line-height: 1.5; opacity: .82; margin-top: .15rem; }
 .journey__period {
   align-self: flex-start; margin-top: auto; padding: .35rem .8rem; border-radius: 100px;
   font-family: var(--font-mono), monospace; font-size: .68rem; letter-spacing: .04em;
   background: var(--bg); border: 1px solid var(--line); color: var(--muted);
 }
 
-/* compact cards below the big role card — click one to promote it */
-.journey__chips { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .8rem; }
-.journey__chip {
-  display: flex; align-items: center; gap: .6rem; text-align: left; cursor: none;
-  padding: .55rem .8rem; border-radius: 12px; background: var(--bg-2);
-  border: 1px solid var(--line); transition: transform .3s var(--ease), border-color .3s var(--ease);
+.journey__miniInner {
+  display: flex; flex-direction: column; justify-content: space-between;
+  height: 100%; gap: .9rem;
 }
-.journey__chip:hover {
-  transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
-}
-.journey__chip-icon {
+.journey__mini-icon {
   width: 30px; height: 30px; flex-shrink: 0; border-radius: 8px; font-size: .85rem;
-  overflow: hidden;
-  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; display: flex; align-items: center; justify-content: center;
   background: color-mix(in srgb, var(--accent) 14%, #fff);
   color: color-mix(in srgb, var(--accent) 80%, var(--fg));
   border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
 }
-.journey__chip-icon img { width: 100%; height: 100%; object-fit: contain; }
-.journey__chip-text { display: flex; flex-direction: column; gap: .15rem; line-height: 1.2; }
-.journey__chip-name {
-  font-weight: 600; font-size: .86rem;
+.journey__mini-icon img { width: 100%; height: 100%; object-fit: contain; }
+.journey__mini-text { display: flex; flex-direction: column; gap: .15rem; line-height: 1.2; }
+.journey__mini-name {
+  font-weight: 600; font-size: .82rem;
   color: color-mix(in srgb, var(--accent) 78%, var(--fg));
 }
-.journey__chip-role {
-  font-family: var(--font-mono), monospace; font-size: .58rem;
+.journey__mini-role {
+  font-family: var(--font-mono), monospace; font-size: .55rem;
   text-transform: uppercase; letter-spacing: .05em; color: var(--muted);
 }
 
