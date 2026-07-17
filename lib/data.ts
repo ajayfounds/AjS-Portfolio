@@ -125,58 +125,122 @@ export const projects: Project[] = [
 export type Experience = {
   period: string;
   role: string;
-  org: string;
-  desc: string;
-  short: string;   // chip label for the Journey timeline
-  accent: string;  // card tint for the Journey timeline
-  icon: string;    // chip glyph
+  org: string;        // "Company · Internship/Part-time"
+  location: string;
+  desc: string[];     // exact bullet points (verbatim)
+  short: string;      // chip label for the Journey timeline
+  accent: string;     // card tint for the Journey timeline
+  icon: string;       // fallback glyph if the logo image is missing
+  logo: string;       // /logos/*.png
 };
 
 export const experience: Experience[] = [
   {
-    period: "Apr 2026 — June 2026",
+    period: "Apr 2026 — Jun 2026",
     role: "Product Designer",
-    org: "Shyphan AI Solutions Pvt Ltd · Noida",
-    desc: "Designing scalable, user-centric end-to-end experiences across web and product for AI-driven solutions — building UI systems and reusable components, and translating business requirements into user-centered design with cross-functional teams.",
+    org: "Shyphan AI Solutions · Internship",
+    location: "Noida, India · On-site",
+    desc: [
+      "Designed and optimized 30+ high-fidelity mobile screens for urgent, scheduled, follow-up, and video consultations, reducing booking complexity through intuitive multi-step user journeys.",
+      "Designed a patient healthcare ecosystem spanning 7 core modules, 120+ screens, and 100+ user flows, including teleconsultation, medical records, home healthcare marketplace, digital wallet, and patient profile management.",
+      "Created reusable design system components, interaction patterns, and responsive UI layouts in Figma, improving design consistency and accelerating developer handoff."
+    ],
     short: "Shyphan AI",
     accent: "#cb7836",
-    icon: "✦"
+    icon: "✦",
+    logo: "/logos/shyphan.png"
   },
   {
     period: "Mar 2025 — Oct 2025",
-    role: "UX/UI Designer",
-    org: "Google DSC (GDSC) · New Delhi chapter",
-    desc: "Designed the GDSC Ace event website and produced 30+ event creatives and 25+ social posts. Built a consistent visual identity across Instagram, LinkedIn, and print — aligned with Google's design language while reflecting the local community tone.",
-    short: "GDSC Delhi",
+    role: "Designer",
+    org: "GDG New Delhi · Part-time",
+    location: "Delhi, India · Hybrid",
+    desc: [
+      "Designed the website for GDSC Ace event (in collaboration with GDSC Wow and Delhi Kotlin User Group) with my fellow mates.",
+      "Designed 30+ event creatives, 25+ social media posts, and promotional materials for the New Delhi chapter’s tech events, workshops, and hackathons.",
+      "Developed a consistent visual identity across Instagram, LinkedIn, and print collaterals that aligned with Google’s design language while reflecting the chapter’s local community tone.",
+      "Collaborated closely with the core team and event leads to deliver time-bound design assets for speaker sessions, study jams, and community outreach campaigns."
+    ],
+    short: "GDG Delhi",
     accent: "#168b9d",
-    icon: "◎"
+    icon: "◎",
+    logo: "/logos/gdg.png"
   },
   {
     period: "Jun 2025 — Jul 2025",
-    role: "AI/ML Intern",
-    org: "Edunet Foundation",
-    desc: "Built an end-to-end Employee Salary Classification & Prediction System — trained Linear Regression and Decision Tree models on 47,000+ records and deployed an interactive Streamlit dashboard for real-time predictions.",
+    role: "AI & ML Intern",
+    org: "Edunet Foundation · Internship",
+    location: "New Delhi, India · Remote",
+    desc: [
+      "Developed an end-to-end Employee Salary Classification and Prediction System at Edunet Foundation.",
+      "Built and trained Linear Regression and Decision Tree models on a dataset of over 47,000 employee records.",
+      "Applied data preprocessing techniques, including one-hot encoding and feature scaling, to enhance prediction accuracy.",
+      "Gained hands-on experience in machine learning algorithms and data analysis in a dynamic startup environment."
+    ],
     short: "Edunet",
     accent: "#2a8f50",
-    icon: "▟"
+    icon: "◟",
+    logo: "/logos/edunet.png"
   },
   {
     period: "Feb 2024 — Feb 2025",
     role: "Designer",
-    org: "JSSATEN Photography & Films Club",
-    desc: "Drove +400% engagement growth on event pages and 70% more ticket sales. Built a reusable design-system of templates for recurring events, plus user personas and journey maps to ground decisions.",
+    org: "JSSATEN Photography and Films Club · Part-time",
+    location: "Noida, India · Hybrid",
+    desc: [
+      "Increased the engagements on all social handles by +400% growth on event pages and 70% more tickets sold",
+      "Built a reusable design system of templates for recurring events, reducing turnaround time for social creatives and ensuring visual consistency across all chapter communications.",
+      "Created high-quality 3D models of candles for realistic product visualization, boosting customer engagement and purchase confidence"
+    ],
     short: "Photo & Films Club",
     accent: "#bf5a7a",
-    icon: "❒"
+    icon: "❒",
+    logo: "/logos/jssaten-pfc.png"
   },
   {
-    period: "Dec 2023 — Jan 2024",
+    period: "Oct 2024 — Jan 2025",
+    role: "Web Development Contributor",
+    org: "Winter Of Blockchain · Part-time",
+    location: "Remote",
+    desc: [
+      "Developed and integrated 10+ frontend enhancements and bug fixes for blockchain-focused open-source projects using React.js, JavaScript, HTML, CSS, and Git.",
+      "Successfully collaborated with maintainers across distributed teams, contributing through GitHub Pull Requests, issue tracking, and peer-reviewed development workflows.",
+      "Improved code quality by writing reusable, modular, and maintainable frontend components while following modern software engineering best practices."
+    ],
+    short: "Winter of Blockchain",
+    accent: "#3f72c9",
+    icon: "❄",
+    logo: "/logos/wob.png"
+  },
+  {
+    period: "May 2024 — Aug 2024",
     role: "Web Developer",
-    org: "CodSoft",
-    desc: "Built reusable UI components that improved consistency and reduced redundant code. Collaborated with design and backend teams to integrate APIs and deliver pixel-perfect, responsive layouts.",
-    short: "CodSoft",
-    accent: "#9a8f2f",
-    icon: "❮❯"
+    org: "GirlScript Summer of Code · Part-time",
+    location: "Delhi, India · Remote",
+    desc: [
+      "Contributed 20+ pull requests across 5+ open-source repositories, developing new features, resolving bugs, and improving application performance using React.js, JavaScript, HTML5, CSS3, and Git.",
+      "Collaborated with 15+ maintainers and contributors through GitHub Issues, Pull Requests, and code reviews, reducing issue resolution time and maintaining high code quality.",
+      "Enhanced UI responsiveness, reusable components, and frontend architecture, improving maintainability while following Agile development practices and Git workflows."
+    ],
+    short: "GirlScript SoC",
+    accent: "#e8722e",
+    icon: "‹›",
+    logo: "/logos/gssoc.png"
+  },
+  {
+    period: "Jun 2024 — Jul 2024",
+    role: "Web Dev Contributor",
+    org: "Social (Formerly Script Foundation) · Part-time",
+    location: "Delhi, India · Remote",
+    desc: [
+      "Delivered 15+ production-ready code contributions across multiple open-source repositories, implementing responsive UI components and fixing critical frontend issues using React.js and JavaScript.",
+      "Collaborated with distributed development teams through GitHub, participating in issue triaging, pull requests, documentation, and peer code reviews across 10+ development tasks.",
+      "Improved application usability by developing reusable components, optimizing frontend code structure, and ensuring cross-browser compatibility."
+    ],
+    short: "Social",
+    accent: "#c94f4a",
+    icon: "◈",
+    logo: "/logos/social.png"
   }
 ];
 
@@ -212,20 +276,22 @@ export const aboutIntro = {
   closing: "Always happy to chat! I'm on the lookout for product design roles and good conversations :)"
 };
 
-export type Community = { name: string; icon: string; desc: string; img: string };
+export type Community = { name: string; icon: string; desc: string; img: string; logo?: string };
 
 export const communities: Community[] = [
   {
     name: "JSSATEN Photography & Films Club",
     icon: "📷",
     desc: "",
-    img: "/me/neon.jpg"
+    img: "/me/neon.jpg",
+    logo: "/logos/jssaten-pfc.png"
   },
   {
     name: "GDSC — New Delhi chapter",
     icon: "🟢",
     desc: "",
-    img: "/me/conf.jpg"
+    img: "/me/conf.jpg",
+    logo: "/logos/gdg.png"
   },
   {
     name: "Designare",

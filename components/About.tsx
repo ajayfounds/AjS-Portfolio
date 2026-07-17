@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Reveal from "./Reveal";
+import Logo from "./Logo";
 import {
   aboutIntro,
   communities,
@@ -259,7 +260,11 @@ function Journey() {
               >
                 <h3 className="journey__role">{cur.org.split(" · ")[0]}</h3>
                 <p className="journey__sub">{cur.role}</p>
-                <p className="journey__desc">{cur.desc}</p>
+                <ul className="journey__desc">
+                  {cur.desc.map((d) => (
+                    <li key={d}>{d}</li>
+                  ))}
+                </ul>
                 <span className="journey__period">{cur.period}</span>
               </motion.div>
             </AnimatePresence>
@@ -274,7 +279,9 @@ function Journey() {
               onClick={() => setActive(i)}
               style={{ "--accent": e.accent } as React.CSSProperties}
             >
-              <span className="journey__chip-icon" aria-hidden>{e.icon}</span>
+              <span className="journey__chip-icon" aria-hidden>
+                <Logo src={e.logo} glyph={e.icon} />
+              </span>
               <span className="journey__chip-text">
                 <span className="journey__chip-name">{e.short}</span>
                 <span className="journey__chip-role">{e.role}</span>
@@ -386,7 +393,9 @@ export default function About() {
           {communities.map((c, i) => (
             <Reveal as="li" key={c.name} className="community" delay={i * 0.06}>
               <div className="community__head">
-                <span className="community__icon" aria-hidden>{c.icon}</span>
+                <span className="community__icon" aria-hidden>
+                  {c.logo ? <Logo src={c.logo} glyph={c.icon} /> : c.icon}
+                </span>
                 <h3 className="community__name">{c.name}</h3>
               </div>
               {c.desc && <p className="community__desc">{c.desc}</p>}
