@@ -286,8 +286,7 @@ export const funStack: FunPhoto[] = [
   { src: "/me/anime.jpg", alt: "Out and about" },
   { src: "/me/redshot.jpg", alt: "On set" },
   { src: "/me/community-selfie.jpg", alt: "With the crew" },
-  { src: "/me/conf.jpg", alt: "On stage" },
-  { src: "/me/portrait.jpg", alt: "Portrait" }
+  { src: "/me/conf.jpg", alt: "On stage" }
 ];
 
 export const funBlurb =
