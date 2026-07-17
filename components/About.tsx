@@ -130,123 +130,112 @@ function FaveDeck() {
   );
 }
 
-// "Things I do for fun" — auto-scrolling photo strip; the card nearest the
-// centre grows largest (coverflow), seamless loop, drag + hover-pause
+// "Things I do for fun" — full-width 3D photo ring; page scroll spins it,
+// drag to rotate, slow idle spin (reference: rotating panel carousel)
 function FunStack() {
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const offset = useRef(0);
-  const paused = useRef(false);
-  const rafRef = useRef<number | undefined>(undefined);
-  const drag = useRef({ down: false, startX: 0, startOff: 0, moved: false });
+  const stageRef = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const s = useRef({ angle: 0, vel: 0, lastY: 0, down: false, startX: 0, startAngle: 0, moved: false }).current;
 
-  // duplicate the photos so the strip can loop seamlessly
-  const items = [...funStack, ...funStack];
+  const n = funStack.length;
 
   useEffect(() => {
-    const track = trackRef.current;
-    const vp = viewportRef.current;
-    if (!track || !vp) return;
+    const stage = stageRef.current;
+    const wrap = wrapRef.current;
+    if (!stage || !wrap) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const SPEED = 26; // px/s, left -> right
+    const step = 360 / n;
+    let raf = 0;
     let last = performance.now();
+    let radius = 0;
 
-    // scale/tilt each card by its distance from the viewport centre
-    const shape = () => {
-      const vr = vp.getBoundingClientRect();
-      const cx = vr.left + vr.width / 2;
-      const half = vr.width / 2 || 1;
-      for (const card of Array.from(track.children) as HTMLElement[]) {
-        const r = card.getBoundingClientRect();
-        const d = Math.max(-1, Math.min(1, ((r.left + r.width / 2) - cx) / half));
-        const a = Math.abs(d);
-        card.style.setProperty("--s", (1.12 - a * 0.5).toFixed(3));
-        card.style.setProperty("--r", (d * 9).toFixed(2) + "deg");
-        card.style.setProperty("--o", (1 - a * 0.35).toFixed(3));
-        card.style.zIndex = String(100 - Math.round(a * 100));
+    const layout = () => {
+      const card = stage.children[0] as HTMLElement | undefined;
+      const w = card?.offsetWidth ?? 300;
+      // ring radius from card width so panels sit edge-to-edge with a little air
+      radius = Math.round((w / 2) / Math.tan(Math.PI / n) * 1.18);
+      for (let i = 0; i < stage.children.length; i++) {
+        (stage.children[i] as HTMLElement).style.transform =
+          `rotateY(${i * step}deg) translateZ(${radius}px)`;
       }
     };
+    layout();
+    window.addEventListener("resize", layout);
 
-    offset.current = -(track.scrollWidth / 2);
+    s.lastY = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      // page scroll spins the ring (only meaningful while section is near viewport)
+      const r = wrap.getBoundingClientRect();
+      if (r.bottom > -200 && r.top < window.innerHeight + 200) {
+        s.vel += (y - s.lastY) * 0.02;
+      }
+      s.lastY = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     const tick = (now: number) => {
       const dt = Math.min(40, now - last) / 1000;
       last = now;
-      const half = track.scrollWidth / 2 || 1;
-      if (!paused.current && !drag.current.down && !reduce) offset.current += SPEED * dt;
-      // keep offset in (-half, 0] for a seamless wrap
-      if (offset.current > 0) offset.current -= half;
-      if (offset.current <= -half) offset.current += half;
-      track.style.transform = `translate3d(${offset.current.toFixed(2)}px,0,0)`;
-      shape();
-      rafRef.current = requestAnimationFrame(tick);
+      if (!s.down) {
+        if (!reduce) s.angle += 4.5 * dt; // idle spin
+        s.angle += s.vel;
+        s.vel *= 0.92; // momentum decay
+      }
+      stage.style.transform = `rotateY(${s.angle.toFixed(3)}deg)`;
+      // dim/fade panels that face away
+      for (let i = 0; i < stage.children.length; i++) {
+        const el = stage.children[i] as HTMLElement;
+        const world = ((i * step + s.angle) % 360 + 360) % 360;
+        const facing = Math.cos((world * Math.PI) / 180); // 1 = front, -1 = back
+        el.style.setProperty("--dim", (0.55 + 0.45 * Math.max(0, facing)).toFixed(3));
+      }
+      raf = requestAnimationFrame(tick);
     };
-    rafRef.current = requestAnimationFrame(tick);
+    raf = requestAnimationFrame(tick);
+
     return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", layout);
+      window.removeEventListener("scroll", onScroll);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onDown = (e: React.PointerEvent) => {
-    drag.current = { down: true, startX: e.clientX, startOff: offset.current, moved: false };
-    viewportRef.current?.setPointerCapture?.(e.pointerId);
+    s.down = true; s.moved = false;
+    s.startX = e.clientX; s.startAngle = s.angle; s.vel = 0;
+    wrapRef.current?.setPointerCapture?.(e.pointerId);
   };
   const onMove = (e: React.PointerEvent) => {
-    if (!drag.current.down) return;
-    const dx = e.clientX - drag.current.startX;
-    if (Math.abs(dx) > 3) drag.current.moved = true;
-    offset.current = drag.current.startOff + dx;
+    if (!s.down) return;
+    const dx = e.clientX - s.startX;
+    if (Math.abs(dx) > 4) s.moved = true;
+    const prev = s.angle;
+    s.angle = s.startAngle + dx * 0.25;
+    s.vel = (s.angle - prev) * 0.6;
   };
   const onUp = (e: React.PointerEvent) => {
-    drag.current.down = false;
-    try {
-      viewportRef.current?.releasePointerCapture?.(e.pointerId);
-    } catch {}
-  };
-
-  // arrows tween the offset by ~one card (pauses auto-scroll briefly)
-  const nudge = (dir: number) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const first = track.children[0] as HTMLElement | undefined;
-    const step = (first?.offsetWidth ?? 220) + 28;
-    const start = offset.current;
-    const target = start + dir * step;
-    const t0 = performance.now();
-    paused.current = true;
-    const anim = (now: number) => {
-      const p = Math.min((now - t0) / 460, 1);
-      offset.current = start + (target - start) * (1 - Math.pow(1 - p, 3));
-      if (p < 1) requestAnimationFrame(anim);
-      else paused.current = false;
-    };
-    requestAnimationFrame(anim);
+    s.down = false;
+    try { wrapRef.current?.releasePointerCapture?.(e.pointerId); } catch {}
   };
 
   return (
-    <div className="funstack">
-      <button className="funstack__arrow funstack__arrow--prev" onClick={() => nudge(1)} aria-label="Previous">←</button>
-      <div
-        className="funstack__viewport"
-        ref={viewportRef}
-        onPointerDown={onDown}
-        onPointerMove={onMove}
-        onPointerUp={onUp}
-        onPointerEnter={() => (paused.current = true)}
-        onPointerLeave={(e) => {
-          paused.current = false;
-          onUp(e);
-        }}
-        data-lenis-prevent
-      >
-        <div className="funstack__track" ref={trackRef}>
-          {items.map((p, i) => (
-            <figure key={i} className="funstack__card">
-              <img src={p.src} alt={p.alt} loading="lazy" draggable={false} />
-            </figure>
-          ))}
-        </div>
+    <div
+      className="funring"
+      ref={wrapRef}
+      onPointerDown={onDown}
+      onPointerMove={onMove}
+      onPointerUp={onUp}
+      onPointerCancel={onUp}
+    >
+      <div className="funring__stage" ref={stageRef}>
+        {funStack.map((p) => (
+          <figure key={p.src} className="funring__card">
+            <img src={p.src} alt={p.alt} loading="lazy" draggable={false} />
+          </figure>
+        ))}
       </div>
-      <button className="funstack__arrow funstack__arrow--next" onClick={() => nudge(-1)} aria-label="Next">→</button>
     </div>
   );
 }
