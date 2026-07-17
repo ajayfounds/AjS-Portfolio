@@ -9,7 +9,7 @@ import {
   favorites,
   funStack,
   funBlurb,
-  journeyQuote,
+  journeyQuotes,
   experience
 } from "@/lib/data";
 
@@ -243,7 +243,9 @@ function FunStack() {
 // "Journey so far" — click a chip to swap the highlighted role card
 function Journey() {
   const [active, setActive] = useState(0);
+  const [quote, setQuote] = useState(0);
   const cur = experience[active];
+  const q = journeyQuotes[quote];
   const rest = experience.map((e, i) => ({ e, i })).filter((x) => x.i !== active);
 
   return (
@@ -262,10 +264,21 @@ function Journey() {
 
         <Reveal delay={0.05}>
           <article className="journey__card" style={{ "--accent": cur.accent } as React.CSSProperties}>
-            <h3 className="journey__role">{cur.org.split(" · ")[0]}</h3>
-            <p className="journey__sub">{cur.role}</p>
-            <p className="journey__desc">{cur.desc}</p>
-            <span className="journey__period">{cur.period}</span>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={cur.org}
+                className="journey__cardInner"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+              >
+                <h3 className="journey__role">{cur.org.split(" · ")[0]}</h3>
+                <p className="journey__sub">{cur.role}</p>
+                <p className="journey__desc">{cur.desc}</p>
+                <span className="journey__period">{cur.period}</span>
+              </motion.div>
+            </AnimatePresence>
           </article>
         </Reveal>
 
@@ -287,20 +300,46 @@ function Journey() {
         </div>
       </div>
 
-      {/* right: quote card */}
+      {/* right: emoji-tabbed quote panel */}
       <Reveal delay={0.1} className="journey__quoteWrap">
-        <div className="journey__quote">
-          <div className="journey__tabs" aria-hidden>
-            {journeyQuote.emoji.map((em) => (
-              <span key={em} className="journey__tab">{em}</span>
+        <div className="journey__panel">
+          <div className="journey__tabs" role="tablist">
+            {journeyQuotes.map((q, i) => (
+              <button
+                key={q.emoji}
+                role="tab"
+                aria-selected={i === quote}
+                className={`journey__tab${i === quote ? " is-active" : ""}`}
+                onClick={() => setQuote(i)}
+              >
+                <span aria-hidden>{q.emoji}</span>
+              </button>
             ))}
           </div>
-          <blockquote className="journey__quoteText">
-            {journeyQuote.lead}
-            <em>{journeyQuote.emph}</em>
-            {journeyQuote.tail}
-          </blockquote>
-          <div className="journey__quoteSky" aria-hidden />
+
+          <div className="journey__quote">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={q.emoji}
+                className="journey__quoteInner"
+                initial={{ opacity: 0, scale: 1.03 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.99 }}
+                transition={{ duration: 0.42, ease: [0.4, 0, 0.2, 1] }}
+              >
+                <div
+                  className="journey__quoteSky"
+                  aria-hidden
+                  style={{ background: `linear-gradient(180deg, ${q.from}, ${q.via} 55%, ${q.to})` }}
+                />
+                <blockquote className="journey__quoteText">
+                  {q.lead}
+                  <em>{q.emph}</em>
+                  {q.tail}
+                </blockquote>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </Reveal>
     </div>

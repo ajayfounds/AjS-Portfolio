@@ -293,12 +293,47 @@ export const funBlurb =
   "I studied a little of everything before design found me — sketchbooks, a camera, a skateboard, a guitar. Design, for me, isn't just screens; it's the same itch to make something feel intentional, whether that's a poster, an edit, or a product flow.";
 
 /* "Journey so far" — quote card */
-export const journeyQuote = {
-  lead: "Design is ",
-  emph: "storytelling",
-  tail: ", not just decoration.",
-  emoji: ["💬", "🎬", "🎸", "📷"]
+export type JourneyQuote = {
+  emoji: string;
+  lead: string;
+  emph: string;
+  tail: string;
+  from: string; // backdrop gradient
+  via: string;
+  to: string;
 };
+
+// each emoji tab swaps the quote + its backdrop
+export const journeyQuotes: JourneyQuote[] = [
+  {
+    emoji: "💬",
+    lead: "Design is ",
+    emph: "storytelling",
+    tail: ", not just decoration.",
+    from: "#cfe8f5", via: "#bfe3d2", to: "#9fd6a6"
+  },
+  {
+    emoji: "🎬",
+    lead: "I treat mistakes as part of ",
+    emph: "learning",
+    tail: ", not failure.",
+    from: "#dce9f7", via: "#f2e3cf", to: "#e8c9a6"
+  },
+  {
+    emoji: "🎸",
+    lead: "The best flows have ",
+    emph: "rhythm",
+    tail: " — you feel it before you see it.",
+    from: "#efd9e6", via: "#e3c9e8", to: "#c9b3e0"
+  },
+  {
+    emoji: "📷",
+    lead: "Good design is ",
+    emph: "noticing",
+    tail: " what everyone else walks past.",
+    from: "#f7e6cf", via: "#f0cfc0", to: "#d9a9a0"
+  }
+];
 
 /* ── VISITOR GALLERY (seeded, deterministic so SSR === client) ──────── */
 
