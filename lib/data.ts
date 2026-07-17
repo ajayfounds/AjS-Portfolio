@@ -244,7 +244,6 @@ export const favorites: { label: string; items: Fave[]; square?: boolean }[] = [
     label: "On Screen",
     items: [
       { title: "Across the Spider-Verse", note: "every frame a new art style", img: "/covers/spider-verse.jpg" },
-      { title: "Spider-Punk", note: "Hobie steals every scene", img: "/covers/spider-punk.jpg" },
       { title: "The Flash", note: "for the chem + physics nerd in me", img: "/covers/the-flash.jpg" },
       { title: "Haikyū!!", note: "storytelling that hits", img: "/covers/haikyu.jpg" },
       { title: "One Piece", note: "Zoro supremacy", img: "/covers/one-piece.jpg" }
@@ -256,7 +255,8 @@ export const favorites: { label: string; items: Fave[]; square?: boolean }[] = [
     items: [
       { title: "Alec Benjamin", note: "a whole story in three minutes", img: "/covers/alec-benjamin.jpg" },
       { title: "Shawn Mendes", note: "on repeat, endlessly", img: "/covers/shawn-mendes.jpg" },
-      { title: "Billie Eilish", note: "hit me hard and soft", img: "/covers/billie-eilish.jpg" }
+      { title: "Billie Eilish", note: "hit me hard and soft", img: "/covers/billie-eilish.jpg" },
+      { title: "Metro Boomin", note: "beats on loop", img: "/covers/metro-boomin.jpg" }
     ]
   },
   {

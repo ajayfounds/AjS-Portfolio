@@ -344,17 +344,10 @@ export default function About() {
       <Reveal delay={0.05}>
         <div className="about__intro">
           <p>{aboutIntro.paragraphs[0]}</p>
-          <p>{aboutIntro.paragraphs[1]}</p>
-          <ul className="about__hobbies">
-            {aboutIntro.hobbies.map((h) => (
-              <li key={h}>{h}</li>
-            ))}
-          </ul>
-          <p>{aboutIntro.closing}</p>
         </div>
       </Reveal>
 
-      {/* Things I do for fun — right after the intro/hobbies */}
+      {/* Things I do for fun — photo ring first, hobbies after */}
       <section className="about__block about__block--center">
         <Reveal>
           <h2 className="about__display">Things I do for fun</h2>
@@ -366,6 +359,19 @@ export default function About() {
           <FunStack />
         </Reveal>
       </section>
+
+      {/* Hobbies list */}
+      <Reveal delay={0.05}>
+        <div className="about__intro">
+          <p>{aboutIntro.paragraphs[1]}</p>
+          <ul className="about__hobbies">
+            {aboutIntro.hobbies.map((h) => (
+              <li key={h}>{h}</li>
+            ))}
+          </ul>
+          <p>{aboutIntro.closing}</p>
+        </div>
+      </Reveal>
 
       {/* Journey so far */}
       <section className="about__block">
