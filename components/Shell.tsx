@@ -5,6 +5,7 @@ import ScrollReset from "./ScrollReset";
 import Cursor from "./Cursor";
 import Intro from "./Intro";
 import Sidebar from "./Sidebar";
+import Resizer from "./Resizer";
 import Footer from "./Footer";
 import Buddy from "./Buddy";
 
@@ -21,6 +22,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           <div className="layout__body">
             <Sidebar />
             <main className="main">{children}</main>
+            <Resizer />
           </div>
           <Footer />
         </div>

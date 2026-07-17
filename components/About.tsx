@@ -91,9 +91,7 @@ function FaveDeck() {
               >
                 {cat.items.map((f) => (
                   <article className="book" key={f.title}>
-                    <div className="book__cover" style={{ ["--cover" as string]: `url("${f.img}")` } as React.CSSProperties}>
-                      {/* blurred copy of the same art fills the letterbox gaps */}
-                      <span className="book__blur" aria-hidden />
+                    <div className="book__cover">
                       <img
                         src={f.img}
                         alt={f.title}
@@ -363,7 +361,7 @@ export default function About() {
 
       {/* Hobbies list */}
       <Reveal delay={0.05}>
-        <div className="about__intro">
+        <div className="about__intro about__intro--gap">
           <p>{aboutIntro.paragraphs[1]}</p>
           <ul className="about__hobbies">
             {aboutIntro.hobbies.map((h) => (
