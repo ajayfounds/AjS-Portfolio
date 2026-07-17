@@ -91,8 +91,9 @@ function FaveDeck() {
               >
                 {cat.items.map((f) => (
                   <article className="book" key={f.title}>
-                    <div className="book__cover">
-                      {/* blank until the cover file exists, no broken icon */}
+                    <div className="book__cover" style={{ ["--cover" as string]: `url("${f.img}")` } as React.CSSProperties}>
+                      {/* blurred copy of the same art fills the letterbox gaps */}
+                      <span className="book__blur" aria-hidden />
                       <img
                         src={f.img}
                         alt={f.title}

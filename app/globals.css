@@ -874,18 +874,24 @@ body.pill-cursor .cursor { opacity: 0; }
   will-change: transform;
 }
 .book__cover {
-  aspect-ratio: 2/3; border-radius: 12px; overflow: hidden;
-  display: flex; align-items: flex-end; padding: .9rem; background: var(--bg-2);
+  position: relative; aspect-ratio: 2/3; border-radius: 12px; overflow: hidden;
+  background: var(--bg-2);
   box-shadow: 0 26px 46px -22px rgba(36, 36, 36, 0.6); margin-bottom: .9rem;
   transition: box-shadow .3s var(--ease);
   animation: bookFloat 6.5s ease-in-out infinite; will-change: transform;
+}
+/* blurred, zoomed copy of the cover art behind the poster fills any gap */
+.book__blur {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: var(--cover); background-size: cover; background-position: center;
+  filter: blur(20px) saturate(1.25) brightness(.95); transform: scale(1.3);
 }
 /* gentle, seamless idle float — staggered so the row breathes like the reference */
 @keyframes bookFloat { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-7px) } }
 .book:nth-child(2n) .book__cover { animation-delay: -1.6s; animation-duration: 7.2s; }
 .book:nth-child(3n) .book__cover { animation-delay: -3.4s; animation-duration: 6s; }
 .book:nth-child(4n) .book__cover { animation-delay: -4.8s; }
-.book__cover img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.book__cover img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
 .book:hover { transform: rotateY(0deg) translateY(-6px) scale(1.05); transition: transform .35s var(--ease); }
 .book:hover .book__cover { box-shadow: 0 40px 64px -26px rgba(36, 36, 36, 0.72); animation-play-state: paused; }
 .book__coverTitle {
