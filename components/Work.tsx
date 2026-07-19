@@ -30,10 +30,10 @@ export default function Work() {
         {projects.map((p, i) => (
           <Reveal as="li" key={p.num} className="card" delay={(i % 2) * 0.06}>
             <a
-              href={p.href}
+              href={p.caseHref ?? p.href}
               className="card__link"
-              target="_blank"
-              rel="noopener noreferrer"
+              target={p.caseHref ? undefined : "_blank"}
+              rel={p.caseHref ? undefined : "noopener noreferrer"}
               data-project
               onMouseEnter={enter}
               onMouseLeave={leave}

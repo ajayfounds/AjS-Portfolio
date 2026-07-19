@@ -46,6 +46,7 @@ export type Project = {
   tags: string[];
   status: "SHIPPED" | "IN PROGRESS" | "CASE STUDY";
   href: string;
+  caseHref?: string; // internal case-study route, if one exists
   img: string;
   desc: string;
   role: string;
@@ -98,8 +99,9 @@ export const projects: Project[] = [
     name: "Payment Limbo",
     cat: "UPI Failure & Anxiety Recovery",
     tags: ["Product", "Research"],
-    status: "IN PROGRESS",
+    status: "CASE STUDY",
     href: "https://www.behance.net/gallery/245200333/UPI-Failure-Recovery-System",
+    caseHref: "/work/upi-failure-recovery",
     img: "/me/thumbnail_paymentlimbo.png",
     desc: "A recovery system for the in-between moment when a UPI payment fails — designed around the anxiety of not knowing where your money went.",
     role: "Product Designer, Researcher",
