@@ -258,12 +258,15 @@ function Journey() {
                 type="button"
                 onClick={() => setActive(realIdx)}
                 className={`journey__slot ${isBig ? "is-big" : "is-mini"}`}
-                style={{ "--accent": e.accent } as React.CSSProperties}
+                style={{ "--accent": e.accent, "--chip-fg": e.fg } as React.CSSProperties}
                 transition={{ layout: { duration: 0.55, ease: [0.32, 0.72, 0, 1] } }}
                 aria-pressed={isBig}
               >
                 {isBig ? (
                   <motion.div layout="position" className="journey__bigInner">
+                    <span className="journey__bigLogo" aria-hidden>
+                      <Logo src={e.logo} glyph={e.icon} />
+                    </span>
                     <h3 className="journey__role">{e.org.split(" · ")[0]}</h3>
                     <p className="journey__sub">{e.role}</p>
                     <p className="journey__blurb">{e.blurb}</p>

@@ -25,12 +25,12 @@ export const explore: ExploreLink[] = [
 
 export type Outbound = { label: string; href: string };
 
+// Resume lives in the sidebar header button now, not in this list
 export const outbound: Outbound[] = [
   { label: "Email", href: "mailto:ajaysriacads@gmail.com" },
   { label: "LinkedIn", href: "https://linkedin.com/in/ajaysri8" },
   { label: "Behance", href: "https://behance.net/ajay_srivastava" },
-  { label: "X", href: "https://x.com/hazel_creates" },
-  { label: "Resume", href: "https://drive.google.com/file/d/1_ghrKRNOP7hjKbNmJB3p8ZznBYGnWJIx/view?usp=sharing" }
+  { label: "X", href: "https://x.com/hazel_creates" }
 ];
 
 export const latestLog = {
@@ -131,7 +131,8 @@ export type Experience = {
   desc: string[];     // exact bullet points (verbatim) — shown on the Experience page
   blurb: string;      // short 1–2 liner — shown on the About "Journey" card
   short: string;      // chip label for the Journey timeline
-  accent: string;     // card tint for the Journey timeline
+  accent: string;     // vibrant fill for the Journey mini card
+  fg: string;         // complementary light text on that fill
   icon: string;       // fallback glyph if the logo image is missing
   logo: string;       // /logos/*.jpg
 };
@@ -149,7 +150,8 @@ export const experience: Experience[] = [
     ],
     blurb: "Designed a 120+ screen patient-care app end to end.",
     short: "Shyphan AI",
-    accent: "#cb7836",
+    accent: "#ea580c",
+    fg: "#ffffff",
     icon: "✦",
     logo: "/logos/shyphan.jpg"
   },
@@ -166,7 +168,8 @@ export const experience: Experience[] = [
     ],
     blurb: "Event website + 55 creatives for the Delhi chapter.",
     short: "GDG Delhi",
-    accent: "#168b9d",
+    accent: "#1d4ed8",
+    fg: "#ffd24a",
     icon: "◎",
     logo: "/logos/gdg.jpg"
   },
@@ -183,7 +186,8 @@ export const experience: Experience[] = [
     ],
     blurb: "Built an ML salary-prediction system on 47k+ records.",
     short: "Edunet",
-    accent: "#2a8f50",
+    accent: "#15803d",
+    fg: "#ffffff",
     icon: "◟",
     logo: "/logos/edunet.jpg"
   },
@@ -199,7 +203,8 @@ export const experience: Experience[] = [
     ],
     blurb: "Grew event engagement +400% with a reusable design system.",
     short: "Photo & Films Club",
-    accent: "#bf5a7a",
+    accent: "#7c3aed",
+    fg: "#ffffff",
     icon: "❒",
     logo: "/logos/jssaten-pfc.jpg"
   },
@@ -215,7 +220,8 @@ export const experience: Experience[] = [
     ],
     blurb: "Shipped 10+ frontend fixes for open-source blockchain projects.",
     short: "Winter of Blockchain",
-    accent: "#3f72c9",
+    accent: "#334155",
+    fg: "#ffffff",
     icon: "❄",
     logo: "/logos/wob.jpg"
   },
@@ -231,7 +237,8 @@ export const experience: Experience[] = [
     ],
     blurb: "20+ merged PRs across 5+ open-source repos.",
     short: "GirlScript SoC",
-    accent: "#e8722e",
+    accent: "#be123c",
+    fg: "#ffffff",
     icon: "‹›",
     logo: "/logos/gssoc.jpg"
   },
@@ -247,7 +254,8 @@ export const experience: Experience[] = [
     ],
     blurb: "15+ frontend contributions across open-source repos.",
     short: "Social",
-    accent: "#c94f4a",
+    accent: "#0f766e",
+    fg: "#ffffff",
     icon: "◈",
     logo: "/logos/social.jpg"
   },
@@ -263,7 +271,8 @@ export const experience: Experience[] = [
     ],
     blurb: "Built responsive landing, portfolio & calculator sites.",
     short: "CodSoft",
-    accent: "#9a8f2f",
+    accent: "#b45309",
+    fg: "#ffffff",
     icon: "❮❯",
     logo: "/logos/codsoft.jpg"
   }
