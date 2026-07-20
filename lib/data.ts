@@ -88,6 +88,7 @@ export const projects: Project[] = [
     tags: ["Product"],
     status: "CASE STUDY",
     href: "https://www.behance.net/gallery/246375825/Credcare-FinTech-Credit-Recovery-App",
+    caseHref: "/work/credcare",
     img: "/me/thumbnail_credcare.png",
     desc: "A credit-recovery experience designed to make a stressful financial moment feel guided rather than punitive.",
     role: "Product Designer",
