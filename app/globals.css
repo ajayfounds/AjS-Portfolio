@@ -622,11 +622,11 @@ body.is-resizing * { cursor: col-resize !important; }
 ============================================================ */
 .work__grid {
   list-style: none; display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem 1.6rem; padding: 0 var(--pad) 3rem;
+  gap: .9rem 1rem; padding: 0 var(--pad) 3rem;
   align-items: start;
 }
 /* fun stagger: right column drops down so cards weave like the ref */
-.work__grid > .card:nth-child(even) { margin-top: 2.4rem; }
+.work__grid > .card:nth-child(even) { margin-top: 1.2rem; }
 
 .card {
   background: var(--bg-2);
@@ -642,15 +642,32 @@ body.is-resizing * { cursor: col-resize !important; }
   transition: transform .5s var(--ease), box-shadow .5s var(--ease), border-color .4s var(--ease);
   will-change: transform;
 }
+/* deeper lift + a visible outline ring on hover */
 .card:hover {
-  border-color: var(--line-strong);
-  transform: translateY(-6px) !important; /* beats framer Reveal's inline transform: none */
+  border-color: var(--fg);
+  transform: translateY(-8px) !important; /* beats framer Reveal's inline transform: none */
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.8) inset,
-    0 0 0 1px rgba(36, 36, 36, 0.04),
-    0 4px 8px -2px rgba(36, 36, 36, 0.08),
-    0 22px 40px -18px rgba(36, 36, 36, 0.38),
-    0 56px 90px -36px rgba(36, 36, 36, 0.42);
+    0 1px 0 rgba(255, 255, 255, 0.85) inset,
+    0 0 0 2px color-mix(in srgb, var(--accent) 55%, transparent),
+    0 6px 12px -3px rgba(36, 36, 36, 0.12),
+    0 30px 54px -20px rgba(36, 36, 36, 0.5),
+    0 70px 110px -40px rgba(36, 36, 36, 0.5);
+}
+/* locked (in-progress) cards: view only, no pointer affordance */
+.card.is-locked { cursor: default; }
+.card.is-locked:hover {
+  transform: none !important; border-color: var(--line);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 2px 4px -1px rgba(36, 36, 36, 0.06),
+    0 14px 28px -16px rgba(36, 36, 36, 0.28);
+}
+.card.is-locked .card__media { filter: saturate(.85); }
+.card__locked {
+  margin-left: auto;
+  font-family: var(--font-mono), monospace; font-size: .58rem;
+  text-transform: uppercase; letter-spacing: .1em; color: var(--muted);
+  border: 1px solid var(--line-strong); border-radius: 100px; padding: .2rem .55rem;
 }
 .card__link { display: flex; flex-direction: column; }
 
@@ -1694,3 +1711,42 @@ body.pill-cursor .cursor { opacity: 0; }
   .cs-screen.is-alt .cs-screen__media, .cs-screen.is-alt .cs-screen__body { order: 0; }
   .cs-screen__body { width: 100%; }
 }
+
+/* ============================================================
+   SKILLS & SERVICES — my current stack
+============================================================ */
+.stack { padding: clamp(2.5rem, 6vw, 4.5rem) var(--pad) 4rem; }
+.stack__title {
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(1.5rem, 4.2vw, 2.6rem); font-weight: 500;
+  letter-spacing: -0.01em; color: var(--fg);
+}
+.stack__sub {
+  font-family: var(--font-mono), monospace; font-size: .85rem;
+  color: var(--muted); margin-top: .5rem; letter-spacing: .02em;
+}
+.stack__grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2vw, 1.6rem); margin-top: clamp(2rem, 4vw, 3.2rem);
+  align-items: start;
+}
+.stack__card {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: 16px; padding: clamp(1.2rem, 2vw, 1.8rem);
+  height: 100%;
+}
+.stack__label {
+  font-family: var(--font-mono), monospace; font-size: .68rem;
+  text-transform: uppercase; letter-spacing: .18em; color: var(--muted);
+  margin-bottom: 1.8rem;
+}
+.stack__list { list-style: none; display: flex; flex-direction: column; gap: 1.4rem; }
+.stack__item { display: flex; gap: .8rem; align-items: flex-start; }
+.stack__icon { flex-shrink: 0; width: 20px; height: 20px; display: flex; margin-top: .15rem; }
+.stack__icon svg { display: block; }
+.stack__text { display: flex; flex-direction: column; gap: .2rem; }
+.stack__name { font-size: 1.02rem; line-height: 1.25; color: var(--fg); }
+.stack__desc { font-size: .88rem; line-height: 1.5; color: var(--muted); }
+.stack__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); }
+
+@media (max-width: 900px) { .stack__grid { grid-template-columns: 1fr; } }

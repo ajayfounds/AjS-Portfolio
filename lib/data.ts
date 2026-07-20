@@ -19,7 +19,7 @@ export const explore: ExploreLink[] = [
   { num: "01", label: "My Work", href: "/" },
   { num: "02", label: "About Me", href: "/about" },
   { num: "03", label: "Experience", href: "/experience" },
-  { num: "04", label: "Contact", href: "/contact" },
+  { num: "04", label: "Skills & Services", href: "/skills" },
   { num: "05", label: "Visitor Gallery", href: "/visitor-gallery" }
 ];
 
@@ -47,6 +47,7 @@ export type Project = {
   status: "SHIPPED" | "IN PROGRESS" | "CASE STUDY";
   href: string;
   caseHref?: string; // internal case-study route, if one exists
+  locked?: boolean;  // still in progress — render view-only, not clickable
   img: string;
   desc: string;
   role: string;
@@ -116,6 +117,7 @@ export const projects: Project[] = [
     tags: ["Product", "Research"],
     status: "IN PROGRESS",
     href: "#",
+    locked: true,
     img: "/me/locked_BlinkIT.png",
     desc: "A recovery system for the in-between moment when a UPI payment fails — designed around the anxiety of not knowing where your money went.",
     role: "Product Designer, Researcher",
@@ -281,6 +283,43 @@ export const experience: Experience[] = [
 
 export const services = ["Product Design", "UX / UI Design", "User Research", "Design Systems", "Prototyping"];
 export const tools = ["Figma", "Framer", "Spline", "Jitter / Lottie", "Webflow"];
+
+/* ── SKILLS & SERVICES — my current stack ─────────────────── */
+
+export type StackItem = { icon: string; name: string; desc: string };
+
+export const stack: { label: string; items: StackItem[] }[] = [
+  {
+    label: "AI + Tools",
+    items: [
+      { icon: "claude", name: "Claude", desc: "Agentic engineering, design systems intelligence, research" },
+      { icon: "claude", name: "Claude Design", desc: "Visual design direction, generative UI, design critique" },
+      { icon: "openai", name: "ChatGPT", desc: "Ideation, content drafting, rapid problem framing" },
+      { icon: "figma", name: "Figma", desc: "Design, prototyping, component architecture" },
+      { icon: "figma", name: "Figma Make", desc: "Generative design system builds, AI-assisted prototyping" }
+    ]
+  },
+  {
+    label: "Design + Research",
+    items: [
+      { icon: "figma", name: "Figma / FigJam", desc: "Visual design, flows, collaborative mapping" },
+      { icon: "notion", name: "Notion", desc: "Documentation, research repositories, case studies" },
+      { icon: "miro", name: "Miro", desc: "Workshops, journey maps, ideation" },
+      { icon: "perplexity", name: "Perplexity", desc: "Research synthesis, competitive analysis" },
+      { icon: "claude", name: "Claude", desc: "Visual design direction, research analysis" }
+    ]
+  },
+  {
+    label: "Strategy + Systems",
+    items: [
+      { icon: "figma", name: "Design Systems", desc: "Tokens, components, documentation, single source of truth" },
+      { icon: "css", name: "Design Tokens", desc: "Variables, theming, cross-platform consistency" },
+      { icon: "storybook", name: "Component Libraries", desc: "Reusable UI, versioning, design-dev handoff" },
+      { icon: "people", name: "Stakeholder Management", desc: "Alignment, buy-in, cross-functional communication" },
+      { icon: "a11y", name: "Accessibility / WCAG", desc: "Inclusive design, AA/AAA compliance, ARIA, contrast" }
+    ]
+  }
+];
 
 export const socials = [
   { label: "LinkedIn", href: "https://linkedin.com/in/ajaysri8" },

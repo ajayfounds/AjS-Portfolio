@@ -27,20 +27,26 @@ export default function Work() {
       </Reveal>
 
       <ul className="work__grid">
-        {projects.map((p, i) => (
-          <Reveal as="li" key={p.num} className="card" delay={(i % 2) * 0.06}>
-            <a
-              href={p.caseHref ?? p.href}
-              className="card__link"
-              target={p.caseHref ? undefined : "_blank"}
-              rel={p.caseHref ? undefined : "noopener noreferrer"}
-              data-project
-              onMouseEnter={enter}
-              onMouseLeave={leave}
-            >
+        {projects.map((p, i) => {
+          // locked projects (still in progress) render as a plain, non-clickable card
+          const Tag = (p.locked ? "div" : "a") as "div" | "a";
+          const linkProps = p.locked
+            ? {}
+            : {
+                href: p.caseHref ?? p.href,
+                target: p.caseHref ? undefined : "_blank",
+                rel: p.caseHref ? undefined : "noopener noreferrer",
+                onMouseEnter: enter,
+                onMouseLeave: leave,
+                "data-project": true
+              };
+          return (
+          <Reveal as="li" key={p.num} className={`card${p.locked ? " is-locked" : ""}`} delay={(i % 2) * 0.06}>
+            <Tag className="card__link" {...(linkProps as Record<string, unknown>)}>
               <div className="card__head">
                 <span className="card__dot" aria-hidden />
                 <span className="card__num">No. {p.num}</span>
+                {p.locked && <span className="card__locked">In progress</span>}
               </div>
 
               <div className="card__media">
@@ -78,9 +84,10 @@ export default function Work() {
                   </dl>
                 </div>
               </div>
-            </a>
+            </Tag>
           </Reveal>
-        ))}
+          );
+        })}
       </ul>
 
       {/* cursor-following pill — visibility driven by the body.pill-cursor class (set on card enter/leave) */}

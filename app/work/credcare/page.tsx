@@ -171,12 +171,14 @@ const learnScreens = [
   { img: "card-minimum", title: "The Truth About Minimum Payments", cap: "" }
 ];
 
-// full-length screens shown end-to-end, not cropped to the device viewport
-const fullScreens = [
-  { img: "full-home", title: "Home", cap: "Score snapshot → Trust Meter → Next Best Action → Quick Actions" },
-  { img: "full-learn", title: "Learn", cap: "Featured guide, category filters and the latest guides" },
-  { img: "full-credit-scores", title: "How Credit Scores Actually Work", cap: "The Big Four Factors, with a Pro Tip and a helpfulness check" },
-  { img: "full-minimum", title: "The Truth About Minimum Payments", cap: "The Math Trap — why paying the minimum costs years" }
+// full-length screens, shown inside the section each one belongs to
+const fullCore = [
+  { img: "full-home", title: "Home — full screen", cap: "Score snapshot → Trust Meter → Next Best Action → Quick Actions" }
+];
+const fullLearn = [
+  { img: "full-learn", title: "Learn — full screen", cap: "Featured guide, category filters and the latest guides" },
+  { img: "full-credit-scores", title: "How Credit Scores Actually Work — full screen", cap: "The Big Four Factors, with a Pro Tip and a helpfulness check" },
+  { img: "full-minimum", title: "The Truth About Minimum Payments — full screen", cap: "The Math Trap — why paying the minimum costs years" }
 ];
 
 const profileScreens = [
@@ -201,6 +203,24 @@ const takeaways = [
   "Progress indicators motivate more than raw data",
   "Trust is built through tone, not features"
 ];
+
+function FullScreens({ items }: { items: { img: string; title: string; cap: string }[] }) {
+  return (
+    <div className="cs-fulls">
+      {items.map((s) => (
+        <figure className="cs-full" key={s.img}>
+          <div className="cs-full__frame">
+            <img src={`/case/credcare/${s.img}.webp`} alt={s.title} loading="lazy" />
+          </div>
+          <figcaption>
+            <span className="cs-shot__t">{s.title}</span>
+            {s.cap && <span className="cs-shot__c">{s.cap}</span>}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  );
+}
 
 function ScreenGrid({ items }: { items: { img: string; title: string; cap: string }[] }) {
   return (
@@ -247,7 +267,7 @@ export default function CredCareCaseStudy() {
           is being made.
         </p>
         <a className="cs-cta" href={BEHANCE} target="_blank" rel="noopener noreferrer" data-link>
-          View on Behance <span aria-hidden>↗</span>
+          Experience Live <span aria-hidden>↗</span>
         </a>
       </header>
 
@@ -392,28 +412,14 @@ export default function CredCareCaseStudy() {
 
         <h3 className="cs-h3">Home, recovery &amp; action</h3>
         <ScreenGrid items={coreScreens} />
+        <FullScreens items={fullCore} />
 
         <h3 className="cs-h3">Learn &amp; learning cards</h3>
         <ScreenGrid items={learnScreens} />
+        <FullScreens items={fullLearn} />
 
         <h3 className="cs-h3">Profile &amp; controls</h3>
         <ScreenGrid items={profileScreens} />
-
-        <h3 className="cs-h3">Full screens, end to end</h3>
-        <p className="cs-sub">The complete scroll of the key screens — not cropped to the device viewport.</p>
-        <div className="cs-fulls">
-          {fullScreens.map((s) => (
-            <figure className="cs-full" key={s.img}>
-              <div className="cs-full__frame">
-                <img src={`/case/credcare/${s.img}.webp`} alt={s.title} loading="lazy" />
-              </div>
-              <figcaption>
-                <span className="cs-shot__t">{s.title}</span>
-                {s.cap && <span className="cs-shot__c">{s.cap}</span>}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
       </section>
 
       {/* 08 Impact */}

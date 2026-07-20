@@ -132,7 +132,7 @@ export default function UpiCaseStudy() {
           anxiety where users lack clarity, reassurance, and control — so I designed the recovery, not the error.
         </p>
         <a className="cs-cta" href={BEHANCE} target="_blank" rel="noopener noreferrer" data-link>
-          View on Behance <span aria-hidden>↗</span>
+          Experience Live <span aria-hidden>↗</span>
         </a>
       </header>
 
