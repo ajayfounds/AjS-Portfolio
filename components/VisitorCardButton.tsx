@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { site } from "@/lib/data";
 
@@ -35,6 +36,9 @@ export default function VisitorCardButton() {
   const [card, setCard] = useState<Card | null>(null);
   const [open, setOpen] = useState(false);
   const [matrix] = useState(genMatrix);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   const read = () => {
     try {
@@ -76,6 +80,7 @@ export default function VisitorCardButton() {
         <span className="vcbtn__label">My Visitor Card</span>
       </button>
 
+      {mounted && createPortal(
       <AnimatePresence>
         {open && (
           <motion.div
@@ -120,7 +125,9 @@ export default function VisitorCardButton() {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body
+      )}
     </>
   );
 }

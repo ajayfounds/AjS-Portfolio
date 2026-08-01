@@ -6,8 +6,11 @@ export const metadata: Metadata = {
   description: "Rebuild trust. Without shame. A guided, emotionally safe path out of a low credit score."
 };
 
-const ACCENT = "#168b9d";
-const BEHANCE = "https://www.behance.net/gallery/246375825/Credcare-FinTech-Credit-Recovery-App";
+// primary = deep trust/premium blue (payments UX), on the warm home canvas
+// deep indigo-navy: the trust + premium register banks and payment products use.
+// 7.5:1 on the card surface, so the accent stays readable at eyebrow/label sizes.
+const ACCENT = "#27418F";
+const LIVE = "https://credcarefintech.vercel.app/";
 
 const TOC: Toc[] = [
   { id: "s-overview", num: "01", label: "Overview" },
@@ -149,15 +152,22 @@ const onboarding = [
   { img: "safe-space", title: "This is a safe space", cap: "" }
 ];
 
-const coreScreens = [
-  { img: "home", title: "Home", cap: "Score snapshot, Trust Meter and one Next Best Action — reassurance before data." },
+const homeScreens = [
+  { img: "home", title: "Home", cap: "Score snapshot, Trust Meter and one Next Best Action — reassurance before data." }
+];
+
+const recoveryScreens = [
   { img: "analysis", title: "Analysis", cap: "Score history with the impact events that actually moved it." },
   { img: "recovery-plan", title: "Recovery Plan", cap: "Why your score dropped, then a staged roadmap instead of a wall of numbers." },
   { img: "days-0-30", title: "0–30 Days", cap: "Stabilization & Damage Control" },
   { img: "days-30-90", title: "30–90 Days", cap: "Building trust through a pattern of good behavior" },
-  { img: "days-90-180", title: "90–180 Days", cap: "Score growth — visible improvement" },
+  { img: "days-90-180", title: "90–180 Days", cap: "Score growth — visible improvement" }
+];
+
+const actionScreens = [
   { img: "action-center", title: "Action Center", cap: "Prioritized to-dos split across My Tasks and Loans & Cards." },
   { img: "task-pay", title: "Task detail", cap: "Context, amount, due date — and a Do Later that never shames." },
+  { img: "auto-pay", title: "Set up Auto-pay", cap: "Turn a recurring worry into a one-time setup, then mark it complete." },
   { img: "dispute", title: "Dispute CIBIL Error", cap: "" },
   { img: "upload-income", title: "Upload Income Proof", cap: "" },
   { img: "all-set", title: "All caught up", cap: "" }
@@ -183,6 +193,7 @@ const fullLearn = [
 
 const profileScreens = [
   { img: "profile", title: "Profile", cap: "" },
+  { img: "personal-info", title: "Personal Information", cap: "" },
   { img: "privacy", title: "Privacy & Security", cap: "" },
   { img: "data-permissions", title: "Data Permissions", cap: "" },
   { img: "notifications", title: "Notifications", cap: "" },
@@ -202,6 +213,13 @@ const takeaways = [
   "Failure states matter more than success states",
   "Progress indicators motivate more than raw data",
   "Trust is built through tone, not features"
+];
+
+// TODO: replace with real user quotes — placeholders for now
+const testimonials = [
+  { quote: "Placeholder quote — a user's reaction to feeling guided instead of judged during recovery.", name: "Placeholder Name", meta: "Usability session · Placeholder" },
+  { quote: "Placeholder quote — a short line about finally understanding why the score dropped.", name: "Placeholder Name", meta: "Beta tester · Placeholder" },
+  { quote: "Placeholder quote — a testimonial about trusting the app enough to keep coming back.", name: "Placeholder Name", meta: "User interview · Placeholder" }
 ];
 
 function FullScreens({ items }: { items: { img: string; title: string; cap: string }[] }) {
@@ -266,7 +284,7 @@ export default function CredCareCaseStudy() {
           clarity, and behavioral guidance helping users understand what went wrong, what to do next, and how progress
           is being made.
         </p>
-        <a className="cs-cta" href={BEHANCE} target="_blank" rel="noopener noreferrer" data-link>
+        <a className="cs-cta" href={LIVE} target="_blank" rel="noopener noreferrer">
           Experience Live <span aria-hidden>↗</span>
         </a>
       </header>
@@ -297,29 +315,26 @@ export default function CredCareCaseStudy() {
         <div className="cs-personas">
           {personas.map((p) => (
             <article className="cs-persona" key={p.name}>
-              <header className="cs-persona__head">
-                <h3 className="cs-persona__name">{p.name} : {p.role}</h3>
+              <div className="cs-persona__id">
+                <h3 className="cs-persona__name">{p.name}</h3>
+                <p className="cs-persona__role">{p.role}</p>
                 <p className="cs-persona__tag">{p.kind}</p>
-              </header>
-              <div className="cs-persona__cols">
-                <div>
-                  <p className="cs-persona__k">Context</p>
-                  <ul className="cs-bullets cs-bullets--sm">{p.context.map((t) => <li key={t}>{t}</li>)}</ul>
-                </div>
-                <div>
-                  <p className="cs-persona__k">Pain points</p>
-                  <ul className="cs-bullets cs-bullets--sm">{p.pain.map((t) => <li key={t}>{t}</li>)}</ul>
-                </div>
+                <p className="cs-persona__quote">{"“"}{p.quote}{"”"}</p>
               </div>
-              <div className="cs-persona__cols">
-                <div>
-                  <p className="cs-persona__k">Needs</p>
-                  <ul className="cs-bullets cs-bullets--sm">{p.needs.map((t) => <li key={t}>{t}</li>)}</ul>
+              <div className="cs-persona__detail">
+                <div className="cs-persona__cols">
+                  <div>
+                    <p className="cs-persona__k">Context</p>
+                    <ul className="cs-bullets cs-bullets--sm">{p.context.map((t) => <li key={t}>{t}</li>)}</ul>
+                  </div>
+                  <div>
+                    <p className="cs-persona__k">Pain points</p>
+                    <ul className="cs-bullets cs-bullets--sm">{p.pain.map((t) => <li key={t}>{t}</li>)}</ul>
+                  </div>
                 </div>
-                <div>
-                  <p className="cs-persona__k">Emotional state</p>
-                  <p className="cs-persona__quote">{"“"}{p.quote}{"”"}</p>
-                </div>
+                <dl className="cs-persona__needs">
+                  <div><dt>Needs</dt><dd>{p.needs.join(" · ")}</dd></div>
+                </dl>
               </div>
             </article>
           ))}
@@ -405,14 +420,37 @@ export default function CredCareCaseStudy() {
       {/* 07 Designs */}
       <section className="cs-sec" id="s-designs">
         <p className="cs-eyebrow">07 · Designs</p>
-        <h2 className="cs-h2">Visual designs</h2>
+        <h2 className="cs-h2">Design with thinking behind it</h2>
 
         <h3 className="cs-h3">Onboarding &amp; trust setup</h3>
         <ScreenGrid items={onboarding} />
 
-        <h3 className="cs-h3">Home, recovery &amp; action</h3>
-        <ScreenGrid items={coreScreens} />
-        <FullScreens items={fullCore} />
+        <h3 className="cs-h3">Home</h3>
+        {/* the phone mockup and its full-length scroll sit side by side */}
+        <div className="cs-duo">
+          <figure className="cs-shot">
+            <img src="/case/credcare/home.webp" alt="Home" loading="lazy" />
+            <figcaption>
+              <span className="cs-shot__t">{homeScreens[0].title}</span>
+              <span className="cs-shot__c">{homeScreens[0].cap}</span>
+            </figcaption>
+          </figure>
+          <figure className="cs-full">
+            <div className="cs-full__frame">
+              <img src="/case/credcare/full-home.webp" alt={fullCore[0].title} loading="lazy" />
+            </div>
+            <figcaption>
+              <span className="cs-shot__t">{fullCore[0].title}</span>
+              <span className="cs-shot__c">{fullCore[0].cap}</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <h3 className="cs-h3">Recovery</h3>
+        <ScreenGrid items={recoveryScreens} />
+
+        <h3 className="cs-h3">Action Center</h3>
+        <ScreenGrid items={actionScreens} />
 
         <h3 className="cs-h3">Learn &amp; learning cards</h3>
         <ScreenGrid items={learnScreens} />
@@ -435,6 +473,20 @@ export default function CredCareCaseStudy() {
             <span className="cs-impact__k">Design takeaways</span>
             <ul className="cs-bullets cs-bullets--sm">{takeaways.map((t) => <li key={t}>{t}</li>)}</ul>
           </div>
+        </div>
+
+        <h3 className="cs-h3">What users said</h3>
+        <div className="cs-testimonials">
+          {testimonials.map((t) => (
+            <figure className="cs-testimonial" key={t.quote}>
+              <span className="cs-testimonial__mark" aria-hidden>&ldquo;</span>
+              <blockquote className="cs-testimonial__quote">{t.quote}</blockquote>
+              <figcaption className="cs-testimonial__by">
+                <span className="cs-testimonial__name">{t.name}</span>
+                <span className="cs-testimonial__meta">{t.meta}</span>
+              </figcaption>
+            </figure>
+          ))}
         </div>
 
         <div className="cs-reflect">

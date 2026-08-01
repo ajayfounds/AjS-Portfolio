@@ -47,6 +47,7 @@ export type Project = {
   status: "SHIPPED" | "IN PROGRESS" | "CASE STUDY";
   href: string;
   caseHref?: string; // internal case-study route, if one exists
+  live?: boolean;    // has a live, interactive experience — shows an "Experience LIVE" badge
   locked?: boolean;  // still in progress — render view-only, not clickable
   img: string;
   desc: string;
@@ -90,6 +91,7 @@ export const projects: Project[] = [
     status: "CASE STUDY",
     href: "https://www.behance.net/gallery/246375825/Credcare-FinTech-Credit-Recovery-App",
     caseHref: "/work/credcare",
+    live: true,
     img: "/me/thumbnail_credcare.png",
     desc: "A credit-recovery experience designed to make a stressful financial moment feel guided rather than punitive.",
     role: "Product Designer",
@@ -104,6 +106,7 @@ export const projects: Project[] = [
     status: "CASE STUDY",
     href: "https://www.behance.net/gallery/245200333/UPI-Failure-Recovery-System",
     caseHref: "/work/upi-failure-recovery",
+    live: true,
     img: "/me/thumbnail_paymentlimbo.png",
     desc: "A recovery system for the in-between moment when a UPI payment fails — designed around the anxiety of not knowing where your money went.",
     role: "Product Designer, Researcher",

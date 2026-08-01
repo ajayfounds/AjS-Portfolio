@@ -3,14 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-type HatKey = "party" | "beanie" | "bowler" | "sprout" | "none";
+type HatKey = "party" | "cap" | "bucket" | "tophat" | "sprout" | "none";
 
+// mirrors the reference "favorite hats" set: sprout, party, cap, bucket, top hat
 const HATS: { key: HatKey; label: string }[] = [
   { key: "none", label: "no hat" },
+  { key: "sprout", label: "sprout" },
   { key: "party", label: "party hat" },
-  { key: "beanie", label: "beanie" },
-  { key: "bowler", label: "bowler" },
-  { key: "sprout", label: "sprout" }
+  { key: "cap", label: "cap" },
+  { key: "bucket", label: "bucket hat" },
+  { key: "tophat", label: "top hat" }
 ];
 
 const IDLE_PHRASES = [
@@ -36,20 +38,27 @@ function Hat({ type }: { type: HatKey }) {
           <circle cx="16" cy="10" r="1.3" fill="#f3f1eb" />
         </svg>
       );
-    case "beanie":
-      return (
-        <svg className="buddy__hat" width="28" height="18" viewBox="0 0 28 18" aria-hidden>
-          <path d="M4 14a10 10 0 0 1 20 0z" fill="#e8c84a" />
-          <rect x="3" y="13" width="22" height="4.5" rx="2.2" fill="#cb9f33" />
-          <circle cx="14" cy="3" r="2.4" fill="#f3f1eb" />
-        </svg>
-      );
-    case "bowler":
+    case "cap":
       return (
         <svg className="buddy__hat" width="30" height="18" viewBox="0 0 30 18" aria-hidden>
-          <ellipse cx="15" cy="15" rx="14" ry="3" fill="#242424" />
-          <path d="M6 15a9 8 0 0 1 18 0z" fill="#242424" />
-          <rect x="6.5" y="12" width="17" height="2.4" rx="1.2" fill="#cb7836" />
+          <path d="M5 13a9.5 9.5 0 0 1 19 0z" fill="#168b9d" />
+          <path d="M22 13c4.6 0 7 1.6 7 2.6 0 .5-.6.9-1.5.9H22z" fill="#12707f" />
+          <circle cx="14.5" cy="4" r="1.5" fill="#0e535e" />
+        </svg>
+      );
+    case "bucket":
+      return (
+        <svg className="buddy__hat" width="30" height="20" viewBox="0 0 30 20" aria-hidden>
+          <path d="M9 5h12l1.6 9H7.4z" fill="#e8c84a" />
+          <path d="M4 13h22l-1.6 4.4H5.6z" fill="#d4b23e" />
+        </svg>
+      );
+    case "tophat":
+      return (
+        <svg className="buddy__hat" width="28" height="24" viewBox="0 0 28 24" aria-hidden>
+          <ellipse cx="14" cy="18.5" rx="13" ry="3" fill="#242424" />
+          <rect x="8" y="2" width="12" height="15" rx="1.4" fill="#242424" />
+          <rect x="7.6" y="12" width="12.8" height="3.2" fill="#cb7836" />
         </svg>
       );
     case "sprout":
@@ -66,7 +75,7 @@ function Hat({ type }: { type: HatKey }) {
 }
 
 export default function Buddy() {
-  const [hat, setHat] = useState<HatKey>("party");
+  const [hat, setHat] = useState<HatKey>("cap");
   const [menuOpen, setMenuOpen] = useState(false);
   const [bubble, setBubble] = useState<string | null>(null);
 

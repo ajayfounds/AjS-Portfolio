@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond, Source_Code_Pro, Playfair_Display } from "next/font/google";
+import { Inter, Cormorant_Garamond, Playfair_Display, Open_Sans } from "next/font/google";
 import { site } from "@/lib/data";
 import Shell from "@/components/Shell";
 import "./globals.css";
@@ -14,26 +14,30 @@ const inter = Inter({
 // meganyap's serif display face — used light (300) for elegant italic/display moments
 const serif = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  // 600/700 carry the small uppercase labels that used to be monospace
+  weight: ["300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-serif",
   display: "swap"
 });
 
-// meganyap's mono face — used for all uppercase labels, eyebrows, indices, metadata
-const mono = Source_Code_Pro({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-mono",
-  display: "swap"
-});
+// Small uppercase labels now run in the serif, so the mono face is no longer
+// referenced anywhere — kept out of the bundle rather than downloaded unused.
 
-// royal display face — the "HAZEL Verse" wordmark (bold italic)
+// royal display face — kept for the visitor-card brand chip
 const royal = Playfair_Display({
   subsets: ["latin"],
   weight: ["700", "800", "900"],
   style: ["normal", "italic"],
   variable: "--font-royal",
+  display: "swap"
+});
+
+// the "HAZEL Verse" wordmark — clean bold Open Sans
+const opensans = Open_Sans({
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  variable: "--font-opensans",
   display: "swap"
 });
 
@@ -49,7 +53,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${serif.variable} ${mono.variable} ${royal.variable}`}>
+    <html lang="en" className={`${inter.variable} ${serif.variable} ${royal.variable} ${opensans.variable}`}>
       <body>
         <Shell>{children}</Shell>
       </body>

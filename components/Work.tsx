@@ -1,10 +1,59 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import Reveal from "./Reveal";
 import { projects } from "@/lib/data";
 
+// Row unit for the masonry maths — small enough that a card's span rounds to
+// within a few pixels of its real height.
+const ROW = 4;
+
 export default function Work() {
+  const gridRef = useRef<HTMLUListElement>(null);
+
+  // Masonry: each column packs independently instead of every card in a row
+  // being forced to the tallest one's height. Cards keep their natural height
+  // and a card expanding on hover only pushes the cards below it in its own
+  // column — which is how the reference grid behaves.
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const singleColumn = () =>
+      getComputedStyle(grid).gridTemplateColumns.split(" ").length < 2;
+
+    const layout = () => {
+      const cards = Array.from(grid.children) as HTMLElement[];
+      // one column (mobile) → let normal flow handle it
+      if (singleColumn()) {
+        cards.forEach((c) => (c.style.gridRowEnd = ""));
+        return;
+      }
+      for (const card of cards) {
+        const cs = getComputedStyle(card);
+        const outer =
+          card.getBoundingClientRect().height +
+          (parseFloat(cs.marginTop) || 0) +
+          (parseFloat(cs.marginBottom) || 0);
+        card.style.gridRowEnd = `span ${Math.max(1, Math.ceil(outer / ROW))}`;
+      }
+    };
+
+    layout();
+
+    // cards change height when hovered (the meta panel expands) and when images
+    // finish loading, so track both rather than measuring once
+    const ro = new ResizeObserver(layout);
+    Array.from(grid.children).forEach((c) => ro.observe(c));
+    ro.observe(grid);
+    window.addEventListener("resize", layout);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", layout);
+    };
+  }, []);
+
   // pill follows the cursor while hovering a card
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -26,7 +75,7 @@ export default function Work() {
         <h2 className="section-head__title">My Work</h2>
       </Reveal>
 
-      <ul className="work__grid">
+      <ul className="work__grid" ref={gridRef}>
         {projects.map((p, i) => {
           // locked projects (still in progress) render as a plain, non-clickable card
           const Tag = (p.locked ? "div" : "a") as "div" | "a";
@@ -41,7 +90,17 @@ export default function Work() {
                 "data-project": true
               };
           return (
-          <Reveal as="li" key={p.num} className={`card${p.locked ? " is-locked" : ""}`} delay={(i % 2) * 0.06}>
+          // plain <li> is the grid cell — Work's masonry writes grid-row on it.
+          // The card itself is a motion element, and framer-motion owns that
+          // node's style attribute, so a span set there gets wiped on re-render.
+          <li className="card-cell" key={p.num}>
+          <Reveal className={`card${p.locked ? " is-locked" : ""}${p.live ? " is-live" : ""}`} delay={(i % 2) * 0.06}>
+            {p.live && (
+              <span className="card__live" aria-label="Live experience available">
+                <span className="card__live-burst" aria-hidden />
+                <span className="card__live-word">LIVE</span>
+              </span>
+            )}
             <Tag className="card__link" {...(linkProps as Record<string, unknown>)}>
               <div className="card__head">
                 <span className="card__dot" aria-hidden />
@@ -86,6 +145,7 @@ export default function Work() {
               </div>
             </Tag>
           </Reveal>
+          </li>
           );
         })}
       </ul>

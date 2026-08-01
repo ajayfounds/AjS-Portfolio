@@ -6,8 +6,11 @@ export const metadata: Metadata = {
   description: "Designing trust and clarity during payment failures."
 };
 
-const ACCENT = "#cb7836";
-const BEHANCE = "https://www.behance.net/gallery/245200333/UPI-Failure-Recovery-System";
+// primary = calm clarity teal (safe, trust, anxiety-reducing), on the warm home canvas
+// calm deep teal: clarity and safety without alarm — the opposite of a red error
+// state. 5.5:1 on the card surface, so labels and small text stay legible.
+const ACCENT = "#0A6473";
+const LIVE = "https://payment-limbo-edgecase.vercel.app/";
 
 const TOC: Toc[] = [
   { id: "s-overview", num: "01", label: "Overview" },
@@ -88,23 +91,33 @@ const constraints = [
 
 const principles = ["Clarity over speed", "Progressive disclosure", "Reassurance before action", "Human language, not system language"];
 
-const screens = [
-  { img: "checking", title: "We’re checking your payment", caption: "Designed to reduce panic in first 5 sec", elems: ["Soft loader", "Calm headline", "Reassuring subtext", "No red, no “failed”"] },
-  { img: "timeline", title: "Payment Status Timeline", caption: "Progress visibility reduces uncertainty", elems: ["Vertical timeline — Initiated, Sent to bank, Awaiting confirmation, Resolution expected", "“What does this mean?” CTA"] },
-  { img: "explanation", title: "Explanation Bottom Sheet", caption: "Explains without overwhelming", elems: ["What happened", "What usually happens", "What you should do now"] },
-  { img: "waiting", title: "Smart Waiting State", caption: "Prevents duplicate payments without blame.", elems: ["Gentle warning about retry", "Notify me option"] },
-  { img: "notification", title: "Payment update notification", caption: "Notification alert: Payment Update", elems: [] },
-  { img: "escalation", title: "Escalation Screen", caption: "", elems: ["Transaction summary", "Why support is now available", "Response timeline"] },
-  { img: "credited", title: "Payment Credited", caption: "", elems: ["Relief-focused confirmation", "Amount + recipient", "Single “Done” CTA"] },
-  { img: "reversed", title: "Payment Reversed", caption: "", elems: ["“Your money is back”", "Amount returned", "Retry option (now safe)"] },
-  { img: "duplicate", title: "Duplicate Payment Warning", caption: "System protects the user.", elems: ["Recent payment detected", "Gentle caution copy"] },
-  { img: "reassurance", title: "Reassurance", caption: "", elems: ["Don’t panic", "Wait…", "Check status here"] }
+// Designs section — annotated plates, shown in order. Each image carries its own
+// callouts, so the labels below are alt text only.
+const plates = [
+  "Checking payment — the first five seconds",
+  "Payment status timeline",
+  "Explainer bottom sheet",
+  "Escalating — still waiting for update",
+  "Payment update notification",
+  "Escalation to support",
+  "Resolution — payment successful",
+  "Resolution — money refunded",
+  "Duplicate payment guardrail",
+  "Reassurance after the incident",
+  "Support handoff"
 ];
 
 const impactUser = ["Reduced panic", "Better decisions"];
 const impactBiz = ["Fewer tickets", "Higher trust retention"];
 const didntDesign = ["No success flow redesign", "No instant refund promises", "No aggressive alerts"];
 const takeaways = ["Failure UX matters most", "Trust beats speed", "Constraints improve design", "Language is UX"];
+
+// TODO: replace with real user quotes — placeholders for now
+const testimonials = [
+  { quote: "Placeholder quote — a user's relief at finally knowing their money was safe.", name: "Placeholder Name", meta: "Usability session · Placeholder" },
+  { quote: "Placeholder quote — a short line about not panic-retrying the payment this time.", name: "Placeholder Name", meta: "Beta tester · Placeholder" },
+  { quote: "Placeholder quote — a testimonial about the calm, human tone during the failure.", name: "Placeholder Name", meta: "User interview · Placeholder" }
+];
 
 export default function UpiCaseStudy() {
   return (
@@ -131,7 +144,7 @@ export default function UpiCaseStudy() {
           Designing trust and clarity during payment failures. UPI payment failures create moments of high financial
           anxiety where users lack clarity, reassurance, and control — so I designed the recovery, not the error.
         </p>
-        <a className="cs-cta" href={BEHANCE} target="_blank" rel="noopener noreferrer" data-link>
+        <a className="cs-cta" href={LIVE} target="_blank" rel="noopener noreferrer">
           Experience Live <span aria-hidden>↗</span>
         </a>
       </header>
@@ -188,25 +201,27 @@ export default function UpiCaseStudy() {
         <div className="cs-personas">
           {personas.map((p) => (
             <article className="cs-persona" key={p.name}>
-              <header className="cs-persona__head">
+              <div className="cs-persona__id">
                 <h3 className="cs-persona__name">{p.name}</h3>
                 <p className="cs-persona__tag">{p.tag}</p>
-              </header>
-              <p className="cs-persona__intro">{p.intro}</p>
-              <div className="cs-persona__cols">
-                <div>
-                  <p className="cs-persona__k">UPI usage pattern</p>
-                  <ul className="cs-bullets cs-bullets--sm">{p.usage.map((t) => <li key={t}>{t}</li>)}</ul>
-                </div>
-                <div>
-                  <p className="cs-persona__k">What happens during a failure</p>
-                  <ul className="cs-bullets cs-bullets--sm">{p.failure.map((t) => <li key={t}>{t}</li>)}</ul>
-                </div>
+                <p className="cs-persona__intro">{p.intro}</p>
               </div>
-              <dl className="cs-persona__needs">
-                <div><dt>Core need</dt><dd>{p.need}</dd></div>
-                <div><dt>Design opportunity</dt><dd>{p.opp}</dd></div>
-              </dl>
+              <div className="cs-persona__detail">
+                <div className="cs-persona__cols">
+                  <div>
+                    <p className="cs-persona__k">UPI usage pattern</p>
+                    <ul className="cs-bullets cs-bullets--sm">{p.usage.map((t) => <li key={t}>{t}</li>)}</ul>
+                  </div>
+                  <div>
+                    <p className="cs-persona__k">What happens during a failure</p>
+                    <ul className="cs-bullets cs-bullets--sm">{p.failure.map((t) => <li key={t}>{t}</li>)}</ul>
+                  </div>
+                </div>
+                <dl className="cs-persona__needs">
+                  <div><dt>Core need</dt><dd>{p.need}</dd></div>
+                  <div><dt>Design opportunity</dt><dd>{p.opp}</dd></div>
+                </dl>
+              </div>
             </article>
           ))}
         </div>
@@ -268,42 +283,23 @@ export default function UpiCaseStudy() {
       {/* ── 05 Designs ── */}
       <section className="cs-sec" id="s-designs">
         <p className="cs-eyebrow">05 · Designs</p>
-        <h2 className="cs-h2">Visual designs</h2>
-        <div className="cs-screens">
-          {screens.map((s, i) => (
-            <article className={`cs-screen${i % 2 ? " is-alt" : ""}`} key={s.title}>
-              <div className="cs-screen__media">
-                <img src={`/case/upi/${s.img}.png`} alt={s.title} loading="lazy" />
-              </div>
-              <div className="cs-screen__body">
-                <h3 className="cs-screen__title">{s.title}</h3>
-                {s.caption && <p className="cs-screen__cap">{s.caption}</p>}
-                {s.elems.length > 0 && (
-                  <ul className="cs-bullets cs-bullets--sm">{s.elems.map((e) => <li key={e}>{e}</li>)}</ul>
-                )}
-              </div>
-            </article>
+        <h2 className="cs-h2">Design with thinking behind it</h2>
+        {/* the plates carry their own annotations, so they run full-width in
+            sequence with no caption of their own */}
+        <div className="cs-plates">
+          {plates.map((p, i) => (
+            <figure className="cs-plate" key={p}>
+              <img src={`/case/upi/plate-${String(i + 1).padStart(2, "0")}.webp`} alt={p} loading="lazy" />
+            </figure>
           ))}
         </div>
-
-        {/* Support handoff — two states */}
-        <article className="cs-handoff">
-          <div className="cs-handoff__text">
-            <h3 className="cs-screen__title">Support Handoff</h3>
-            <p className="cs-screen__cap">Removes {"“"}am I talking to a bot?{"”"} anxiety.</p>
-          </div>
-          <div className="cs-handoff__phones">
-            <img src="/case/upi/handoff-1.png" alt="Support handoff — escalation started" loading="lazy" />
-            <img src="/case/upi/handoff-2.png" alt="Support handoff — connecting to an agent" loading="lazy" />
-          </div>
-        </article>
       </section>
 
       {/* ── 06 Impact ── */}
       <section className="cs-sec" id="s-impact">
         <p className="cs-eyebrow">06 · Impact</p>
         <h2 className="cs-h2">Impact</h2>
-        <div className="cs-impact">
+        <div className="cs-impact cs-impact--pair">
           <div className="cs-impact__card">
             <span className="cs-impact__k">User impact</span>
             <ul className="cs-bullets cs-bullets--sm">{impactUser.map((t) => <li key={t}>{t}</li>)}</ul>
@@ -312,12 +308,28 @@ export default function UpiCaseStudy() {
             <span className="cs-impact__k">Business impact</span>
             <ul className="cs-bullets cs-bullets--sm">{impactBiz.map((t) => <li key={t}>{t}</li>)}</ul>
           </div>
-          <div className="cs-impact__card cs-impact__card--accent">
-            <span className="cs-impact__k">What I deliberately didn{"’"}t design</span>
-            <ul className="cs-bullets cs-bullets--sm">{didntDesign.map((t) => <li key={t}>{t}</li>)}</ul>
-          </div>
         </div>
         <p className="cs-note">** (hypothetical, behavior-based)</p>
+
+        {/* kept apart from the impact pair — it's scope, not an outcome */}
+        <div className="cs-scope">
+          <span className="cs-impact__k">What I deliberately didn{"’"}t design</span>
+          <ul className="cs-bullets cs-bullets--sm cs-bullets--x">{didntDesign.map((t) => <li key={t}>{t}</li>)}</ul>
+        </div>
+
+        <h3 className="cs-h3">What users said</h3>
+        <div className="cs-testimonials">
+          {testimonials.map((t) => (
+            <figure className="cs-testimonial" key={t.quote}>
+              <span className="cs-testimonial__mark" aria-hidden>&ldquo;</span>
+              <blockquote className="cs-testimonial__quote">{t.quote}</blockquote>
+              <figcaption className="cs-testimonial__by">
+                <span className="cs-testimonial__name">{t.name}</span>
+                <span className="cs-testimonial__meta">{t.meta}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       </section>
 
       {/* ── 07 Reflection ── */}
