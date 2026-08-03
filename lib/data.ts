@@ -264,23 +264,6 @@ export const experience: Experience[] = [
     fg: "#ffffff",
     icon: "◈",
     logo: "/logos/social.jpg"
-  },
-  {
-    period: "Dec 2023 — Jan 2024",
-    role: "Web Developer",
-    org: "CodSoft · Part-time",
-    location: "Remote",
-    desc: [
-      "Designed a landing page for QuicTric (academic study material website) with functionalities (with responsiveness).",
-      "Designed a full working Portfolio website using Javascript (with responsiveness).",
-      "Maked a fully functional calculator for basic use."
-    ],
-    blurb: "Built responsive landing, portfolio & calculator sites.",
-    short: "CodSoft",
-    accent: "#b45309",
-    fg: "#ffffff",
-    icon: "❮❯",
-    logo: "/logos/codsoft.jpg"
   }
 ];
 
