@@ -86,13 +86,29 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
   color: var(--bg);
   overflow: hidden;
 }
-/* calm starfield — tiny dots, slow twinkle (just a little motion) */
+/* calm starfield — tiny dim dots that slowly wander along curved paths and twinkle */
 .intro__stars { position: absolute; inset: 0; z-index: 1; }
-.intro__stars span {
-  position: absolute; border-radius: 50%;
+/* wrapper carries the slow curved drift; the inner dot carries the twinkle */
+.intro__stars .star {
+  position: absolute;
+  animation: intro-drift ease-in-out infinite;
+  will-change: transform;
+}
+.intro__stars .star i {
+  display: block; border-radius: 50%;
   animation: twinkle ease-in-out infinite;
 }
 @keyframes twinkle { 0%, 100% { opacity: 0.14; } 50% { opacity: 0.85; } }
+/* four random control points → an organic, non-linear (curved) wander back home */
+@keyframes intro-drift {
+  0%, 100% { transform: translate(0, 0); }
+  25%  { transform: translate(var(--dx1, 0), var(--dy1, 0)); }
+  50%  { transform: translate(var(--dx2, 0), var(--dy2, 0)); }
+  75%  { transform: translate(var(--dx3, 0), var(--dy3, 0)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro__stars .star { animation: none; }
+}
 
 .intro__center {
   position: absolute; top: 50%; left: 50%; z-index: 4;
@@ -121,7 +137,7 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
 }
 .intro__explore {
   font-family: var(--font-serif), Georgia, serif;
-  font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em;
+  font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
   background: var(--bg); color: #15140f;
   border: none; border-radius: 100px; padding: 0.75rem 1.4rem;
   cursor: none; display: inline-flex; align-items: center; gap: 0.5rem;
@@ -134,7 +150,7 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
 .intro__skip {
   margin-top: 1.1rem; cursor: none;
   font-family: var(--font-serif), Georgia, serif;
-  font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.14em;
+  font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em;
   color: rgba(243, 241, 235, 0.78);
   background: rgba(243, 241, 235, 0.06);
   border: 1px solid rgba(243, 241, 235, 0.32);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Magnetic from "./Magnetic";
@@ -211,16 +211,22 @@ export default function Intro() {
     };
   }, [show, step, orbX, orbY]);
 
-  // calm, sparse starfield — tiny stars with a slow twinkle (no warp)
-  const stars = useMemo(
-    () =>
-      Array.from({ length: 90 }, (_, i) => ({
+  // calm, sparse starfield — tiny dim dots that slowly wander along curved paths and twinkle
+  const stars = useMemo(() => {
+    // signed random amplitude → a control-point offset for the drift path
+    const amp = () => (Math.random() < 0.5 ? -1 : 1) * (18 + Math.random() * 52);
+    return Array.from({ length: 90 }, (_, i) => {
+      const driftDur = 22 + Math.random() * 26; // 22–48s: slow
+      return {
         id: i, top: Math.random() * 100, left: Math.random() * 100,
         size: Math.random() * 1.6 + 0.8, delay: Math.random() * 6, duration: 3.5 + Math.random() * 4,
-        color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)]
-      })),
-    []
-  );
+        color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)],
+        // three curved-wander control points + a slow, desynced drift cycle
+        dx1: amp(), dy1: amp(), dx2: amp(), dy2: amp(), dx3: amp(), dy3: amp(),
+        driftDur, driftDelay: -Math.random() * driftDur
+      };
+    });
+  }, []);
 
   const onCardMove = (e: React.MouseEvent) => {
     if (penMode) return;
@@ -366,7 +372,19 @@ export default function Intro() {
 
             <div className="intro__stars" aria-hidden>
               {stars.map((s) => (
-                <span key={s.id} style={{ top: `${s.top}%`, left: `${s.left}%`, width: `${s.size}px`, height: `${s.size}px`, background: s.color, animationDelay: `${s.delay}s`, animationDuration: `${s.duration}s` }} />
+                <span
+                  key={s.id}
+                  className="star"
+                  style={{
+                    top: `${s.top}%`, left: `${s.left}%`,
+                    animationDuration: `${s.driftDur}s`, animationDelay: `${s.driftDelay}s`,
+                    "--dx1": `${s.dx1}px`, "--dy1": `${s.dy1}px`,
+                    "--dx2": `${s.dx2}px`, "--dy2": `${s.dy2}px`,
+                    "--dx3": `${s.dx3}px`, "--dy3": `${s.dy3}px`
+                  } as CSSProperties}
+                >
+                  <i style={{ width: `${s.size}px`, height: `${s.size}px`, background: s.color, animationDelay: `${s.delay}s`, animationDuration: `${s.duration}s` }} />
+                </span>
               ))}
             </div>
 
