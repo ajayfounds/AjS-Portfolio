@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 
 // Wanderly's brand primary is #558765; deepened slightly for label/eyebrow contrast on the warm canvas.
 const ACCENT = "#3f6f52";
-const BEHANCE = "https://www.behance.net/gallery/247912507/Wanderly";
 const IMG = (name: string) => `/case/wanderly/${name}.webp`;
 
 // Each Table-of-Contents section is one or more full-width images.
@@ -53,9 +52,6 @@ export default function WanderlyCaseStudy() {
           “With Wanderly you're not just planning a route — you're designing an experience, making sure every mile is
           filled with discovery, convenience and delight.”
         </p>
-        <a className="cs-cta" href={BEHANCE} target="_blank" rel="noopener noreferrer">
-          View on Behance <span aria-hidden>↗</span>
-        </a>
       </header>
 
       <div className="cs-meta">
