@@ -41,15 +41,15 @@ export default function WanderlyCaseStudy() {
           <span className="cs-tag">AI · UX/UI</span>
         </div>
         <h1 className="cs-title__h">
-          <span className="cs-star" aria-hidden>✱</span> Wanderly — AI Travel Itinerary Planner
+          <span className="cs-star" aria-hidden>✱</span> Wanderly ... AI Travel Itinerary Planner
         </h1>
         <p className="cs-title__lead">
           Wanderly is a travel itinerary platform for explorers who crave more than just a destination. Powered by AI,
-          it builds tailored roadmaps that spotlight the most exciting stops and hidden gems along the way — turning
+          it builds tailored roadmaps that spotlight the most exciting stops and hidden gems along the way ... turning
           scattered research into a single, day-by-day plan.
         </p>
         <p className="cs-title__lead cs-quoteline">
-          “With Wanderly you're not just planning a route — you're designing an experience, making sure every mile is
+          “With Wanderly you're not just planning a route ... you're designing an experience, making sure every mile is
           filled with discovery, convenience and delight.”
         </p>
       </header>
@@ -67,7 +67,7 @@ export default function WanderlyCaseStudy() {
           <p className="cs-eyebrow">{s.num} · {s.label}</p>
           {s.files.map((f) => (
             <figure className="cs-wide" key={f}>
-              <CaseImg src={IMG(f)} alt={`${s.label} — Wanderly case study`} ratio="wide" />
+              <CaseImg src={IMG(f)} alt={`${s.label} ... Wanderly case study`} ratio="wide" />
             </figure>
           ))}
         </section>

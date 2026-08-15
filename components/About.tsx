@@ -351,16 +351,16 @@ export default function About() {
         </div>
       </Reveal>
 
-      {/* Things I do for fun — photo ring first, hobbies after */}
+      {/* Things I do for fun — photo ring on top, heading + blurb beneath */}
       <section className="about__block about__block--center">
         <Reveal>
+          <FunStack />
+        </Reveal>
+        <Reveal delay={0.05}>
           <h2 className="about__display">Things I do for fun</h2>
         </Reveal>
         <Reveal delay={0.05}>
           <p className="about__displaySub">{funBlurb}</p>
-        </Reveal>
-        <Reveal delay={0.05}>
-          <FunStack />
         </Reveal>
       </section>
 
@@ -397,8 +397,8 @@ export default function About() {
                 <h3 className="community__name">{c.name}</h3>
               </div>
               {c.desc && <p className="community__desc">{c.desc}</p>}
-              <div className="community__media">
-                <img src={c.img} alt={c.name} loading="lazy" />
+              <div className={`community__media${c.img ? "" : " community__media--empty"}`}>
+                {c.img && <img src={c.img} alt={c.name} loading="lazy" />}
               </div>
             </Reveal>
           ))}

@@ -48,7 +48,7 @@ export default function Footer() {
       </div>
 
       <div className="footer__bottom">
-        <span className="footer__copy">© 2026 {site.name} — Clarity &amp; purpose</span>
+        <span className="footer__copy">© 2026 {site.name} ... Clarity &amp; purpose</span>
         <Magnetic strength={0.2}>
           <a href="#top" className="footer__back" data-link onClick={toTop}>
             ✦ Back to top

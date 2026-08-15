@@ -15,16 +15,18 @@ export default function Experience() {
       <ul className="exp__list">
         {experience.map((job, i) => (
           <Reveal as="li" key={job.role + job.period} className="exp__item" delay={i * 0.05}>
-            <div className="exp__meta">
-              <span className="exp__logo" style={{ "--accent": job.accent } as React.CSSProperties}>
-                <Logo src={job.logo} glyph={job.icon} />
-              </span>
-              <span className="exp__period">{job.period}</span>
-            </div>
-            <div className="exp__body" style={{ "--accent": job.accent } as React.CSSProperties}>
+            <div className="exp__meta" style={{ "--accent": job.accent } as React.CSSProperties}>
+              <div className="exp__metaTop">
+                <span className="exp__logo">
+                  <Logo src={job.logo} glyph={job.icon} />
+                </span>
+                <span className="exp__period">{job.period}</span>
+              </div>
               <h3 className="exp__role">{job.role}</h3>
               <p className="exp__org">{job.org}</p>
               <p className="exp__loc">{job.location}</p>
+            </div>
+            <div className="exp__body" style={{ "--accent": job.accent } as React.CSSProperties}>
               <ul className="exp__desc">
                 {job.desc.map((d) => (
                   <li key={d}>{d}</li>

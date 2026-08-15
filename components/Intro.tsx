@@ -393,7 +393,7 @@ export default function Intro() {
               <motion.h1 className="intro__title brandmark" {...fadeUp} transition={{ duration: 0.7, delay: 0.3 }}>{site.brand}</motion.h1>
               <motion.div {...fadeUp} transition={{ duration: 0.6, delay: 0.5 }}>
                 <Magnetic strength={0.4}>
-                  <button className="intro__explore" onClick={() => setStep("card")}>Explore <span aria-hidden>→</span></button>
+                  <button className="intro__explore" onClick={() => setStep("card")}>Explore</button>
                 </Magnetic>
               </motion.div>
               <motion.button className="intro__skip" onClick={dismiss} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.7 }}>Skip Intro</motion.button>

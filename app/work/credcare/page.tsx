@@ -153,7 +153,7 @@ const onboarding = [
 ];
 
 const homeScreens = [
-  { img: "home", title: "Home", cap: "Score snapshot, Trust Meter and one Next Best Action — reassurance before data." }
+  { img: "home", title: "Home", cap: "Score snapshot, Trust Meter and one Next Best Action ... reassurance before data." }
 ];
 
 const recoveryScreens = [
@@ -161,12 +161,12 @@ const recoveryScreens = [
   { img: "recovery-plan", title: "Recovery Plan", cap: "Why your score dropped, then a staged roadmap instead of a wall of numbers." },
   { img: "days-0-30", title: "0–30 Days", cap: "Stabilization & Damage Control" },
   { img: "days-30-90", title: "30–90 Days", cap: "Building trust through a pattern of good behavior" },
-  { img: "days-90-180", title: "90–180 Days", cap: "Score growth — visible improvement" }
+  { img: "days-90-180", title: "90–180 Days", cap: "Score growth ... visible improvement" }
 ];
 
 const actionScreens = [
   { img: "action-center", title: "Action Center", cap: "Prioritized to-dos split across My Tasks and Loans & Cards." },
-  { img: "task-pay", title: "Task detail", cap: "Context, amount, due date — and a Do Later that never shames." },
+  { img: "task-pay", title: "Task detail", cap: "Context, amount, due date ... and a Do Later that never shames." },
   { img: "auto-pay", title: "Set up Auto-pay", cap: "Turn a recurring worry into a one-time setup, then mark it complete." },
   { img: "dispute", title: "Dispute CIBIL Error", cap: "" },
   { img: "upload-income", title: "Upload Income Proof", cap: "" },
@@ -183,12 +183,12 @@ const learnScreens = [
 
 // full-length screens, shown inside the section each one belongs to
 const fullCore = [
-  { img: "full-home", title: "Home — full screen", cap: "Score snapshot → Trust Meter → Next Best Action → Quick Actions" }
+  { img: "full-home", title: "Home ... full screen", cap: "Score snapshot → Trust Meter → Next Best Action → Quick Actions" }
 ];
 const fullLearn = [
-  { img: "full-learn", title: "Learn — full screen", cap: "Featured guide, category filters and the latest guides" },
-  { img: "full-credit-scores", title: "How Credit Scores Actually Work — full screen", cap: "The Big Four Factors, with a Pro Tip and a helpfulness check" },
-  { img: "full-minimum", title: "The Truth About Minimum Payments — full screen", cap: "The Math Trap — why paying the minimum costs years" }
+  { img: "full-learn", title: "Learn ... full screen", cap: "Featured guide, category filters and the latest guides" },
+  { img: "full-credit-scores", title: "How Credit Scores Actually Work ... full screen", cap: "The Big Four Factors, with a Pro Tip and a helpfulness check" },
+  { img: "full-minimum", title: "The Truth About Minimum Payments ... full screen", cap: "The Math Trap ... why paying the minimum costs years" }
 ];
 
 const profileScreens = [
@@ -217,9 +217,9 @@ const takeaways = [
 
 // TODO: replace with real user quotes — placeholders for now
 const testimonials = [
-  { quote: "Placeholder quote — a user's reaction to feeling guided instead of judged during recovery.", name: "Placeholder Name", meta: "Usability session · Placeholder" },
-  { quote: "Placeholder quote — a short line about finally understanding why the score dropped.", name: "Placeholder Name", meta: "Beta tester · Placeholder" },
-  { quote: "Placeholder quote — a testimonial about trusting the app enough to keep coming back.", name: "Placeholder Name", meta: "User interview · Placeholder" }
+  { quote: "Placeholder quote ...a user's reaction to feeling guided instead of judged during recovery.", name: "Placeholder Name", meta: "Usability session · Placeholder" },
+  { quote: "Placeholder quote ...a short line about finally understanding why the score dropped.", name: "Placeholder Name", meta: "Beta tester · Placeholder" },
+  { quote: "Placeholder quote ...a testimonial about trusting the app enough to keep coming back.", name: "Placeholder Name", meta: "User interview · Placeholder" }
 ];
 
 function FullScreens({ items }: { items: { img: string; title: string; cap: string }[] }) {
@@ -273,7 +273,7 @@ export default function CredCareCaseStudy() {
           <span className="cs-tag">Fintech</span>
         </div>
         <h1 className="cs-title__h">
-          <span className="cs-star" aria-hidden>✱</span> CredCare — Fintech Credit Recovery App
+          <span className="cs-star" aria-hidden>✱</span> CredCare ... Fintech Credit Recovery App
         </h1>
         <p className="cs-title__lead">
           CredCare is a fintech product designed to helps users with low credit scores emotionally recover from past

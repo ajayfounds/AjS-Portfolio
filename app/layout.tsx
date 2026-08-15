@@ -1,8 +1,22 @@
 import type { Metadata } from "next";
 import { Inter, Cormorant_Garamond, Playfair_Display, Open_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import { site } from "@/lib/data";
 import Shell from "@/components/Shell";
 import "./globals.css";
+
+// Clash Grotesk (Indian Type Foundry, via Fontshare) — carries the small
+// uppercase labels/eyebrows/tags across the portfolio.
+const clash = localFont({
+  src: [
+    { path: "./fonts/ClashGrotesk-Regular.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/ClashGrotesk-Medium.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/ClashGrotesk-Semibold.woff2", weight: "600", style: "normal" },
+    { path: "./fonts/ClashGrotesk-Bold.woff2", weight: "700", style: "normal" }
+  ],
+  variable: "--font-clash",
+  display: "swap"
+});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -53,7 +67,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${serif.variable} ${royal.variable} ${opensans.variable}`}>
+    <html lang="en" className={`${inter.variable} ${serif.variable} ${royal.variable} ${opensans.variable} ${clash.variable}`}>
       <body>
         <Shell>{children}</Shell>
       </body>

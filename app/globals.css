@@ -117,7 +117,7 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
   width: min(90vw, 640px);
 }
 .intro__eyebrow {
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif;
   font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.22em;
   color: rgba(243, 241, 235, 0.55); margin-bottom: 0.9rem;
 }
@@ -129,14 +129,14 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
 /* HAZEL Verse wordmark — clean Open Sans Bold, palette-synced gradient + soft light */
 .brandmark {
   /* the serif the rest of the site uses for names — matches the reference mark */
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-serif), serif;
   font-weight: 600; font-style: normal; letter-spacing: 0;
   color: #fff; -webkit-text-fill-color: #fff;
   text-shadow: 0 0 18px rgba(255,255,255,.55), 0 0 44px rgba(255,255,255,.30), 0 0 90px rgba(255,255,255,.16);
   animation: none;
 }
 .intro__explore {
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif;
   font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
   background: var(--bg); color: #15140f;
   border: none; border-radius: 100px; padding: 0.75rem 1.4rem;
@@ -149,7 +149,7 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
 /* more prominent than plain ghost text — outlined pill that fills on hover */
 .intro__skip {
   margin-top: 1.1rem; cursor: none;
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif;
   font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em;
   color: rgba(243, 241, 235, 0.78);
   background: rgba(243, 241, 235, 0.06);
@@ -162,7 +162,7 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
 }
 .intro__tagline {
   margin-top: 2.5rem;
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif;
   font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; line-height: 2;
   color: rgba(243, 241, 235, 0.45);
 }
@@ -181,12 +181,12 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
   display: flex; flex-direction: column; gap: 0.25rem;
 }
 .intro__time {
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.8rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.8rem;
   font-variant-numeric: tabular-nums; color: rgba(243, 241, 235, 0.7);
 }
 .intro__system {
   display: flex; align-items: center; gap: 0.4rem;
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.66rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.66rem;
   text-transform: uppercase; letter-spacing: 0.1em; color: rgba(243, 241, 235, 0.45);
 }
 .intro__dot {
@@ -224,7 +224,7 @@ body.orb-active .cursor { display: none; }
 .welcome__back {
   position: absolute; top: var(--pad); left: var(--pad);
   background: none; border: none; cursor: none;
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.72rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.72rem;
   text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted);
   transition: color 0.3s var(--ease);
 }
@@ -235,14 +235,14 @@ body.orb-active .cursor { display: none; }
   display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
 }
 .welcome__hi {
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.74rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.74rem;
   text-transform: uppercase; letter-spacing: 0.14em; line-height: 1.9; text-align: center;
 }
 .welcome__hi span { display: block; color: var(--muted); }
 
 .welcome__field { width: 100%; display: flex; align-items: center; gap: 0.75rem; }
 .welcome__label {
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.7rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.7rem;
   text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
 }
 .welcome__input-wrap {
@@ -252,7 +252,7 @@ body.orb-active .cursor { display: none; }
 }
 .welcome__input {
   flex: 1; border: none; outline: none; background: none; cursor: none;
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.8rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.8rem;
   text-transform: uppercase; letter-spacing: 0.06em; color: var(--fg);
   padding: 0.5rem 0;
 }
@@ -277,7 +277,7 @@ body.orb-active .cursor { display: none; }
 .vcard__matrix {
   position: absolute; inset: 0; margin: 0; padding: 0.6rem;
   display: flex; align-items: center; justify-content: flex-end;
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif;
   font-size: clamp(7px, 1.4vw, 11px); line-height: 1.05; letter-spacing: 1px;
   white-space: pre; color: currentColor; opacity: 0.32;
   pointer-events: none; text-align: right; overflow: hidden;
@@ -286,25 +286,25 @@ body.orb-active .cursor { display: none; }
 .vcard__brand { font-family: var(--font-royal), Georgia, serif; font-size: 1.2rem; font-weight: 700; font-style: italic; }
 .vcard__clear {
   background: rgba(243, 241, 235, 0.18); border: none; cursor: none; color: currentColor;
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.56rem; letter-spacing: 0.12em;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.56rem; letter-spacing: 0.12em;
   text-transform: uppercase; padding: 0.25rem 0.5rem; border-radius: 5px;
 }
 .vcard__mid { margin-top: auto; display: flex; flex-direction: column; gap: 0.7rem; position: relative; z-index: 1; }
 .vcard__label {
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.58rem; font-style: normal;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.58rem; font-style: normal;
   text-transform: uppercase; letter-spacing: 0.16em; opacity: 0.7;
   display: block; margin-bottom: 0.2rem;
 }
-.vcard__value { font-family: var(--font-serif), Georgia, serif; font-size: 0.92rem; letter-spacing: 0.04em; }
+.vcard__value { font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.92rem; letter-spacing: 0.04em; }
 .vcard__name { font-size: 1.05rem; }
 .vcard__foot {
   margin-top: 1rem; display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem;
   position: relative; z-index: 1;
 }
-.vcard__no { font-family: var(--font-serif), Georgia, serif; font-size: 0.58rem; letter-spacing: 0.1em; opacity: 0.7; }
+.vcard__no { font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.58rem; letter-spacing: 0.1em; opacity: 0.7; }
 .vcard__sign {
   flex: 1; max-width: 58%; display: flex; align-items: flex-end; gap: 0.4rem;
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.78rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.78rem;
 }
 .vcard__sign i { flex: 1; border-bottom: 1px solid currentColor; opacity: 0.5; margin-bottom: 0.22rem; }
 /* signature drawing layer */
@@ -330,7 +330,7 @@ body.orb-active .cursor { display: none; }
 .welcome__tool.is-active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 
 .welcome__enter {
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.76rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.76rem;
   text-transform: uppercase; letter-spacing: 0.12em;
   background: var(--fg); color: var(--bg); border: none; border-radius: 100px;
   padding: 0.7rem 1.5rem; cursor: none;
@@ -339,15 +339,15 @@ body.orb-active .cursor { display: none; }
 .welcome__enter span { transition: transform 0.3s var(--ease); }
 .welcome__enter:hover span { transform: translateX(4px); }
 .welcome__note {
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.62rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.62rem;
   letter-spacing: 0.05em; color: var(--muted); text-align: center;
 }
 
 .welcome__status { position: absolute; left: var(--pad); bottom: var(--pad); display: flex; flex-direction: column; gap: 0.25rem; }
-.welcome__time { font-family: var(--font-serif), Georgia, serif; font-size: 0.8rem; font-variant-numeric: tabular-nums; color: var(--muted); }
+.welcome__time { font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.8rem; font-variant-numeric: tabular-nums; color: var(--muted); }
 .welcome__system {
   display: flex; align-items: center; gap: 0.4rem;
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.66rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.66rem;
   text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
 }
 .welcome__dot {
@@ -464,7 +464,7 @@ body.is-resizing * { cursor: col-resize !important; }
 }
 .sidebar__resume {
   display: inline-flex; align-items: center; justify-content: center; cursor: none;
-  font-family: var(--font-serif), Georgia, serif; font-size: .74rem; font-weight: 600;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .74rem; font-weight: 600;
   text-transform: uppercase; letter-spacing: .14em; color: var(--bg);
   padding: .6rem 1.25rem; border-radius: 100px;
   border: 1px solid var(--fg); background: var(--fg);
@@ -488,7 +488,7 @@ body.is-resizing * { cursor: col-resize !important; }
   font-weight: 500; letter-spacing: -0.01em; line-height: 1.1;
 }
 .sidebar__role {
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif;
   font-size: 1rem; letter-spacing: .08em; color: var(--muted);
   margin-top: .6rem; line-height: 1.6;
 }
@@ -499,7 +499,7 @@ body.is-resizing * { cursor: col-resize !important; }
 
 .sidebar__section { margin-top: 2.6rem; }
 .sidebar__heading {
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif;
   font-size: .7rem; text-transform: uppercase; letter-spacing: .14em;
   color: var(--muted); margin-bottom: .9rem;
 }
@@ -512,7 +512,7 @@ body.is-resizing * { cursor: col-resize !important; }
 .sidebar__nav a:hover, .sidebar__nav a.is-active { background: rgba(36, 36, 36, 0.06); color: var(--accent); }
 .sidebar__nav a::after { display: none; }
 .sidebar__nav-num {
-  font-family: var(--font-serif), Georgia, serif; font-size: .72rem; color: var(--muted);
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .72rem; color: var(--muted);
 }
 .sidebar__nav-label { flex: 1; }
 .sidebar__nav-arrow {
@@ -574,7 +574,7 @@ body.is-resizing * { cursor: col-resize !important; }
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 .vcbtn__label {
-  font-family: var(--font-serif), Georgia, serif; font-size: .66rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .66rem;
   text-transform: uppercase; letter-spacing: .1em;
 }
 
@@ -592,22 +592,22 @@ body.is-resizing * { cursor: col-resize !important; }
   padding: 2rem; text-align: center; display: flex; flex-direction: column; gap: .5rem;
 }
 .vcmodal__empty p { font-size: 1rem; }
-.vcmodal__empty span { font-family: var(--font-serif), Georgia, serif; font-size: .72rem; color: var(--muted); }
+.vcmodal__empty span { font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .72rem; color: var(--muted); }
 .vcmodal__close {
   background: var(--bg); color: var(--fg); border: 1px solid var(--line-strong); cursor: none;
   border-radius: 100px; padding: .55rem 1.4rem;
-  font-family: var(--font-serif), Georgia, serif; font-size: .72rem; text-transform: uppercase; letter-spacing: .1em;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .72rem; text-transform: uppercase; letter-spacing: .1em;
   transition: background .3s var(--ease), color .3s var(--ease);
 }
 .vcmodal__close:hover { background: var(--fg); color: var(--bg); }
 .sidebar__status { display: flex; flex-direction: column; gap: .25rem; }
 .sidebar__time {
-  font-family: var(--font-serif), Georgia, serif; font-size: .85rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .85rem;
   font-variant-numeric: tabular-nums;
 }
 .sidebar__system {
   display: flex; align-items: center; gap: .4rem;
-  font-family: var(--font-serif), Georgia, serif; font-size: .68rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .68rem;
   letter-spacing: .08em; color: var(--muted);
 }
 .sidebar__dot {
@@ -629,7 +629,7 @@ body.is-resizing * { cursor: col-resize !important; }
   width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
   padding: 1.1rem 1.5rem;
   background: none; border: none; cursor: none; color: inherit; text-align: left;
-  font-family: var(--font-serif), Georgia, serif; font-size: .76rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .76rem;
   text-transform: uppercase; letter-spacing: .12em;
 }
 .log__date { color: rgba(243, 241, 235, 0.5); margin-left: .75rem; letter-spacing: .06em; }
@@ -702,7 +702,7 @@ body.is-resizing * { cursor: col-resize !important; }
 .card.is-locked .card__media { filter: saturate(.85); }
 .card__locked {
   margin-left: auto;
-  font-family: var(--font-serif), Georgia, serif; font-size: .58rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .58rem;
   text-transform: uppercase; letter-spacing: .1em; color: var(--muted);
   border: 1px solid var(--line-strong); border-radius: 100px; padding: .2rem .55rem;
 }
@@ -728,7 +728,7 @@ body.is-resizing * { cursor: col-resize !important; }
 }
 .card__live-word {
   position: relative; z-index: 1;
-  font-family: var(--font-serif), Georgia, serif; font-size: .8rem; font-weight: 600;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .8rem; font-weight: 600;
   text-transform: uppercase; letter-spacing: .06em;
   color: #fff; line-height: 1;
 }
@@ -771,7 +771,7 @@ body.is-resizing * { cursor: col-resize !important; }
   border: 0;
 }
 .card__num {
-  font-family: var(--font-serif), Georgia, serif; font-size: .66rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .66rem;
   text-transform: uppercase; letter-spacing: .12em; color: var(--muted);
   font-variant-numeric: tabular-nums;
 }
@@ -789,7 +789,7 @@ body.is-resizing * { cursor: col-resize !important; }
 .card__name { font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 500; letter-spacing: -0.01em; }
 .card__tags { display: flex; flex-wrap: wrap; gap: .4rem; justify-content: flex-end; min-width: 0; }
 .pill {
-  font-family: var(--font-serif), Georgia, serif; font-size: .62rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .62rem;
   text-transform: uppercase; letter-spacing: .08em;
   padding: .3rem .55rem; border-radius: 100px;
   border: 1px solid var(--line-strong); color: var(--muted);
@@ -812,7 +812,7 @@ body.is-resizing * { cursor: col-resize !important; }
 }
 .card__meta > div { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; align-items: baseline; }
 .card__meta dt {
-  font-family: var(--font-serif), Georgia, serif; font-size: .62rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .62rem;
   text-transform: uppercase; letter-spacing: .1em; color: var(--muted);
 }
 .card__meta dd { font-size: .82rem; line-height: 1.4; }
@@ -822,7 +822,7 @@ body.is-resizing * { cursor: col-resize !important; }
 .work__cursor-pill {
   display: inline-flex; align-items: center; gap: .45rem; white-space: nowrap;
   background: var(--accent); color: var(--bg);
-  font-family: var(--font-serif), Georgia, serif; font-size: .68rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .68rem;
   text-transform: uppercase; letter-spacing: .1em;
   padding: .5rem .85rem; border-radius: 100px;
   box-shadow: 0 10px 24px -10px rgba(36, 36, 36, 0.5);
@@ -855,7 +855,7 @@ body.pill-cursor .cursor { opacity: 0; }
   display: flex; align-items: baseline; gap: 1rem;
   padding: clamp(2rem, 4vw, 3.25rem) var(--pad) 1.75rem;
 }
-.section-head__index { font-family: var(--font-serif), Georgia, serif; font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.section-head__index { font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 .section-head__title { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 500; letter-spacing: -0.02em; }
 
 /* ============================================================
@@ -863,13 +863,15 @@ body.pill-cursor .cursor { opacity: 0; }
 ============================================================ */
 .exp__list { list-style: none; border-top: 1px solid var(--line); }
 .exp__item {
-  display: grid; grid-template-columns: 16rem 1fr; gap: clamp(1rem, 4vw, 4rem);
+  display: grid; grid-template-columns: minmax(18rem, 22rem) 1fr; gap: clamp(1rem, 4vw, 4rem);
   padding: 2.25rem var(--pad);
   border-bottom: 1px solid var(--line);
   transition: background .4s var(--ease);
 }
 .exp__item:hover { background: rgba(36, 36, 36, 0.035); }
 .exp__meta { display: flex; flex-direction: column; gap: .85rem; }
+/* logo + period sit on one row above the role/org/location block */
+.exp__metaTop { display: flex; align-items: center; gap: 1rem; }
 .exp__logo {
   width: 52px; height: 52px; border-radius: 12px; overflow: hidden;
   display: flex; align-items: center; justify-content: center;
@@ -878,10 +880,10 @@ body.pill-cursor .cursor { opacity: 0; }
 }
 .exp__logo img { width: 100%; height: 100%; object-fit: contain; }
 .exp__logo-fallback { font-size: 1.2rem; color: color-mix(in srgb, var(--accent) 80%, var(--fg)); }
-.exp__period { font-family: var(--font-serif), Georgia, serif; color: var(--muted); font-size: .8rem; text-transform: uppercase; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+.exp__period { font-family: var(--font-clash), "Clash Grotesk", sans-serif; color: var(--muted); font-size: .8rem; text-transform: uppercase; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
 .exp__role { font-size: clamp(1.35rem, 3vw, 2rem); font-weight: 500; letter-spacing: -0.02em; }
 .exp__org { color: var(--accent); font-size: 1rem; margin: .35rem 0 .15rem; }
-.exp__loc { font-family: var(--font-serif), Georgia, serif; font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: 1rem; }
+.exp__loc { font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: 1rem; }
 .exp__desc { display: flex; flex-direction: column; gap: .55rem; color: var(--muted); max-width: 66ch; font-size: 1.02rem; line-height: 1.55; }
 .exp__desc li { position: relative; padding-left: 1.25rem; }
 .exp__desc li::before {
@@ -891,7 +893,6 @@ body.pill-cursor .cursor { opacity: 0; }
 }
 @media (max-width: 720px) {
   .exp__item { grid-template-columns: 1fr; gap: .9rem; }
-  .exp__meta { flex-direction: row; align-items: center; gap: 1rem; }
 }
 
 /* ============================================================
@@ -932,7 +933,7 @@ body.pill-cursor .cursor { opacity: 0; }
 }
 .hottake:last-child { border-bottom: 1px dotted var(--line-strong); }
 .hottake__num {
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.72rem; color: var(--accent);
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.72rem; color: var(--accent);
   flex-shrink: 0; font-variant-numeric: tabular-nums;
 }
 .hottake__text {
@@ -961,7 +962,7 @@ body.pill-cursor .cursor { opacity: 0; }
 .about__block { margin-top: clamp(3rem, 6vw, 5rem); }
 .about__block--center { text-align: center; }
 .about__eyebrow {
-  font-family: var(--font-serif), Georgia, serif; font-size: .74rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .74rem;
   text-transform: uppercase; letter-spacing: .14em; color: var(--muted);
   margin-bottom: 1.5rem;
 }
@@ -990,6 +991,11 @@ body.pill-cursor .cursor { opacity: 0; }
 .community__desc { color: var(--muted); font-size: .9rem; line-height: 1.55; flex: 1; }
 .community__media { border-radius: 10px; overflow: hidden; aspect-ratio: 16/10; margin-top: auto; }
 .community__media img { transition: transform 1s var(--ease); }
+/* reserved slot while a replacement image is pending */
+.community__media--empty {
+  background: repeating-linear-gradient(-45deg, var(--bg), var(--bg) 9px, var(--bg-2) 9px, var(--bg-2) 18px);
+  border: 1px dashed var(--line);
+}
 .community:hover .community__media img { transform: scale(1.04); }
 @media (max-width: 920px) { .communities { grid-template-columns: 1fr; } }
 
@@ -1056,7 +1062,7 @@ body.pill-cursor .cursor { opacity: 0; }
 }
 .book__title { font-family: var(--font-serif), serif; font-size: 1.05rem; line-height: 1.2; margin-bottom: .25rem; }
 .book__author {
-  font-family: var(--font-serif), Georgia, serif; font-size: .68rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .68rem;
   text-transform: uppercase; letter-spacing: .06em; color: var(--muted);
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1150,12 +1156,13 @@ body.pill-cursor .cursor { opacity: 0; }
 }
 .journey__slot.is-big {
   flex: 0 0 100%; min-height: 190px; padding: clamp(1.4rem, 2.4vw, 1.9rem);
-  background: color-mix(in srgb, var(--accent) 16%, var(--bg));
-  border-color: color-mix(in srgb, var(--accent) 32%, var(--line));
+  /* solid 100%-opacity fill with complementary light text, like the mini cards */
+  background: var(--accent); border-color: transparent;
+  box-shadow: 0 12px 26px -16px color-mix(in srgb, var(--accent) 80%, #000);
 }
-/* vibrant filled mini cards with complementary light text */
+/* vibrant filled mini cards with complementary light text — grow to fill any trailing gap */
 .journey__slot.is-mini {
-  flex: 0 1 calc(33.333% - .48rem); min-width: 128px; min-height: 104px;
+  flex: 1 1 calc(33.333% - .48rem); min-width: 128px; min-height: 104px;
   padding: .75rem;
   background: var(--accent); border-color: transparent;
   box-shadow: 0 10px 22px -14px color-mix(in srgb, var(--accent) 80%, #000);
@@ -1181,14 +1188,16 @@ body.pill-cursor .cursor { opacity: 0; }
 .journey__role {
   font-family: var(--font-serif), serif; font-size: clamp(1.4rem, 2.6vw, 1.9rem);
   font-weight: 600; line-height: 1.1;
-  color: color-mix(in srgb, var(--accent) 78%, var(--fg));
+  color: var(--chip-fg, #fff);
 }
-.journey__sub { color: var(--muted); font-size: .95rem; font-weight: 500; }
-.journey__blurb { color: var(--fg); font-size: .95rem; line-height: 1.5; opacity: .82; margin-top: .15rem; }
+.journey__sub { color: var(--chip-fg, #fff); font-size: .95rem; font-weight: 500; }
+.journey__blurb { color: var(--chip-fg, #fff); font-size: .95rem; line-height: 1.5; margin-top: .15rem; }
 .journey__period {
   align-self: flex-start; margin-top: auto; padding: .35rem .8rem; border-radius: 100px;
-  font-family: var(--font-serif), Georgia, serif; font-size: .68rem; letter-spacing: .04em;
-  background: var(--bg); border: 1px solid var(--line); color: var(--muted);
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .68rem; letter-spacing: .04em;
+  background: color-mix(in srgb, var(--chip-fg, #fff) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--chip-fg, #fff) 32%, transparent);
+  color: var(--chip-fg, #fff);
 }
 
 .journey__miniInner {
@@ -1205,7 +1214,7 @@ body.pill-cursor .cursor { opacity: 0; }
 .journey__mini-text { display: flex; flex-direction: column; gap: .15rem; line-height: 1.2; }
 .journey__mini-name { font-weight: 600; font-size: .82rem; color: var(--chip-fg, #fff); }
 .journey__mini-role {
-  font-family: var(--font-serif), Georgia, serif; font-size: .55rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .55rem;
   text-transform: uppercase; letter-spacing: .05em;
   color: color-mix(in srgb, var(--chip-fg, #fff) 72%, transparent);
 }
@@ -1241,7 +1250,9 @@ body.pill-cursor .cursor { opacity: 0; }
 }
 .journey__quoteText em { font-style: italic; font-weight: 600; }
 
-@media (max-width: 860px) {
+/* below 1100px the quote panel would squash the stack — collapse to a single
+   column so the stack (featured card + minicards) can take the full width */
+@media (max-width: 1100px) {
   .journey { grid-template-columns: 1fr; }
   .journey__quote { aspect-ratio: 4 / 3; }
 }
@@ -1265,7 +1276,7 @@ body.pill-cursor .cursor { opacity: 0; }
 }
 .contact__socials {
   list-style: none; display: flex; gap: 1.5rem; flex-wrap: wrap;
-  font-family: var(--font-serif), Georgia, serif; text-transform: uppercase;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; text-transform: uppercase;
   letter-spacing: .06em; font-size: .82rem;
 }
 
@@ -1291,7 +1302,7 @@ body.pill-cursor .cursor { opacity: 0; }
 .footer__cols { display: flex; gap: clamp(2.5rem, 6vw, 6rem); }
 .footer__col {
   list-style: none; display: flex; flex-direction: column; gap: .65rem;
-  font-family: var(--font-serif), Georgia, serif; font-size: .82rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .82rem;
   text-transform: uppercase; letter-spacing: 0.08em;
 }
 .footer__col a { opacity: .85; transition: opacity .3s var(--ease); }
@@ -1301,11 +1312,11 @@ body.pill-cursor .cursor { opacity: 0; }
   padding-top: 1.75rem; border-top: 1px solid rgba(243, 241, 235, 0.25);
 }
 .footer__copy {
-  font-family: var(--font-serif), Georgia, serif; text-transform: uppercase;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; text-transform: uppercase;
   letter-spacing: 0.04em; font-size: .76rem; opacity: .8;
 }
 .footer__back {
-  font-family: var(--font-serif), Georgia, serif; font-size: .78rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .78rem;
   text-transform: uppercase; letter-spacing: 0.08em;
 }
 .footer__back::after { background: var(--bg); }
@@ -1317,11 +1328,11 @@ body.pill-cursor .cursor { opacity: 0; }
 .vgal { padding: clamp(2rem, 4vw, 3.25rem) var(--pad) var(--pad); }
 .vgal__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
 .vgal__title { font-family: var(--font-serif), serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 500; letter-spacing: -0.01em; }
-.vgal__count { font-family: var(--font-serif), Georgia, serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-top: 0.4rem; }
+.vgal__count { font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-top: 0.4rem; }
 .vgal__shuffle {
   display: inline-flex; align-items: center; gap: 0.45rem; flex-shrink: 0; cursor: none;
   background: none; border: 1px solid var(--line-strong); border-radius: 100px; color: var(--fg);
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em;
   padding: 0.5rem 0.9rem; transition: background 0.3s var(--ease), color 0.3s var(--ease);
 }
 .vgal__shuffle:hover { background: var(--fg); color: var(--bg); }
@@ -1331,7 +1342,7 @@ body.pill-cursor .cursor { opacity: 0; }
 .vgal__stats-toggle {
   width: 100%; display: flex; align-items: center; justify-content: space-between; cursor: none;
   background: none; border: 1px solid var(--line); border-radius: 8px; color: var(--muted);
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em;
   padding: 0.7rem 1rem; transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
 }
 .vgal__stats-toggle:hover { color: var(--fg); border-color: var(--line-strong); }
@@ -1343,7 +1354,7 @@ body.pill-cursor .cursor { opacity: 0; }
 .vgal__guestbook {
   width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: none;
   background: var(--fg); color: var(--bg); border: none; border-radius: 10px;
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.12em;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.12em;
   padding: 0.9rem; margin: 1rem 0 2rem;
 }
 .vgal__guestbook span { transition: transform 0.3s var(--ease); }
@@ -1364,14 +1375,14 @@ body.pill-cursor .cursor { opacity: 0; }
 .gcard__sigimg { position: absolute; right: 0.6rem; bottom: 0.4rem; width: 56%; height: 46%; object-fit: contain; z-index: 2; pointer-events: none; }
 .gcard__you {
   position: absolute; top: 0.7rem; right: 0.7rem; z-index: 3;
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.56rem; text-transform: uppercase; letter-spacing: 0.12em;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.56rem; text-transform: uppercase; letter-spacing: 0.12em;
   background: rgba(243, 241, 235, 0.22); color: currentColor; padding: 0.2rem 0.5rem; border-radius: 100px;
 }
 
 .vgal__more-wrap { display: flex; justify-content: center; padding: 2.5rem 0 1rem; }
 .vgal__more {
   cursor: none; background: none; border: 1px solid var(--line-strong); border-radius: 100px; color: var(--fg);
-  font-family: var(--font-serif), Georgia, serif; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.12em;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.12em;
   padding: 0.7rem 1.8rem; transition: background 0.3s var(--ease), color 0.3s var(--ease);
 }
 .vgal__more:hover { background: var(--fg); color: var(--bg); }
@@ -1733,9 +1744,18 @@ body.pill-cursor .cursor { opacity: 0; }
 .cs-persona__intro { font-size: .9rem; color: var(--cs-muted); line-height: 1.5; }
 .cs-persona__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.2rem, 2.5vw, 2.5rem); }
 .cs-persona__k { font-family: var(--font-inter), sans-serif; font-size: .6rem; text-transform: uppercase; letter-spacing: .07em; color: var(--cs-ink); margin-bottom: .4rem; font-weight: 600; }
-.cs-persona__needs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem clamp(1.2rem, 2.5vw, 2.5rem); margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--cs-hairline-soft); }
-.cs-persona__needs dt { font-family: var(--font-inter), sans-serif; font-size: .58rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--cs-muted); }
-.cs-persona__needs dd { font-size: .88rem; line-height: 1.45; margin-top: .15rem; color: var(--cs-body); }
+/* Core Need / Design Opportunity — highlighted takeaway callouts (accent-tinted
+   panels with a coloured left rule so they stand out from the persona body) */
+.cs-persona__needs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem clamp(1rem, 2vw, 1.4rem); margin-top: auto; padding-top: 1.1rem; }
+.cs-persona__needs > div {
+  background: color-mix(in srgb, var(--cs-accent) 8%, var(--cs-canvas));
+  border: 1px solid color-mix(in srgb, var(--cs-accent) 26%, var(--cs-hairline));
+  border-left: 3px solid var(--cs-accent);
+  border-radius: var(--cs-r-sm);
+  padding: .75rem .9rem .85rem;
+}
+.cs-persona__needs dt { font-family: var(--font-inter), sans-serif; font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--cs-accent); }
+.cs-persona__needs dd { font-size: .95rem; line-height: 1.5; margin-top: .35rem; color: var(--cs-ink); font-weight: 500; }
 
 .cs-split { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 2.5rem; }
 .cs-quotes { display: flex; flex-direction: column; gap: .9rem; }
@@ -1760,6 +1780,12 @@ body.pill-cursor .cursor { opacity: 0; }
 
 .cs-screens { display: flex; flex-direction: column; gap: clamp(2rem, 5vw, 4rem); margin-top: 1rem; }
 .cs-screen { display: grid; grid-template-columns: 300px 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
+
+/* stacked per-screen block used by MONALISA: heading + short caption + full-width image */
+.cs-screen-row { display: flex; flex-direction: column; gap: .55rem; }
+.cs-screen-row__title { font-family: var(--font-serif), serif; font-size: clamp(1.35rem, 2.4vw, 1.65rem); font-weight: 600; letter-spacing: -0.01em; color: var(--cs-ink); }
+.cs-screen-row__body { max-width: 68ch; color: var(--cs-body); font-size: .98rem; line-height: 1.6; margin-bottom: .3rem; }
+.cs-screen-row .cs-wide { margin: 0; }
 .cs-screen.is-alt { grid-template-columns: 1fr 300px; }
 .cs-screen.is-alt .cs-screen__media { order: 2; }
 .cs-screen.is-alt .cs-screen__body { order: 1; }
@@ -2132,12 +2158,12 @@ body.pill-cursor .cursor { opacity: 0; }
 ============================================================ */
 .stack { padding: clamp(2.5rem, 6vw, 4.5rem) var(--pad) 4rem; container-type: inline-size; }
 .stack__title {
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif;
   font-size: clamp(1.5rem, 4.2vw, 2.6rem); font-weight: 500;
   letter-spacing: -0.01em; color: var(--fg);
 }
 .stack__sub {
-  font-family: var(--font-serif), Georgia, serif; font-size: .85rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .85rem;
   color: var(--muted); margin-top: .5rem; letter-spacing: .02em;
 }
 .stack__grid {
@@ -2151,7 +2177,7 @@ body.pill-cursor .cursor { opacity: 0; }
   height: 100%;
 }
 .stack__label {
-  font-family: var(--font-serif), Georgia, serif; font-size: .68rem;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .68rem;
   text-transform: uppercase; letter-spacing: .18em; color: var(--muted);
   margin-bottom: 1.8rem;
 }

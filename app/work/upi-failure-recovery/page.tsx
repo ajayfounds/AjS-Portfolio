@@ -94,14 +94,14 @@ const principles = ["Clarity over speed", "Progressive disclosure", "Reassurance
 // Designs section — annotated plates, shown in order. Each image carries its own
 // callouts, so the labels below are alt text only.
 const plates = [
-  "Checking payment — the first five seconds",
+  "Checking payment ... the first five seconds",
   "Payment status timeline",
   "Explainer bottom sheet",
-  "Escalating — still waiting for update",
+  "Escalating ... still waiting for update",
   "Payment update notification",
   "Escalation to support",
-  "Resolution — payment successful",
-  "Resolution — money refunded",
+  "Resolution ... payment successful",
+  "Resolution ... money refunded",
   "Duplicate payment guardrail",
   "Reassurance after the incident",
   "Support handoff"
@@ -114,9 +114,9 @@ const takeaways = ["Failure UX matters most", "Trust beats speed", "Constraints 
 
 // TODO: replace with real user quotes — placeholders for now
 const testimonials = [
-  { quote: "Placeholder quote — a user's relief at finally knowing their money was safe.", name: "Placeholder Name", meta: "Usability session · Placeholder" },
-  { quote: "Placeholder quote — a short line about not panic-retrying the payment this time.", name: "Placeholder Name", meta: "Beta tester · Placeholder" },
-  { quote: "Placeholder quote — a testimonial about the calm, human tone during the failure.", name: "Placeholder Name", meta: "User interview · Placeholder" }
+  { quote: "Placeholder quote ...a user's relief at finally knowing their money was safe.", name: "Placeholder Name", meta: "Usability session · Placeholder" },
+  { quote: "Placeholder quote ...a short line about not panic-retrying the payment this time.", name: "Placeholder Name", meta: "Beta tester · Placeholder" },
+  { quote: "Placeholder quote ...a testimonial about the calm, human tone during the failure.", name: "Placeholder Name", meta: "User interview · Placeholder" }
 ];
 
 export default function UpiCaseStudy() {
@@ -142,10 +142,10 @@ export default function UpiCaseStudy() {
         </h1>
         <p className="cs-title__lead">
           Designing trust and clarity during payment failures. UPI payment failures create moments of high financial
-          anxiety where users lack clarity, reassurance, and control — so I designed the recovery, not the error.
+          anxiety where users lack clarity, reassurance, and control ... so I designed the recovery, not the error.
         </p>
         <a className="cs-cta" href={LIVE} target="_blank" rel="noopener noreferrer">
-          Experience Live <span aria-hidden>↗</span>
+          Experience LIVE (for smartphone) <span aria-hidden>↗</span>
         </a>
       </header>
 

@@ -30,7 +30,8 @@ export const outbound: Outbound[] = [
   { label: "Email", href: "mailto:ajaysriacads@gmail.com" },
   { label: "LinkedIn", href: "https://linkedin.com/in/ajaysri8" },
   { label: "Behance", href: "https://behance.net/ajay_srivastava" },
-  { label: "X", href: "https://x.com/hazel_creates" }
+  { label: "X", href: "https://x.com/hazel_creates" },
+  { label: "Instagram", href: "https://instagram.com/hazel_creates" }
 ];
 
 export const latestLog = {
@@ -66,7 +67,7 @@ export const projects: Project[] = [
     href: "https://www.behance.net/gallery/247912507/Wanderly",
     caseHref: "/work/wanderly",
     img: "/me/thumbnail_wanderly.png",
-    desc: "An end-to-end travel planning app that turns scattered research into a single itinerary — from discovery to day-by-day planning.",
+    desc: "An end-to-end travel planning app that turns scattered research into a single itinerary ... from discovery to day-by-day planning.",
     role: "Product Designer",
     team: "Solo",
     timeframe: "2025"
@@ -79,7 +80,7 @@ export const projects: Project[] = [
     status: "CASE STUDY",
     href: "https://www.figma.com/deck/B6zOrRY4Hy4307YfHVDWbO/STRsage?node-id=1-96&t=xCvQR6O70cwHLAHk-1",
     img: "/me/thumbnail_Sage.png",
-    desc: "A behavior-driven finance app built around \"Pulse\" — a feature that nudges spending habits instead of just tracking them.",
+    desc: "A behavior-driven finance app built around \"Pulse\" ... a feature that nudges spending habits instead of just tracking them.",
     role: "Product Designer",
     team: "Solo",
     timeframe: "2026"
@@ -109,7 +110,7 @@ export const projects: Project[] = [
     caseHref: "/work/upi-failure-recovery",
     live: true,
     img: "/me/thumbnail_paymentlimbo.png",
-    desc: "A recovery system for the in-between moment when a UPI payment fails — designed around the anxiety of not knowing where your money went.",
+    desc: "A recovery system for the in-between moment when a UPI payment fails ... designed around the anxiety of not knowing where your money went.",
     role: "Product Designer, Researcher",
     team: "Solo",
     timeframe: "2026"
@@ -123,8 +124,36 @@ export const projects: Project[] = [
     href: "#",
     locked: true,
     img: "/me/locked_BlinkIT.png",
-    desc: "A recovery system for the in-between moment when a UPI payment fails — designed around the anxiety of not knowing where your money went.",
+    desc: "A recovery system for the in-between moment when a UPI payment fails ... designed around the anxiety of not knowing where your money went.",
     role: "Product Designer, Researcher",
+    team: "Solo",
+    timeframe: "2026"
+  },
+  {
+    num: "06",
+    name: "MONALISA",
+    cat: "Fashion Ecommerce",
+    tags: ["UX/UI", "Web"],
+    status: "CASE STUDY",
+    href: "/work/monalisa",
+    caseHref: "/work/monalisa",
+    img: "/me/thumbnail_monalisa.png",
+    desc: "A 15-screen fashion ecommerce experience ... from a product-first home page to a product page with AI-summarised reviews, cart, checkout and confirmation, built as one consistent store.",
+    role: "UI/UX Designer",
+    team: "Solo",
+    timeframe: "2026"
+  },
+  {
+    num: "07",
+    name: "DigiAgency",
+    cat: "Digital Agency Website",
+    tags: ["UX/UI", "Web"],
+    status: "CASE STUDY",
+    href: "https://www.behance.net/gallery/244405129/Digital-Agency-Website",
+    caseHref: "/work/digiagency",
+    img: "/me/thumbnail_digiagency.png",
+    desc: "A strategic redesign for a digital agency ... a website that acts as credibility engine, storytelling platform and lead-generation system.",
+    role: "UI/UX Designer",
     team: "Solo",
     timeframe: "2026"
   }
@@ -165,7 +194,7 @@ export const experience: Experience[] = [
   {
     period: "Mar 2025 — Oct 2025",
     role: "Designer",
-    org: "GDG New Delhi · Part-time",
+    org: "GDG (formerly GDSC) - New Delhi · Part-time",
     location: "Delhi, India · Hybrid",
     desc: [
       "Designed the website for GDSC Ace event (in collaboration with GDSC Wow and Delhi Kotlin User Group) with my fellow mates.",
@@ -325,7 +354,7 @@ export const aboutIntro = {
   ],
   hobbies: [
     "Sketching and drawing whatever's stuck in my head",
-    "Behind my camera — photography & cinematography",
+    "Behind my camera ... photography & cinematography",
     "Cutting edits until the rhythm feels right",
     "Chasing mountain-valley treks, camera in hand",
     "On a skateboard",
@@ -344,14 +373,14 @@ export const communities: Community[] = [
     name: "JSSATEN Photography & Films Club",
     icon: "📷",
     desc: "",
-    img: "/me/neon.jpg",
+    img: "", // new image coming
     logo: "/logos/jssaten-pfc.jpg"
   },
   {
-    name: "GDSC — New Delhi chapter",
+    name: "GDG (formerly GDSC) - New Delhi",
     icon: "🟢",
     desc: "",
-    img: "/me/conf.jpg",
+    img: "", // new image coming
     logo: "/logos/gdg.jpg"
   },
   {
@@ -409,7 +438,7 @@ export const funStack: FunPhoto[] = [
 ];
 
 export const funBlurb =
-  "I studied a little of everything before design found me — sketchbooks, a camera, a skateboard, a guitar. Design, for me, isn't just screens; it's the same itch to make something feel intentional, whether that's a poster, an edit, or a product flow.";
+  "I studied a little of everything before design found me ... sketchbooks, a camera, a skateboard, a guitar. Design, for me, isn't just screens; it's the same itch to make something feel intentional, whether that's a poster, an edit, or a product flow.";
 
 /* "Journey so far" — quote card */
 export type JourneyQuote = {
@@ -442,7 +471,7 @@ export const journeyQuotes: JourneyQuote[] = [
     emoji: "🎸",
     lead: "The best flows have ",
     emph: "rhythm",
-    tail: " — you feel it before you see it.",
+    tail: " ... you feel it before you see it.",
     from: "#efd9e6", via: "#e3c9e8", to: "#c9b3e0"
   },
   {

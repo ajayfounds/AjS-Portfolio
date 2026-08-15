@@ -15,7 +15,7 @@ export default function Contact() {
       <div className="contact__inner">
         <Reveal as="p" className="contact__lead">
           Let&apos;s build something with <em>meaning</em>. Whether it&apos;s a product,
-          a portfolio review, or just a good design conversation — my inbox is open.
+          a portfolio review, or just a good design conversation ... my inbox is open.
         </Reveal>
 
         <Reveal delay={0.08}>
