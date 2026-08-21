@@ -215,11 +215,31 @@ const takeaways = [
   "Trust is built through tone, not features"
 ];
 
-// TODO: replace with real user quotes — placeholders for now
 const testimonials = [
-  { quote: "Placeholder quote ...a user's reaction to feeling guided instead of judged during recovery.", name: "Placeholder Name", meta: "Usability session · Placeholder" },
-  { quote: "Placeholder quote ...a short line about finally understanding why the score dropped.", name: "Placeholder Name", meta: "Beta tester · Placeholder" },
-  { quote: "Placeholder quote ...a testimonial about trusting the app enough to keep coming back.", name: "Placeholder Name", meta: "User interview · Placeholder" }
+  {
+    quote:
+      "First time I actually understood why my score had dropped. Nobody ever bothered to explain it before. And the plan didn't feel like homework, more like someone was in it with me.",
+    name: "Priya Raj",
+    meta: "27 · Teacher"
+  },
+  {
+    quote:
+      "That Trust Meter thing helped me way more than my actual score ever did. First time an app told me I was making progress instead of just reminding me I'd screwed up.",
+    name: "Saksham Kuntal",
+    meta: "30 · Police SI Officer"
+  },
+  {
+    quote:
+      "Hadn't touched a credit app in like eight months. Logged into this one half expecting to get lectured, and it just… didn't. So I stuck around.",
+    name: "Rohit Sahu",
+    meta: "31 · Engineer"
+  },
+  {
+    quote:
+      "Read a few of the Learn cards on the metro. Genuinely didn't know minimum payments were a trap until then. Nobody teaches you this stuff.",
+    name: "Shivii Rai",
+    meta: "21 · Student"
+  }
 ];
 
 function FullScreens({ items }: { items: { img: string; title: string; cap: string }[] }) {

@@ -234,63 +234,62 @@ function Journey() {
   const ordered = [experience[active], ...experience.filter((_, i) => i !== active)];
 
   return (
+    // 2 × 2 grid: title | tabs on row 1, cards | quote on row 2.
+    // DOM order (title → cards → tabs → panel) keeps mobile single-column flow
+    // natural: read heading → browse timeline → see quote panel below.
     <div className="journey">
-      {/* left: interactive timeline */}
-      <div className="journey__left">
-        <Reveal>
-          <h2 className="journey__title">
-            <span className="journey__vinyl" aria-hidden>
-              <span className="journey__vinyl-disc" />
-              <span className="journey__vinyl-arm" />
-            </span>
-            Journey so far
-          </h2>
-        </Reveal>
+      <Reveal className="journey__cell journey__cell--title">
+        <h2 className="journey__title">
+          <span className="journey__vinyl" aria-hidden>
+            <span className="journey__vinyl-disc" />
+            <span className="journey__vinyl-arm" />
+          </span>
+          Journey so far
+        </h2>
+      </Reveal>
 
-        <motion.div className="journey__stack" layout>
-          {ordered.map((e, pos) => {
-            const isBig = pos === 0;
-            const realIdx = experience.indexOf(e);
-            return (
-              <motion.button
-                layout
-                key={e.org}
-                type="button"
-                onClick={() => setActive(realIdx)}
-                className={`journey__slot ${isBig ? "is-big" : "is-mini"}`}
-                style={{ "--accent": e.accent, "--chip-fg": e.fg } as React.CSSProperties}
-                transition={{ layout: { duration: 0.55, ease: [0.32, 0.72, 0, 1] } }}
-                aria-pressed={isBig}
-              >
-                {isBig ? (
-                  <motion.div layout="position" className="journey__bigInner">
-                    <span className="journey__bigLogo" aria-hidden>
-                      <Logo src={e.logo} glyph={e.icon} />
-                    </span>
-                    <h3 className="journey__role">{e.org.split(" · ")[0]}</h3>
-                    <p className="journey__sub">{e.role}</p>
-                    <p className="journey__blurb">{e.blurb}</p>
-                    <span className="journey__period">{e.period}</span>
-                  </motion.div>
-                ) : (
-                  <motion.div layout="position" className="journey__miniInner">
-                    <span className="journey__mini-icon" aria-hidden>
-                      <Logo src={e.logo} glyph={e.icon} />
-                    </span>
-                    <span className="journey__mini-text">
-                      <span className="journey__mini-name">{e.short}</span>
-                      <span className="journey__mini-role">{e.role}</span>
-                    </span>
-                  </motion.div>
-                )}
-              </motion.button>
-            );
-          })}
-        </motion.div>
-      </div>
+      <motion.div className="journey__stack journey__cell--stack" layout>
+        {ordered.map((e, pos) => {
+          const isBig = pos === 0;
+          const realIdx = experience.indexOf(e);
+          return (
+            <motion.button
+              layout
+              key={e.org}
+              type="button"
+              onClick={() => setActive(realIdx)}
+              className={`journey__slot ${isBig ? "is-big" : "is-mini"}`}
+              style={{ "--accent": e.accent, "--chip-fg": e.fg } as React.CSSProperties}
+              transition={{ layout: { duration: 0.55, ease: [0.32, 0.72, 0, 1] } }}
+              aria-pressed={isBig}
+            >
+              {isBig ? (
+                <motion.div layout="position" className="journey__bigInner">
+                  <span className="journey__bigLogo" aria-hidden>
+                    <Logo src={e.logo} glyph={e.icon} />
+                  </span>
+                  <h3 className="journey__role">{e.org.split(" · ")[0]}</h3>
+                  <p className="journey__sub">{e.role}</p>
+                  <p className="journey__blurb">{e.blurb}</p>
+                  <span className="journey__period">{e.period}</span>
+                </motion.div>
+              ) : (
+                <motion.div layout="position" className="journey__miniInner">
+                  <span className="journey__mini-icon" aria-hidden>
+                    <Logo src={e.logo} glyph={e.icon} />
+                  </span>
+                  <span className="journey__mini-text">
+                    <span className="journey__mini-name">{e.short}</span>
+                    <span className="journey__mini-role">{e.role}</span>
+                  </span>
+                </motion.div>
+              )}
+            </motion.button>
+          );
+        })}
+      </motion.div>
 
-      {/* right: emoji-tabbed quote panel */}
-      <Reveal delay={0.1} className="journey__quoteWrap">
+      <Reveal delay={0.1} className="journey__cell journey__cell--quote">
         <div className="journey__panel">
           <div className="journey__tabs" role="tablist">
             {journeyQuotes.map((q, i) => (
@@ -305,7 +304,6 @@ function Journey() {
               </button>
             ))}
           </div>
-
           <div className="journey__quote">
             <AnimatePresence mode="wait">
               <motion.div

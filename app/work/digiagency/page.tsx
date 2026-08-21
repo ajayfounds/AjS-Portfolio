@@ -104,10 +104,21 @@ const takeaways = [
 const testimonials = [
   {
     quote:
-      "Their expertise, professionalism, and dedication to client satisfaction make them a standout choice in the industry.",
-    name: "Alex Arenas",
-    meta: "Co-founder · @Alexoigts",
-    rating: "4.5 / 5"
+      "Most agency sites kind of blur together. This one felt like it actually had opinions.",
+    name: "Devika",
+    meta: "Director · Boutique Consultancy"
+  },
+  {
+    quote:
+      "No pointless animations, no buzzwords. It just showed me what they do, the work, and where to click. That was enough.",
+    name: "Akshit Kakkar",
+    meta: "Marketing Manager"
+  },
+  {
+    quote:
+      "The case studies weren't really about the agency, they were about the exact problem I had. That's what got me to book a call.",
+    name: "Ishita Khare",
+    meta: "Head of Growth · D2C brand"
   }
 ];
 
@@ -298,7 +309,7 @@ export default function DigiAgencyCaseStudy() {
               <blockquote className="cs-testimonial__quote">{t.quote}</blockquote>
               <figcaption className="cs-testimonial__by">
                 <span className="cs-testimonial__name">{t.name}</span>
-                <span className="cs-testimonial__meta">{t.meta} · {t.rating}</span>
+                <span className="cs-testimonial__meta">{t.meta}</span>
               </figcaption>
             </figure>
           ))}

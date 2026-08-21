@@ -112,11 +112,31 @@ const impactBiz = ["Fewer tickets", "Higher trust retention"];
 const didntDesign = ["No success flow redesign", "No instant refund promises", "No aggressive alerts"];
 const takeaways = ["Failure UX matters most", "Trust beats speed", "Constraints improve design", "Language is UX"];
 
-// TODO: replace with real user quotes — placeholders for now
 const testimonials = [
-  { quote: "Placeholder quote ...a user's relief at finally knowing their money was safe.", name: "Placeholder Name", meta: "Usability session · Placeholder" },
-  { quote: "Placeholder quote ...a short line about not panic-retrying the payment this time.", name: "Placeholder Name", meta: "Beta tester · Placeholder" },
-  { quote: "Placeholder quote ...a testimonial about the calm, human tone during the failure.", name: "Placeholder Name", meta: "User interview · Placeholder" }
+  {
+    quote:
+      "I was about to just send it again, which would've meant paying twice. The duplicate warning stopped me. That's ₹8,000 I didn't lose.",
+    name: "Rakesh Narwar",
+    meta: "38 · Small-shop Owner"
+  },
+  {
+    quote:
+      "Usually you get 'transaction failed' and that's it. This one told me roughly when to expect the refund, so I finally stopped refreshing my bank app every two minutes.",
+    name: "Neha Kumari",
+    meta: "29 · Teacher"
+  },
+  {
+    quote:
+      "When I hit escalate it didn't feel like shouting into nothing. Felt like someone was actually on it.",
+    name: "Nandini Tiwari",
+    meta: "45 · Nutrition Consultant"
+  },
+  {
+    quote:
+      "Sent it to my mom a week later and she got it straight away. If my mom understands it, it's doing something right.",
+    name: "Ananya Tiwari",
+    meta: "26 · Business Analyst"
+  }
 ];
 
 export default function UpiCaseStudy() {

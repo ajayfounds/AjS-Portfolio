@@ -76,7 +76,7 @@ export default function Work() {
       </Reveal>
 
       <ul className="work__grid" ref={gridRef}>
-        {projects.map((p, i) => {
+        {projects.filter((p) => !p.hidden).map((p, i) => {
           // locked projects (still in progress) render as a plain, non-clickable card
           const Tag = (p.locked ? "div" : "a") as "div" | "a";
           const linkProps = p.locked

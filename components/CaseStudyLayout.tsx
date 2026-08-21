@@ -75,8 +75,9 @@ export default function CaseStudyLayout({
     <div className="cs" id="cs-top" style={{ "--cs-accent": accent } as React.CSSProperties}>
       <aside className="cs__rail">
         <div className="cs__rail-inner">
-          <Link href="/" className="cs__home" data-link aria-label="Back to home">
-            <span aria-hidden>←</span>
+          <Link href="/" className="cs__home" aria-label="Back to home">
+            <span className="cs__home-arrow" aria-hidden>←</span>
+            <span className="cs__home-label">Home</span>
           </Link>
           <div className="cs__toc-box">
             <p className="cs__toc-head">Table of Contents</p>

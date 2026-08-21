@@ -50,6 +50,7 @@ export type Project = {
   caseHref?: string; // internal case-study route, if one exists
   live?: boolean;    // has a live, interactive experience — shows an "Experience LIVE" badge
   locked?: boolean;  // still in progress — render view-only, not clickable
+  hidden?: boolean;  // archived — kept in data but not rendered in the Work grid
   img: string;
   desc: string;
   role: string;
@@ -74,19 +75,6 @@ export const projects: Project[] = [
   },
   {
     num: "02",
-    name: "Sage",
-    cat: "Finance Management App",
-    tags: ["Product"],
-    status: "CASE STUDY",
-    href: "https://www.figma.com/deck/B6zOrRY4Hy4307YfHVDWbO/STRsage?node-id=1-96&t=xCvQR6O70cwHLAHk-1",
-    img: "/me/thumbnail_Sage.png",
-    desc: "A behavior-driven finance app built around \"Pulse\" ... a feature that nudges spending habits instead of just tracking them.",
-    role: "Product Designer",
-    team: "Solo",
-    timeframe: "2026"
-  },
-  {
-    num: "03",
     name: "CredCare",
     cat: "FinTech Credit Recovery",
     tags: ["Product"],
@@ -101,7 +89,7 @@ export const projects: Project[] = [
     timeframe: "2025"
   },
   {
-    num: "04",
+    num: "03",
     name: "Payment Limbo",
     cat: "UPI Failure & Anxiety Recovery",
     tags: ["Product", "Research"],
@@ -116,21 +104,7 @@ export const projects: Project[] = [
     timeframe: "2026"
   },
   {
-    num: "05",
-    name: "Blinkit Case Study",
-    cat: "New category addition",
-    tags: ["Product", "Research"],
-    status: "IN PROGRESS",
-    href: "#",
-    locked: true,
-    img: "/me/locked_BlinkIT.png",
-    desc: "A recovery system for the in-between moment when a UPI payment fails ... designed around the anxiety of not knowing where your money went.",
-    role: "Product Designer, Researcher",
-    team: "Solo",
-    timeframe: "2026"
-  },
-  {
-    num: "06",
+    num: "04",
     name: "MONALISA",
     cat: "Fashion Ecommerce",
     tags: ["UX/UI", "Web"],
@@ -144,7 +118,7 @@ export const projects: Project[] = [
     timeframe: "2026"
   },
   {
-    num: "07",
+    num: "05",
     name: "DigiAgency",
     cat: "Digital Agency Website",
     tags: ["UX/UI", "Web"],
@@ -154,6 +128,35 @@ export const projects: Project[] = [
     img: "/me/thumbnail_digiagency.png",
     desc: "A strategic redesign for a digital agency ... a website that acts as credibility engine, storytelling platform and lead-generation system.",
     role: "UI/UX Designer",
+    team: "Solo",
+    timeframe: "2026"
+  },
+  {
+    num: "06",
+    name: "Blinkit Case Study",
+    cat: "New category addition",
+    tags: ["Product", "Research"],
+    status: "IN PROGRESS",
+    href: "#",
+    locked: true,
+    img: "/me/locked_BlinkIT.png",
+    desc: "A recovery system for the in-between moment when a UPI payment fails ... designed around the anxiety of not knowing where your money went.",
+    role: "Product Designer, Researcher",
+    team: "Solo",
+    timeframe: "2026"
+  },
+  // Archived — kept for later, hidden from the Work grid for now
+  {
+    num: "07",
+    name: "Sage",
+    cat: "Finance Management App",
+    tags: ["Product"],
+    status: "CASE STUDY",
+    href: "https://www.figma.com/deck/B6zOrRY4Hy4307YfHVDWbO/STRsage?node-id=1-96&t=xCvQR6O70cwHLAHk-1",
+    hidden: true,
+    img: "/me/thumbnail_Sage.png",
+    desc: "A behavior-driven finance app built around \"Pulse\" ... a feature that nudges spending habits instead of just tracking them.",
+    role: "Product Designer",
     team: "Solo",
     timeframe: "2026"
   }
@@ -373,21 +376,22 @@ export const communities: Community[] = [
     name: "JSSATEN Photography & Films Club",
     icon: "📷",
     desc: "",
-    img: "", // new image coming
+    img: "/me/community-jssaten-pfc.jpg",
     logo: "/logos/jssaten-pfc.jpg"
   },
   {
     name: "GDG (formerly GDSC) - New Delhi",
     icon: "🟢",
     desc: "",
-    img: "", // new image coming
+    img: "/me/community-gdg-delhi.jpg",
     logo: "/logos/gdg.jpg"
   },
   {
     name: "Designare",
     icon: "✦",
     desc: "",
-    img: "/me/community-group.jpg"
+    img: "/me/community-designare.jpg",
+    logo: "/logos/designare.jpg"
   }
 ];
 
