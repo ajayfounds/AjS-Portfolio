@@ -317,9 +317,10 @@ function Journey() {
                 <div
                   className="journey__quoteSky"
                   aria-hidden
-                  style={{ background: `linear-gradient(180deg, ${q.from}, ${q.via} 55%, ${q.to})` }}
+                  style={{ backgroundImage: `url(${q.bg})` }}
                 />
-                <blockquote className="journey__quoteText">
+                {/* text baked into the artwork — keep a semantic quote for a11y only */}
+                <blockquote className="journey__quoteText journey__quoteText--sr">
                   {q.lead}
                   <em>{q.emph}</em>
                   {q.tail}

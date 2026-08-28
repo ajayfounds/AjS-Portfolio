@@ -450,9 +450,8 @@ export type JourneyQuote = {
   lead: string;
   emph: string;
   tail: string;
-  from: string; // backdrop gradient
-  via: string;
-  to: string;
+  // full-bleed illustration backing the quote card (text is baked into the art)
+  bg: string;
 };
 
 // each emoji tab swaps the quote + its backdrop
@@ -462,28 +461,28 @@ export const journeyQuotes: JourneyQuote[] = [
     lead: "Design is ",
     emph: "storytelling",
     tail: ", not just decoration.",
-    from: "#cfe8f5", via: "#bfe3d2", to: "#9fd6a6"
+    bg: "/me/quotes/storytelling.webp"
   },
   {
     emoji: "🎬",
-    lead: "I treat mistakes as part of ",
+    lead: "I try to treat mistakes as part of ",
     emph: "learning",
-    tail: ", not failure.",
-    from: "#dce9f7", via: "#f2e3cf", to: "#e8c9a6"
+    tail: ", not mistakes.",
+    bg: "/me/quotes/mistakes.webp"
   },
   {
     emoji: "🎸",
-    lead: "The best flows have ",
-    emph: "rhythm",
-    tail: " ... you feel it before you see it.",
-    from: "#efd9e6", via: "#e3c9e8", to: "#c9b3e0"
+    lead: "Typography does a lot of the ",
+    emph: "emotional heavy lifting",
+    tail: ".",
+    bg: "/me/quotes/typography.webp"
   },
   {
     emoji: "📷",
-    lead: "Good design is ",
-    emph: "noticing",
-    tail: " what everyone else walks past.",
-    from: "#f7e6cf", via: "#f0cfc0", to: "#d9a9a0"
+    lead: "The best solutions usually come from ",
+    emph: "asking better questions",
+    tail: ".",
+    bg: "/me/quotes/questions.webp"
   }
 ];
 
