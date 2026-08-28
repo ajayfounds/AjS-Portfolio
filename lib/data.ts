@@ -446,7 +446,9 @@ export const funBlurb =
 
 /* "Journey so far" — quote card */
 export type JourneyQuote = {
-  emoji: string;
+  // small circular illustration on each tab (cropped from the quote artwork)
+  icon: string;
+  alt: string;
   lead: string;
   emph: string;
   tail: string;
@@ -454,31 +456,35 @@ export type JourneyQuote = {
   bg: string;
 };
 
-// each emoji tab swaps the quote + its backdrop
+// each tab swaps the quote + its backdrop
 export const journeyQuotes: JourneyQuote[] = [
   {
-    emoji: "💬",
+    icon: "/me/quotes/icons/storytelling.webp",
+    alt: "Winding path through hills",
     lead: "Design is ",
     emph: "storytelling",
     tail: ", not just decoration.",
     bg: "/me/quotes/storytelling.webp"
   },
   {
-    emoji: "🎬",
+    icon: "/me/quotes/icons/mistakes.webp",
+    alt: "Samurai under a cherry blossom branch",
     lead: "I try to treat mistakes as part of ",
     emph: "learning",
     tail: ", not mistakes.",
     bg: "/me/quotes/mistakes.webp"
   },
   {
-    emoji: "🎸",
+    icon: "/me/quotes/icons/typography.webp",
+    alt: "Meditating Buddha figure",
     lead: "Typography does a lot of the ",
     emph: "emotional heavy lifting",
     tail: ".",
     bg: "/me/quotes/typography.webp"
   },
   {
-    emoji: "📷",
+    icon: "/me/quotes/icons/questions.webp",
+    alt: "Green mountain meadow",
     lead: "The best solutions usually come from ",
     emph: "asking better questions",
     tail: ".",

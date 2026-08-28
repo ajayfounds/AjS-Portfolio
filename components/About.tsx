@@ -294,20 +294,21 @@ function Journey() {
           <div className="journey__tabs" role="tablist">
             {journeyQuotes.map((q, i) => (
               <button
-                key={q.emoji}
+                key={q.icon}
                 role="tab"
                 aria-selected={i === quote}
+                aria-label={q.alt}
                 className={`journey__tab${i === quote ? " is-active" : ""}`}
                 onClick={() => setQuote(i)}
               >
-                <span aria-hidden>{q.emoji}</span>
+                <img src={q.icon} alt="" aria-hidden />
               </button>
             ))}
           </div>
           <div className="journey__quote">
             <AnimatePresence mode="wait">
               <motion.div
-                key={q.emoji}
+                key={q.icon}
                 className="journey__quoteInner"
                 initial={{ opacity: 0, scale: 1.03 }}
                 animate={{ opacity: 1, scale: 1 }}
