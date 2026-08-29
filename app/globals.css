@@ -1237,11 +1237,13 @@ body.pill-cursor .cursor { opacity: 0; }
   color: color-mix(in srgb, var(--chip-fg, #fff) 72%, transparent);
 }
 
-/* right panel: emoji tab pills above a swapping quote card */
+/* right panel: emoji tab pills above a swapping quote card.
+   Padding is minimal so the tabs pill + quote image reach almost to the
+   panel border — matches the "make it fill this much space" reference. */
 .journey__panel {
   background: var(--bg-2); border: 1px solid var(--line); border-radius: 26px;
-  padding: clamp(.55rem, 1vw, .8rem);
-  display: flex; flex-direction: column; gap: clamp(.5rem, .9vw, .75rem);
+  padding: clamp(.3rem, .55vw, .5rem);
+  display: flex; flex-direction: column; gap: clamp(.4rem, .7vw, .55rem);
 }
 /* tabs span the full pill width; 4 icons distribute equally across it */
 .journey__tabs {
@@ -1268,7 +1270,7 @@ body.pill-cursor .cursor { opacity: 0; }
 .journey__tab.is-active img {
   box-shadow: 0 0 0 2px var(--fg), 0 4px 10px -6px rgba(36, 36, 36, .45);
 }
-.journey__quote { position: relative; border-radius: 18px; overflow: hidden; flex: 1; min-height: 0; border: 1px solid rgba(36, 36, 36, .18); }
+.journey__quote { position: relative; border-radius: 22px; overflow: hidden; flex: 1; min-height: 0; border: 1.5px solid rgba(36, 36, 36, .3); }
 .journey__quoteInner { position: absolute; inset: 0; }
 /* full-bleed illustration (text baked in) */
 .journey__quoteSky {
