@@ -313,7 +313,7 @@ function Journey() {
                 initial={{ opacity: 0, scale: 1.03 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.99 }}
-                transition={{ duration: 0.42, ease: [0.4, 0, 0.2, 1] }}
+                transition={{ duration: 0.48, ease: [0.4, 0, 0.2, 1] }}
               >
                 <div
                   className="journey__quoteSky"
