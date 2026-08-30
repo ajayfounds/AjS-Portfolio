@@ -1252,23 +1252,20 @@ body.pill-cursor .cursor { opacity: 0; }
   border-radius: 100px; padding: .35rem;
   box-shadow: 0 2px 6px -4px rgba(36, 36, 36, .18);
 }
-/* circular illustration tabs cropped from each quote image — each tab flexes
-   to a quarter of the pill width; icon stays circular, centered */
+/* line-icon tabs — each flexes to a quarter of the pill width; active tab
+   gets a soft peach fill matching the Iconify reference */
 .journey__tab {
-  flex: 1 1 0; min-width: 0; height: 38px;
+  flex: 1 1 0; min-width: 0; height: 34px;
   border: none; border-radius: 100px; cursor: none;
   background: transparent; padding: 0;
+  color: #242424;
   display: flex; align-items: center; justify-content: center;
-  transition: transform .48s var(--ease), box-shadow .48s var(--ease), background .48s var(--ease);
+  transition: color .48s var(--ease), background .48s var(--ease), transform .48s var(--ease);
 }
-.journey__tab img {
-  width: 34px; height: 34px; border-radius: 50%; object-fit: cover;
-  display: block;
-  transition: transform .48s var(--ease), box-shadow .48s var(--ease);
-}
-.journey__tab:hover img { transform: translateY(-2px); }
-.journey__tab.is-active img {
-  box-shadow: 0 0 0 2px var(--fg), 0 4px 10px -6px rgba(36, 36, 36, .45);
+.journey__tab svg { display: block; }
+.journey__tab:hover { background: rgba(36, 36, 36, .04); }
+.journey__tab.is-active {
+  background: #ffe0c7; color: #6b3a1a;
 }
 .journey__quote { position: relative; border-radius: 22px; overflow: hidden; flex: 1; min-height: 0; border: 1.5px solid rgba(36, 36, 36, .3); }
 .journey__quoteInner { position: absolute; inset: 0; }

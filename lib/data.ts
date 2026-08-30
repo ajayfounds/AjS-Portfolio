@@ -445,9 +445,10 @@ export const funBlurb =
   "I studied a little of everything before design found me ... sketchbooks, a camera, a skateboard, a guitar. Design, for me, isn't just screens; it's the same itch to make something feel intentional, whether that's a poster, an edit, or a product flow.";
 
 /* "Journey so far" — quote card */
+export type JourneyIcon = "idea" | "star" | "flame" | "search";
 export type JourneyQuote = {
-  // small circular illustration on each tab (cropped from the quote artwork)
-  icon: string;
+  // named line-icon (rendered as inline SVG in About.tsx)
+  iconKey: JourneyIcon;
   alt: string;
   lead: string;
   emph: string;
@@ -459,32 +460,32 @@ export type JourneyQuote = {
 // each tab swaps the quote + its backdrop
 export const journeyQuotes: JourneyQuote[] = [
   {
-    icon: "/me/quotes/icons/storytelling.webp",
-    alt: "Winding path through hills",
+    iconKey: "idea",
+    alt: "Storytelling",
     lead: "Design is ",
     emph: "storytelling",
     tail: ", not just decoration.",
     bg: "/me/quotes/storytelling.webp"
   },
   {
-    icon: "/me/quotes/icons/mistakes.webp",
-    alt: "Samurai under a cherry blossom branch",
+    iconKey: "star",
+    alt: "Learning from mistakes",
     lead: "I try to treat mistakes as part of ",
     emph: "learning",
     tail: ", not mistakes.",
     bg: "/me/quotes/mistakes.webp"
   },
   {
-    icon: "/me/quotes/icons/typography.webp",
-    alt: "Meditating Buddha figure",
+    iconKey: "flame",
+    alt: "Typography emotional lifting",
     lead: "Typography does a lot of the ",
     emph: "emotional heavy lifting",
     tail: ".",
     bg: "/me/quotes/typography.webp"
   },
   {
-    icon: "/me/quotes/icons/questions.webp",
-    alt: "Green mountain meadow",
+    iconKey: "search",
+    alt: "Asking better questions",
     lead: "The best solutions usually come from ",
     emph: "asking better questions",
     tail: ".",

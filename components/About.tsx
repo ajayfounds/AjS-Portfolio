@@ -225,6 +225,34 @@ function FunStack() {
   );
 }
 
+// Line-icon glyphs for the journey quote tabs (Iconify-style outline set)
+function TabIcon({ k }: { k: "idea" | "star" | "flame" | "search" }) {
+  const s = { width: 20, height: 20, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true };
+  if (k === "idea") return (
+    <svg {...s}>
+      <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.4 1 1 1 1.7V17h6v-.6c0-.7.4-1.3 1-1.7A7 7 0 0 0 12 2z" />
+      <path d="M18.5 3.5l.7 1.6 1.6.7-1.6.7-.7 1.6-.7-1.6-1.6-.7 1.6-.7z" strokeWidth={1.2} />
+    </svg>
+  );
+  if (k === "star") return (
+    <svg {...s}>
+      <polygon points="12 3 14.7 9 21 9.6 16.2 13.9 17.6 20 12 16.9 6.4 20 7.8 13.9 3 9.6 9.3 9" />
+    </svg>
+  );
+  if (k === "flame") return (
+    <svg {...s}>
+      <path d="M12 2s.5 3 2.5 5c2 2 4 3.5 4 7a6.5 6.5 0 0 1-13 0c0-2 .8-3.4 1.8-4.7.4-.6.7-1.3.7-2 0 0 3-.5 4-5.3z" />
+      <path d="M12 12s.2 1.5 1.2 2.4c.8.7 1.8 1.2 1.8 2.6a3 3 0 1 1-6 0c0-1.2.7-1.8 1.2-2.4S12 12 12 12z" />
+    </svg>
+  );
+  return (
+    <svg {...s}>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20.5 20.5-4.35-4.35M11 8v6M8 11h6" />
+    </svg>
+  );
+}
+
 // "Journey so far" — click a chip to swap the highlighted role card
 function Journey() {
   const [active, setActive] = useState(0);
@@ -294,21 +322,21 @@ function Journey() {
           <div className="journey__tabs" role="tablist">
             {journeyQuotes.map((q, i) => (
               <button
-                key={q.icon}
+                key={q.iconKey}
                 role="tab"
                 aria-selected={i === quote}
                 aria-label={q.alt}
                 className={`journey__tab${i === quote ? " is-active" : ""}`}
                 onClick={() => setQuote(i)}
               >
-                <img src={q.icon} alt="" aria-hidden />
+                <TabIcon k={q.iconKey} />
               </button>
             ))}
           </div>
           <div className="journey__quote">
             <AnimatePresence mode="wait">
               <motion.div
-                key={q.icon}
+                key={q.iconKey}
                 className="journey__quoteInner"
                 initial={{ opacity: 0, scale: 1.03 }}
                 animate={{ opacity: 1, scale: 1 }}
