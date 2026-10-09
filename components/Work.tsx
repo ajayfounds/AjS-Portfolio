@@ -109,7 +109,20 @@ export default function Work() {
               </div>
 
               <div className="card__media">
-                <img src={p.img} alt={p.name} loading="lazy" />
+                {/\.(mp4|webm|mov)$/i.test(p.img) ? (
+                  <video
+                    src={p.img}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="auto"
+                    disablePictureInPicture
+                    aria-label={p.name}
+                  />
+                ) : (
+                  <img src={p.img} alt={p.name} loading="lazy" />
+                )}
               </div>
 
               <div className="card__top">

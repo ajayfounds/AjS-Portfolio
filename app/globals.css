@@ -24,7 +24,7 @@ ul, ol { list-style: none; }
   --accent-green: #2a8f50;  /* Eucalyptus */
 
   --ease: cubic-bezier(0.65, 0.05, 0.36, 1);
-  --pad: clamp(1.25rem, 4vw, 4rem);
+  --pad: clamp(0.75rem, 2vw, 2rem);
 }
 
 html { -webkit-font-smoothing: antialiased; }
@@ -126,21 +126,40 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
   font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 500; letter-spacing: 0.01em;
   margin-bottom: 2rem;
 }
-/* HAZEL Verse wordmark — clean Open Sans Bold, palette-synced gradient + soft light */
+/* HAZEL Verse wordmark — Ruwudu (per Figma spec: 0 tracking, 140% line, #F4F8FF, soft outer glow) */
 .brandmark {
-  /* the serif the rest of the site uses for names — matches the reference mark */
-  font-family: var(--font-serif), serif;
-  font-weight: 600; font-style: normal; letter-spacing: 0;
-  color: #fff; -webkit-text-fill-color: #fff;
-  text-shadow: 0 0 18px rgba(255,255,255,.55), 0 0 44px rgba(255,255,255,.30), 0 0 90px rgba(255,255,255,.16);
+  font-family: var(--font-ruwudu), Georgia, "Times New Roman", serif;
+  font-weight: 400; font-style: normal; letter-spacing: 0; line-height: 1.4;
+  color: #F4F8FF; -webkit-text-fill-color: #F4F8FF;
+  text-shadow: 0 0 18px rgba(244,248,255,.55), 0 0 44px rgba(244,248,255,.30), 0 0 90px rgba(244,248,255,.16);
   animation: none;
 }
+/* Explore + Skip share the same visual metrics. text-box-trim + text-box-edge
+   strip the font's built-in half-leading above cap-height and below baseline,
+   so the uppercase glyphs are what gets centered — not the em-box that carries
+   invisible ascender/descender room. Fallback for browsers without support:
+   asymmetric padding-block that hand-compensates Ruwudu's top-heavy em-box. */
+/* Explore + Skip: Ruwudu has an Arabic-scale descender (font-box ≈ 1.6× em),
+   which shifts its Latin caps ~6 px above the em-box centre. Flex centering
+   uses the em-box, so caps ride high. Compensate by making top padding taller
+   than bottom padding by roughly 2× that offset — puts caps at pill centre.
+   Kept text-box-trim OFF: Chrome's current implementation doesn't fully strip
+   Ruwudu's Arabic descent, so it under-shifts. Manual offset is exact. */
+.intro__explore,
+.intro__skip {
+  font-family: var(--font-ruwudu), "Clash Grotesk", system-ui, sans-serif;
+  font-size: 0.9rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0; line-height: 1;
+  padding-block: 1.07rem 0.33rem; /* 17.1 px top / 5.3 px bottom → caps centred */
+  padding-inline: 1.5rem;
+  text-indent: 0;
+  border-radius: 100px;
+  cursor: none;
+  display: inline-flex; align-items: center; justify-content: center; text-align: center;
+}
 .intro__explore {
-  font-family: var(--font-clash), "Clash Grotesk", sans-serif;
-  font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
-  background: var(--bg); color: #15140f;
-  border: none; border-radius: 100px; padding: 0.75rem 1.4rem;
-  cursor: none; display: inline-flex; align-items: center; gap: 0.5rem;
+  background: #F4F8FF; color: #15140f;
+  border: 1px solid #F4F8FF;
   transition: transform 0.3s var(--ease), background 0.3s var(--ease);
 }
 .intro__explore span { transition: transform 0.3s var(--ease); }
@@ -148,17 +167,14 @@ em { font-family: var(--font-serif), serif; font-style: italic; font-weight: 400
 .intro__explore:hover span { transform: translateX(4px); }
 /* more prominent than plain ghost text — outlined pill that fills on hover */
 .intro__skip {
-  margin-top: 1.1rem; cursor: none;
-  font-family: var(--font-clash), "Clash Grotesk", sans-serif;
-  font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em;
-  color: rgba(243, 241, 235, 0.78);
-  background: rgba(243, 241, 235, 0.06);
-  border: 1px solid rgba(243, 241, 235, 0.32);
-  border-radius: 100px; padding: 0.5rem 1.1rem;
+  margin-top: 1.1rem;
+  color: #F4F8FF;
+  background: rgba(244, 248, 255, 0.06);
+  border: 1px solid rgba(244, 248, 255, 0.32);
   transition: color 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
 }
 .intro__skip:hover {
-  color: #15140f; background: var(--bg); border-color: var(--bg);
+  color: #15140f; background: #F4F8FF; border-color: #F4F8FF;
 }
 .intro__tagline {
   margin-top: 2.5rem;
@@ -497,6 +513,51 @@ body.is-resizing * { cursor: col-resize !important; }
   margin-top: 1.2rem; max-width: 30ch;
 }
 
+/* Previous-intern block — label picks up the same treatment as .sidebar__role
+   (Clash, uppercase, tracked, muted colour). Orgs sit below in a compact
+   flowing row, each with a subtle underline so "@" reads as a separator
+   between distinct organisations rather than part of an email address. */
+.sidebar__prev {
+  margin-top: 1.5rem;
+  max-width: 30ch;
+}
+.sidebar__prev-label {
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif;
+  font-size: .78rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .08em;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 0 .5rem;
+}
+.sidebar__prev-orgs {
+  margin: 0;
+  display: flex; flex-wrap: wrap;
+  gap: .35rem .7rem;                /* row gap × column gap */
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif;
+  font-size: 1rem; line-height: 1.5;   /* restore original bio size */
+  color: var(--fg);
+}
+.sidebar__prev-item {
+  display: inline-flex; align-items: baseline;
+  white-space: nowrap;               /* @ + Org name stay together */
+}
+.sidebar__prev-at {
+  color: var(--muted);
+  margin-right: .12em;
+  font-weight: 500;
+}
+.sidebar__prev-org {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--fg) 32%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color .2s var(--ease), color .2s var(--ease);
+}
+.sidebar__prev-org:hover {
+  text-decoration-color: var(--fg);
+}
+
 .sidebar__section { margin-top: 2.6rem; }
 .sidebar__heading {
   font-family: var(--font-clash), "Clash Grotesk", sans-serif;
@@ -545,16 +606,56 @@ body.is-resizing * { cursor: col-resize !important; }
 .sidebar__explore .sidebar__nav a:hover .sidebar__nav-arrow,
 .sidebar__explore .sidebar__nav a.is-active .sidebar__nav-arrow { opacity: 1; transform: none; }
 
-/* outbound links carry real weight now that Resume moved to the header button */
-.sidebar__outbound {
-  font-size: 1rem; line-height: 2;
-}
-.sidebar__outbound a {
-  font-weight: 600; color: var(--fg);
-  transition: color .25s var(--ease);
-}
+/* legacy inline outbound (kept in case any page still references it) */
+.sidebar__outbound { font-size: 1rem; line-height: 2; }
+.sidebar__outbound a { font-weight: 600; color: var(--fg); transition: color .25s var(--ease); }
 .sidebar__outbound a:hover { color: var(--accent); }
 .sidebar__sep { color: var(--line-strong); }
+
+/* outbound grid — icon tiles inside a bordered section; Fitts's law–friendly
+   min touch target, one label per tile so it never becomes a mystery-meat row */
+.sidebar__outbound-section {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem;
+  background: color-mix(in srgb, var(--fg) 3%, transparent);
+}
+.sidebar__outbound-section .sidebar__heading { margin-top: 0; margin-bottom: .75rem; }
+.sidebar__outbound-grid {
+  list-style: none; padding: 0; margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .55rem;
+}
+.sidebar__outbound-tile {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: .35rem;
+  min-height: 60px; padding: .55rem .3rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--fg);
+  background: var(--bg, transparent);
+  transition: color .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease), transform .2s var(--ease);
+}
+.sidebar__outbound-tile:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  transform: translateY(-1px);
+}
+.sidebar__outbound-icon { display: inline-flex; }
+.sidebar__outbound-label {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: .68rem; font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--muted, #6b6b6b);
+  transition: color .2s var(--ease);
+}
+.sidebar__outbound-tile:hover .sidebar__outbound-label { color: var(--accent); }
+/* Fifth item spans two cells so no lonely tile in the last row */
+.sidebar__outbound-grid > li:nth-child(5) { grid-column: 2 / span 2; }
+.sidebar__outbound-grid > li:nth-child(5) .sidebar__outbound-tile { flex-direction: row; gap: .5rem; }
 
 .sidebar__bottom {
   display: flex; flex-direction: column; align-items: flex-start; gap: 1rem;
@@ -664,6 +765,11 @@ body.is-resizing * { cursor: col-resize !important; }
    even cell would add a phantom gap mid-column once masonry reflows them */
 .work__grid > .card-cell:nth-child(2) { margin-top: 1.2rem; }
 
+/* lock each card to its own column so hovering (which expands the meta panel)
+   doesn't cause a left↔right column swap between later cards */
+.work__grid > .card-cell:nth-child(odd) { grid-column: 1; }
+.work__grid > .card-cell:nth-child(even) { grid-column: 2; }
+
 .card {
   position: relative;
   background: var(--bg-2);
@@ -700,6 +806,23 @@ body.is-resizing * { cursor: col-resize !important; }
     0 14px 28px -16px rgba(36, 36, 36, 0.28);
 }
 .card.is-locked .card__media { filter: saturate(.85); }
+/* "Locked" rope-&-padlock sticker — reinforces the IN PROGRESS pill visually
+   by draping a decorative X across the whole card. pointer-events: none so
+   the card beneath still receives hover + focus. overflow:hidden on the
+   card keeps the rope ends inside the rounded border radius. */
+.card.is-locked { position: relative; isolation: isolate; overflow: hidden; }
+.card.is-locked::after {
+  content: "";
+  position: absolute; inset: 8px;             /* breathing room inside border */
+  background-image: url("/me/rope-lock.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;                   /* fit fully, never overflow */
+  pointer-events: none;
+  z-index: 3;
+  filter: drop-shadow(0 4px 10px rgba(20, 15, 10, .18));
+  opacity: .96;
+}
 .card__locked {
   margin-left: auto;
   font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: .58rem;
@@ -776,8 +899,18 @@ body.is-resizing * { cursor: col-resize !important; }
   font-variant-numeric: tabular-nums;
 }
 
-.card__media { aspect-ratio: 16/10; border-radius: 11px; overflow: hidden; }
+.card__media { aspect-ratio: 16/10; border-radius: 11px; overflow: hidden; background: var(--bg-2); }
 .card__media img { width: 100%; height: 100%; object-fit: cover; }
+/* Video thumbs: let the video's own intrinsic ratio drive the box height —
+   never crops, never letterboxes. Masonry re-measures the card via ResizeObserver
+   the moment loadedmetadata fires and repacks the row-span. */
+.card__media:has(video) { aspect-ratio: auto; }
+.card__media video {
+  width: 100%; height: auto; display: block;
+  /* GPU-composited downscale from 1080p sources → smoother pixels at card width */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
 
 .card__top {
   display: flex; align-items: baseline; justify-content: space-between; gap: .6rem 1rem;
@@ -839,6 +972,10 @@ body.pill-cursor .cursor { opacity: 0; }
   .work__grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
   /* single col → no stagger */
   .work__grid > .card-cell:nth-child(2) { margin-top: 0; }
+  /* the two-column lock (odd→col1, even→col2) creates a phantom 2nd track
+     if left on here, forcing half the cards to zero width — release it */
+  .work__grid > .card-cell:nth-child(odd),
+  .work__grid > .card-cell:nth-child(even) { grid-column: auto; }
 }
 @media (max-width: 560px) {
   .card__meta > div { grid-template-columns: 5.5rem 1fr; gap: .6rem; }
@@ -1528,7 +1665,7 @@ body.pill-cursor .cursor { opacity: 0; }
   .footer__inner, .footer__bottom { max-width: 1900px; margin-inline: auto; width: 100%; }
 }
 @media (min-width: 3000px) {
-  :root { --pad: clamp(1.25rem, 4vw, 6rem); }
+  :root { --pad: clamp(0.75rem, 2vw, 3rem); }
   .layout__body { max-width: 2040px; }
   .footer__inner, .footer__bottom { max-width: 2040px; }
 }
@@ -1701,6 +1838,333 @@ body.pill-cursor .cursor { opacity: 0; }
 .cs__toc-link:hover { color: var(--cs-ink); background: var(--cs-soft); }
 .cs__toc-link.is-active { color: var(--cs-accent); background: color-mix(in srgb, var(--cs-accent) 8%, transparent); font-weight: 500; }
 .cs__toc-link.is-active .cs__toc-num { color: var(--cs-accent); }
+/* ============================================================
+   CASE-STUDY HAMBURGER + GLOBAL NAV DRAWER
+   Puts the home-sidebar's hierarchy (Resume • Explore • Outbound)
+   on every case-study page without duplicating the whole aside.
+============================================================ */
+.cs-burger {
+  position: fixed; top: 1.1rem; right: 1.1rem; z-index: 40;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px;
+  background: var(--cs-canvas); color: var(--cs-ink);
+  border: 1px solid var(--cs-hairline); border-radius: 100px;
+  cursor: none;
+  box-shadow: 0 10px 28px -14px rgba(20, 15, 10, .25);
+  transition: background .2s var(--ease), transform .2s var(--ease), border-color .2s var(--ease);
+}
+.cs-burger:hover { background: var(--cs-soft); transform: translateY(-1px); }
+.cs-burger__box {
+  display: inline-flex; flex-direction: column; gap: 4px;
+  width: 18px; align-items: stretch;
+}
+.cs-burger__box span {
+  height: 2px; background: currentColor; border-radius: 2px;
+  transition: transform .25s var(--ease), opacity .2s var(--ease);
+  transform-origin: center;
+}
+.cs-burger.is-open .cs-burger__box span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.cs-burger.is-open .cs-burger__box span:nth-child(2) { opacity: 0; }
+.cs-burger.is-open .cs-burger__box span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Transparent click-catch so tapping outside the dropdown closes it, without
+   dimming the page behind — the dropdown is a popover, not a modal. */
+.cs-menu__backdrop {
+  position: fixed; inset: 0; z-index: 38;
+  background: transparent;
+}
+
+/* Dropdown panel anchored under the hamburger. Scales out from the top-right
+   corner so the motion reads as the icon itself expanding into the menu.
+   Half the footprint of the previous panel + a crisp ink outline, so it feels
+   closer to a custom-drawn popover than a generic drawer. */
+.cs-menu {
+  position: fixed;
+  top: calc(1.1rem + 44px + 10px);
+  right: 1.1rem;
+  z-index: 39;
+  width: min(208px, calc(100vw - 2.2rem));
+  max-height: calc(100dvh - 1.1rem - 44px - 10px - 1.1rem);
+  padding: .3rem;
+  background: var(--cs-canvas); color: var(--cs-ink);
+  border: 1.5px solid var(--cs-ink);
+  border-radius: 14px;
+  box-shadow:
+    0 22px 44px -18px rgba(20, 15, 10, .28),
+    0 6px 14px -8px rgba(20, 15, 10, .14);
+  display: flex; flex-direction: column; gap: .1rem;
+  overflow-y: auto; overscroll-behavior: contain;
+  transform-origin: top right;
+  transform: scale(.9) translateY(-10px);
+  opacity: 0;
+  pointer-events: none;
+  /* Premium cubic — "out quint" for the transform, "out expo" for opacity.
+     400ms total so the panel unfolds with weight rather than snapping open. */
+  transition:
+    transform .4s cubic-bezier(.22, 1, .36, 1),
+    opacity .32s cubic-bezier(.16, 1, .3, 1);
+  cursor: none;
+}
+.cs-menu.is-open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Row stagger — rows ease up+in behind the panel, 1 at a time, giving the
+   open a cascade feel. Only runs when the panel has .is-open so closing is
+   a single smooth collapse (no reverse stagger stutter). */
+@keyframes csMenuRowIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.cs-menu.is-open .cs-menu__toc-link {
+  animation: csMenuRowIn .34s cubic-bezier(.22, 1, .36, 1) both;
+}
+.cs-menu.is-open .cs-menu__toc-link:nth-child(1)  { animation-delay: .08s; }
+.cs-menu.is-open .cs-menu__toc-link:nth-child(2)  { animation-delay: .11s; }
+.cs-menu.is-open .cs-menu__toc-link:nth-child(3)  { animation-delay: .14s; }
+.cs-menu.is-open .cs-menu__toc-link:nth-child(4)  { animation-delay: .17s; }
+.cs-menu.is-open .cs-menu__toc-link:nth-child(5)  { animation-delay: .20s; }
+.cs-menu.is-open .cs-menu__toc-link:nth-child(6)  { animation-delay: .23s; }
+.cs-menu.is-open .cs-menu__toc-link:nth-child(7)  { animation-delay: .26s; }
+.cs-menu.is-open .cs-menu__toc-link:nth-child(8)  { animation-delay: .29s; }
+.cs-menu.is-open .cs-menu__toc-link:nth-child(9)  { animation-delay: .32s; }
+.cs-menu.is-open .cs-menu__toc-link:nth-child(10) { animation-delay: .35s; }
+
+/* Panel header: just the kicker. Hamburger X doubles as the close. */
+.cs-menu__head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: .4rem;
+  padding: .3rem .4rem .2rem;
+}
+.cs-menu__kicker {
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif;
+  font-size: .52rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .14em;
+  color: var(--cs-muted); margin: 0;
+}
+.cs-menu__close { display: none; }
+
+/* Compact pill rows — same visual language as the sidebar, half the chrome */
+.cs-menu__toc { display: flex; flex-direction: column; gap: .04rem; padding: .05rem; }
+.cs-menu__toc-link {
+  display: grid; grid-template-columns: 1.3rem 1fr auto; align-items: center;
+  gap: .35rem;
+  min-height: 32px;
+  padding: .3rem .45rem;
+  border-radius: 8px;
+  color: var(--cs-ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: .74rem; font-weight: 500;
+  letter-spacing: -0.005em;
+  transition: background .25s cubic-bezier(.22, 1, .36, 1), color .25s cubic-bezier(.22, 1, .36, 1);
+}
+.cs-menu__toc-link:hover { background: var(--cs-soft); color: var(--cs-accent); }
+.cs-menu__toc-link.is-active {
+  background: color-mix(in srgb, var(--cs-accent) 10%, transparent);
+  color: var(--cs-accent);
+}
+.cs-menu__toc-link--sub {
+  padding-left: 1rem;
+  font-size: .68rem;
+  color: var(--cs-muted);
+}
+.cs-menu__toc-num {
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif;
+  font-size: .56rem; color: var(--cs-muted);
+  font-variant-numeric: tabular-nums;
+}
+.cs-menu__toc-link.is-active .cs-menu__toc-num { color: var(--cs-accent); }
+.cs-menu__toc-label { line-height: 1.2; }
+.cs-menu__toc-arrow {
+  color: var(--cs-muted); font-size: .72rem;
+  opacity: 0; transform: translateX(-3px);
+  transition: opacity .28s cubic-bezier(.22, 1, .36, 1), transform .28s cubic-bezier(.22, 1, .36, 1), color .25s var(--ease);
+}
+.cs-menu__toc-link:hover .cs-menu__toc-arrow,
+.cs-menu__toc-link.is-active .cs-menu__toc-arrow {
+  opacity: 1; transform: translateX(0);
+  color: var(--cs-accent);
+}
+
+/* Mobile hamburger sits at .5rem / var(--pad) — re-anchor the dropdown to match */
+@media (max-width: 900px) {
+  .cs-menu {
+    top: calc(.5rem + 40px + 8px);
+    right: var(--pad);
+    width: min(208px, calc(100vw - var(--pad) * 2));
+    max-height: calc(100dvh - .5rem - 40px - 8px - 1rem);
+  }
+}
+
+/* Respect reduced-motion: fade only, no scale or stagger */
+@media (prefers-reduced-motion: reduce) {
+  .cs-menu { transform: translateY(-4px); transition: opacity .2s var(--ease); }
+  .cs-menu.is-open { transform: translateY(0); }
+  .cs-menu.is-open .cs-menu__toc-link { animation: none; }
+}
+
+/* ============================================================
+   CASE-STUDY PATTERNS added for KoRnt.prm (reusable on any page)
+============================================================ */
+/* image hero at its intrinsic ratio — beats the fixed-height .cs-hero rules */
+.cs-hero.cs-hero--media { height: auto; background: #12101c; }
+.cs-hero__media { display: block; width: 100%; height: auto; }
+
+/* captioned plate under a .cs-wide image */
+.cs-cap {
+  display: block; padding: .7rem 1rem;
+  font-family: var(--font-inter), system-ui, sans-serif; font-size: .8rem; line-height: 1.45;
+  color: var(--cs-muted); background: var(--cs-canvas);
+  border-top: 1px solid var(--cs-hairline);
+}
+
+/* "before" tool scatter — four places an agent's day used to live */
+.cs-tools { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .8rem; margin: 1.6rem 0 .4rem; }
+.cs-tool {
+  background: var(--cs-canvas); border: 1px dashed var(--cs-rule);
+  border-radius: var(--cs-r-md); padding: 1rem;
+}
+.cs-tool__k { display: block; font-family: var(--font-inter), sans-serif; font-size: .92rem; font-weight: 600; color: var(--cs-ink); margin-bottom: .3rem; }
+.cs-tool__v { font-size: .82rem; line-height: 1.45; color: var(--cs-muted); }
+
+/* decision cards — problem → options → choice → trade-off */
+.cs-decisions { display: flex; flex-direction: column; gap: 1.1rem; margin-top: 1.4rem; }
+.cs-decision {
+  display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 0 1.1rem;
+  background: var(--cs-canvas); border: 1px solid var(--cs-hairline);
+  border-radius: var(--cs-r-md); padding: clamp(1.1rem, 2.4vw, 1.6rem);
+}
+.cs-decision__n {
+  font-family: var(--font-inter), sans-serif; font-size: 1.6rem; font-weight: 600; line-height: 1;
+  color: color-mix(in srgb, var(--cs-accent) 70%, var(--cs-muted)); font-variant-numeric: tabular-nums;
+}
+.cs-decision__t { font-family: var(--font-inter), system-ui, sans-serif; font-size: clamp(1.05rem, 2vw, 1.22rem); font-weight: 600; color: var(--cs-ink); line-height: 1.3; margin-bottom: .9rem; }
+.cs-decision__row { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: .8rem; padding: .65rem 0; border-top: 1px solid var(--cs-hairline-soft); }
+.cs-decision__k { font-family: var(--font-inter), sans-serif; font-size: .64rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--cs-muted); padding-top: .2rem; }
+.cs-decision__v { font-size: .95rem; line-height: 1.55; color: var(--cs-body); }
+.cs-decision__row--pick .cs-decision__k { color: var(--cs-accent); }
+.cs-decision__row--pick .cs-decision__v { color: var(--cs-ink); font-weight: 500; }
+.cs-decision__opts { display: flex; flex-wrap: wrap; gap: .4rem; }
+
+/* before / after columns (IA, data) */
+.cs-ba { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.2rem; }
+.cs-ba__col { border-radius: var(--cs-r-md); padding: clamp(1.1rem, 2.4vw, 1.5rem); border: 1px solid var(--cs-hairline); }
+.cs-ba__col--before { background: var(--cs-soft); }
+.cs-ba__col--after { background: color-mix(in srgb, var(--cs-accent) 6%, var(--cs-canvas)); border-color: color-mix(in srgb, var(--cs-accent) 22%, var(--cs-hairline)); }
+.cs-ba__k { display: block; font-family: var(--font-inter), sans-serif; font-size: .64rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--cs-muted); margin-bottom: .9rem; }
+.cs-ba__col--after .cs-ba__k { color: var(--cs-accent); }
+.cs-ba__group + .cs-ba__group { margin-top: 1rem; }
+.cs-ba__g { font-size: .78rem; font-weight: 600; color: var(--cs-ink); margin-bottom: .45rem; }
+.cs-ba__g span { font-weight: 400; color: var(--cs-muted); }
+.cs-ba__col--before .cs-ba__g { text-decoration: none; }
+.cs-ba__col--before .cs-chip { text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--cs-muted) 60%, transparent); }
+
+/* numbered top-to-bottom walkthrough */
+.cs-steps { list-style: none; counter-reset: step; display: flex; flex-direction: column; margin: 1.2rem 0 0; padding: 0; }
+.cs-steps li {
+  counter-increment: step; display: grid; grid-template-columns: 2.2rem 9rem minmax(0, 1fr); gap: .8rem;
+  align-items: baseline; padding: .85rem 0; border-top: 1px solid var(--cs-hairline-soft);
+}
+.cs-steps li:last-child { border-bottom: 1px solid var(--cs-hairline-soft); }
+.cs-steps li::before { content: counter(step, decimal-leading-zero); font-family: var(--font-inter), sans-serif; font-size: .75rem; font-weight: 600; color: var(--cs-accent); font-variant-numeric: tabular-nums; }
+.cs-steps b { font-family: var(--font-inter), sans-serif; font-weight: 600; color: var(--cs-ink); font-size: .95rem; }
+.cs-steps span { color: var(--cs-body); font-size: .95rem; line-height: 1.55; }
+
+/* two landscape images side by side */
+.cs-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; align-items: start; margin: 1.2rem 0 2.4rem; }
+.cs-pair .cs-wide { margin: 0; }
+
+@media (max-width: 900px) {
+  .cs-tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cs-steps li { grid-template-columns: 2rem minmax(0, 1fr); }
+  .cs-steps span { grid-column: 2; }
+}
+@media (max-width: 620px) {
+  .cs-ba, .cs-pair { grid-template-columns: 1fr; }
+  .cs-decision { grid-template-columns: 1fr; }
+  .cs-decision__n { margin-bottom: .6rem; }
+  .cs-decision__row { grid-template-columns: 1fr; gap: .3rem; }
+}
+
+/* ============================================================
+   VOICE-QUOTE CARDS — pre-rendered images used as-is (no edit,
+   no crop). Each image is 1260×764 and renders full-width with
+   its natural aspect ratio preserved so nothing ever gets cut.
+============================================================ */
+.cs-vquotes {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-top: 1rem;
+}
+/* mobile: stack single column so each card stays legible */
+@media (max-width: 640px) {
+  .cs-vquotes { grid-template-columns: 1fr; }
+}
+.cs-vquote-img {
+  margin: 0;
+  border-radius: var(--cs-r-md);
+  overflow: hidden;
+  /* aspect-ratio reserves the box before the image decodes → zero CLS */
+  aspect-ratio: 1260 / 764;
+  background: color-mix(in srgb, var(--cs-accent) 4%, var(--cs-soft));
+}
+.cs-vquote-img img {
+  width: 100%; height: 100%; display: block;
+  object-fit: contain;
+}
+
+/* ============================================================
+   Sidebar outbound — animated micro-interactions.
+   Uses only CSS transitions + transforms (no JS) so it stays fast
+   and doesn't fire on prefers-reduced-motion.
+============================================================ */
+.sidebar__outbound-tile {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.sidebar__outbound-tile::before {
+  content: "";
+  position: absolute; inset: -20% -60% auto auto;
+  width: 60%; height: 200%;
+  background: linear-gradient(115deg,
+    transparent 0%,
+    color-mix(in srgb, var(--accent, #d97a52) 22%, transparent) 45%,
+    transparent 90%);
+  transform: translateX(120%) rotate(15deg);
+  transition: transform .55s cubic-bezier(.32, .72, 0, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+.sidebar__outbound-tile:hover::before,
+.sidebar__outbound-tile:focus-visible::before {
+  transform: translateX(-30%) rotate(15deg);
+}
+.sidebar__outbound-tile > * { position: relative; z-index: 1; }
+.sidebar__outbound-icon svg {
+  transition: transform .35s cubic-bezier(.32, 1.5, .32, 1);
+}
+.sidebar__outbound-tile:hover .sidebar__outbound-icon svg {
+  transform: rotate(-8deg) scale(1.15);
+}
+.sidebar__outbound-tile:active { transform: translateY(0) scale(.97); }
+@media (prefers-reduced-motion: reduce) {
+  .sidebar__outbound-tile::before { display: none; }
+  .sidebar__outbound-tile:hover .sidebar__outbound-icon svg { transform: none; }
+  .sidebar__outbound-tile:hover { transform: none; }
+}
+
+/* sub-entries — indented, slightly smaller, so 2.1/2.2/… read as children of 02 */
+.cs__toc-link--sub { padding-left: 1.5rem; font-size: .78rem; }
+.cs__toc-link--sub .cs__toc-num { min-width: 1.6rem; }
+/* on narrow viewports the TOC becomes a 3-across wrap grid; 15 sub-entries there
+   read as a wall of tiny text. Hide the sub-links on tablet/mobile — top-level
+   01/02/03 remain, and users scroll through the actual section content below. */
+@media (max-width: 920px) {
+  .cs__toc-link--sub { display: none; }
+}
 .cs__backtop { margin-top: 1.4rem; padding-left: .55rem; font-family: var(--font-inter), sans-serif; font-size: .66rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--cs-muted); cursor: none; transition: color .2s var(--ease); }
 .cs__backtop:hover { color: var(--cs-ink); }
 .cs__body { min-width: 0; }
@@ -1717,6 +2181,17 @@ body.pill-cursor .cursor { opacity: 0; }
 .cs-hero__phone--l { transform: rotate(-9deg) translateY(26px); margin-right: -44px; z-index: 1; }
 .cs-hero__phone--c { z-index: 2; }
 .cs-hero__phone--r { transform: rotate(9deg) translateY(26px); margin-left: -44px; z-index: 1; }
+
+/* video hero — intrinsic aspect, no crop, no letterbox. .cs-hero.cs-hero--video wins over later responsive .cs-hero { height } rules */
+.cs-hero.cs-hero--video { height: auto; background: transparent; }
+.cs-hero__video {
+  display: block; width: 100%; height: auto;
+  transform: translateZ(0); backface-visibility: hidden;
+}
+
+/* stacked persona images — full-width, no grid gaps between them */
+.cs-personas--images { gap: 1.4rem; }
+.cs-personas--images .cs-wide { margin: 0; }
 
 .cs-tags { display: flex; gap: .5rem; margin-bottom: 1rem; }
 .cs-tag { font-family: var(--font-inter), system-ui, sans-serif; font-size: .62rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; padding: .35rem .75rem; border-radius: 100px; border: 1px solid var(--cs-rule); color: var(--cs-muted); }
@@ -2036,6 +2511,10 @@ body.pill-cursor .cursor { opacity: 0; }
 /* single zoomed cover image filling the hero banner (~3:1) */
 .cs-hero--cover { background: #e9e7e2; }
 .cs-hero__cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
+/* --contain modifier: wordmark/banner covers that must not be cropped. Fills
+   full box via contain, letterbox fills with a dark backdrop. */
+.cs-hero--cover:has(.cs-hero__cover--contain) { background: #0b0b0b; }
+.cs-hero__cover--contain { object-fit: contain; object-position: center; }
 
 /* image-only sections: eyebrow then stacked full-width panels with a tight seam */
 .cs-cover { margin-top: 0; }
@@ -2080,6 +2559,13 @@ body.pill-cursor .cursor { opacity: 0; }
 .cs-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; margin-top: 1.2rem; }
 .cs-feature { border: 1px solid var(--cs-hairline); border-radius: var(--cs-r-md); padding: 1.1rem 1rem; background: var(--cs-canvas); }
 .cs-feature__k { display: inline-block; font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--cs-accent); margin-bottom: .8rem; }
+.cs-feature__n {
+  display: block; margin-bottom: .45rem;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: clamp(1.55rem, 3.2vw, 2.1rem); font-weight: 600;
+  letter-spacing: -.02em; line-height: 1.1;
+  color: var(--cs-ink); font-variant-numeric: tabular-nums;
+}
 
 /* 06 colour swatches */
 .cs-swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: .9rem; margin-top: 1rem; }
@@ -2157,17 +2643,33 @@ body.pill-cursor .cursor { opacity: 0; }
     position: sticky; top: 0; z-index: 20;
     margin-inline: calc(-1 * var(--pad));
     padding: .6rem var(--pad);
-    background: color-mix(in srgb, var(--cs-page) 92%, transparent);
-    -webkit-backdrop-filter: saturate(160%) blur(10px);
-    backdrop-filter: saturate(160%) blur(10px);
+    background: color-mix(in srgb, var(--cs-page) 68%, transparent);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    backdrop-filter: saturate(160%) blur(14px);
     border-bottom: 1px solid var(--cs-hairline);
   }
   .cs__rail-inner {
     /* Home on its own top row (left-aligned), TOC full-width below.
-       Avoids the empty column that side-by-side leaves when TOC wraps to many rows. */
+       Avoids the empty column that side-by-side leaves when TOC wraps to many rows.
+       padding-right reserves the hamburger's corner so chips don't flow under it. */
     display: flex; flex-direction: column; align-items: stretch; gap: .5rem;
+    padding-right: 52px;
   }
   .cs__home { align-self: flex-start; }
+
+  /* Mobile hamburger — pin to the sticky rail's top row (same visual weight as
+     the "← Home" pill, so the two read as one navbar unit). The rail-inner's
+     padding-right reserves this corner so TOC chips never flow under it. */
+  .cs-burger {
+    top: .5rem; right: var(--pad);
+    width: 40px; height: 40px;
+    z-index: 25;
+    background: var(--cs-canvas);
+    border-color: var(--cs-hairline);
+    box-shadow: none;
+  }
+  .cs-burger__box { width: 16px; gap: 3px; }
+  .cs-burger__box span { height: 1.75px; }
   /* back button on mobile: small "← Home" pill matching TOC pill visual weight */
   .cs__home {
     margin-bottom: 0;
@@ -2183,23 +2685,8 @@ body.pill-cursor .cursor { opacity: 0; }
   .cs__home-arrow { font-size: .95rem; line-height: 1; }
   .cs__home-label { display: inline; }
   .cs__home:hover { color: var(--cs-ink); background: var(--cs-soft); }
-  .cs__toc-box {
-    width: 100%;
-    padding: .55rem .6rem;
-    background: transparent; border: 0;
-  }
-  .cs__toc-head { display: none; } /* the sticky bar is self-evident; save vertical space */
-  /* even distribution: items grow to fill the row so no big empty space right */
-  .cs__toc {
-    display: flex; flex-direction: row; flex-wrap: wrap; gap: .3rem .5rem;
-  }
-  .cs__toc-link {
-    flex: 1 1 145px; min-width: 145px;
-    justify-content: flex-start;
-    padding: .4rem .55rem;
-    font-size: .8rem;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
+  /* TOC lives in the hamburger drawer on mobile — hide the rail copy */
+  .cs__toc-box { display: none; }
   .cs__backtop { display: none; }
 
   .cs-meta { grid-template-columns: repeat(2, 1fr); }

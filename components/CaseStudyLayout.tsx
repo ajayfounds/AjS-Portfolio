@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-export type Toc = { id: string; num: string; label: string };
+export type Toc = { id: string; num: string; label: string; sub?: boolean };
 
 // Sticky table-of-contents rail + scrollspy, wrapping the case-study body.
 export default function CaseStudyLayout({
@@ -19,6 +20,24 @@ export default function CaseStudyLayout({
   // the image currently opened full-screen, and whether it's fitted or 1:1
   const [zoom, setZoom] = useState<{ src: string; alt: string } | null>(null);
   const [actualSize, setActualSize] = useState(false);
+  // hamburger drawer — on mobile this holds the only copy of the TOC
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  // lock scroll while the menu drawer is open, and close on Escape
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenuOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
+  // close the drawer whenever the route changes (navigation succeeded)
+  useEffect(() => { setMenuOpen(false); }, [pathname]);
 
   // Tap any case-study image to open it full-screen. The plates in particular
   // carry small callout text that can't be read at phone width, and this keeps
@@ -86,7 +105,7 @@ export default function CaseStudyLayout({
                 <a
                   key={t.id}
                   href={`#${t.id}`}
-                  className={`cs__toc-link${active === t.id ? " is-active" : ""}`}
+                  className={`cs__toc-link${active === t.id ? " is-active" : ""}${t.sub ? " cs__toc-link--sub" : ""}`}
                 >
                   <span className="cs__toc-num">{t.num}</span>
                   <span className="cs__toc-label">{t.label}</span>
@@ -100,6 +119,53 @@ export default function CaseStudyLayout({
         </div>
       </aside>
       <div className="cs__body">{children}</div>
+
+      {/* Hamburger — fixed top-right. On mobile the sticky TOC rail collapses
+          and the drawer carries the only copy of the Table of Contents. */}
+      <button
+        className={`cs-burger${menuOpen ? " is-open" : ""}`}
+        onClick={() => setMenuOpen((v) => !v)}
+        aria-label={menuOpen ? "Close menu" : "Open menu"}
+        aria-expanded={menuOpen}
+        aria-controls="cs-menu"
+      >
+        <span className="cs-burger__box" aria-hidden>
+          <span /><span /><span />
+        </span>
+      </button>
+
+      {menuOpen && (
+        <div className="cs-menu__backdrop" onClick={() => setMenuOpen(false)} aria-hidden />
+      )}
+      <aside
+        id="cs-menu"
+        className={`cs-menu${menuOpen ? " is-open" : ""}`}
+        aria-hidden={!menuOpen}
+      >
+        <div className="cs-menu__head">
+          <p className="cs-menu__kicker">Table of Contents</p>
+          <button className="cs-menu__close" onClick={() => setMenuOpen(false)} aria-label="Close menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
+        </div>
+
+        <nav className="cs-menu__toc" aria-label="Sections">
+          {toc.map((t) => (
+            <a
+              key={t.id}
+              href={`#${t.id}`}
+              className={`cs-menu__toc-link${active === t.id ? " is-active" : ""}${t.sub ? " cs-menu__toc-link--sub" : ""}`}
+              onClick={() => setMenuOpen(false)}
+            >
+              <span className="cs-menu__toc-num">{t.num}</span>
+              <span className="cs-menu__toc-label">{t.label}</span>
+              <span className="cs-menu__toc-arrow" aria-hidden>→</span>
+            </a>
+          ))}
+        </nav>
+      </aside>
 
       {zoom && (
         <div

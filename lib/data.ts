@@ -9,6 +9,17 @@ export const site = {
   email: "ajaysriacads@gmail.com",
   statement: "A designer guided by clarity and purpose, shaping ideas with intention and transforming structure into visual meaning.",
   bioLine: "Previous intern @Shyphan AI Solutions \ @GDG-New Delhi @Edunet Foundation \ @JSSATEN-PFC @WoB '25 @GSSoC '24",
+  previous: {
+    label: "Previous intern",
+    orgs: [
+      "Shyphan AI Solutions",
+      "GDG-New Delhi",
+      "Edunet Foundation",
+      "JSSATEN-PFC",
+      "WoB '25",
+      "GSSoC '24"
+    ]
+  },
   resume: "https://drive.google.com/file/d/1_ghrKRNOP7hjKbNmJB3p8ZznBYGnWJIx/view?usp=sharing"
 };
 
@@ -19,19 +30,20 @@ export const explore: ExploreLink[] = [
   { num: "01", label: "My Work", href: "/" },
   { num: "02", label: "About Me", href: "/about" },
   { num: "03", label: "Experience", href: "/experience" },
-  { num: "04", label: "Skills & Services", href: "/skills" },
-  { num: "05", label: "Visitor Gallery", href: "/visitor-gallery" }
+  { num: "04", label: "Skills", href: "/skills" },
+  { num: "05", label: "Services", href: "/services" },
+  { num: "06", label: "Visitor Gallery", href: "/visitor-gallery" }
 ];
 
-export type Outbound = { label: string; href: string };
+export type Outbound = { label: string; href: string; icon: "email" | "linkedin" | "behance" | "x" | "instagram" };
 
 // Resume lives in the sidebar header button now, not in this list
 export const outbound: Outbound[] = [
-  { label: "Email", href: "mailto:ajaysriacads@gmail.com" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/ajaysri8" },
-  { label: "Behance", href: "https://behance.net/ajay_srivastava" },
-  { label: "X", href: "https://x.com/hazel_creates" },
-  { label: "Instagram", href: "https://instagram.com/hazel_creates" }
+  { label: "Email", icon: "email", href: "mailto:ajaysriacads@gmail.com" },
+  { label: "LinkedIn", icon: "linkedin", href: "https://linkedin.com/in/ajaysri8" },
+  { label: "Behance", icon: "behance", href: "https://behance.net/ajay_srivastava" },
+  { label: "X", icon: "x", href: "https://x.com/hazel_creates" },
+  { label: "Instagram", icon: "instagram", href: "https://instagram.com/hazel_creates" }
 ];
 
 export const latestLog = {
@@ -67,7 +79,7 @@ export const projects: Project[] = [
     status: "CASE STUDY",
     href: "https://www.behance.net/gallery/247912507/Wanderly",
     caseHref: "/work/wanderly",
-    img: "/me/thumbnail_wanderly.png",
+    img: "/me/thumbnail_wanderly.mp4",
     desc: "An end-to-end travel planning app that turns scattered research into a single itinerary ... from discovery to day-by-day planning.",
     role: "Product Designer",
     team: "Solo",
@@ -82,7 +94,7 @@ export const projects: Project[] = [
     href: "https://www.behance.net/gallery/246375825/Credcare-FinTech-Credit-Recovery-App",
     caseHref: "/work/credcare",
     live: true,
-    img: "/me/thumbnail_credcare.png",
+    img: "/me/thumbnail_credcare.mp4",
     desc: "A credit-recovery experience designed to make a stressful financial moment feel guided rather than punitive.",
     role: "Product Designer",
     team: "Solo",
@@ -117,6 +129,7 @@ export const projects: Project[] = [
     team: "Solo",
     timeframe: "2026"
   },
+  // Archived — restore by removing `hidden: true`
   {
     num: "05",
     name: "DigiAgency",
@@ -125,12 +138,29 @@ export const projects: Project[] = [
     status: "CASE STUDY",
     href: "https://www.behance.net/gallery/244405129/Digital-Agency-Website",
     caseHref: "/work/digiagency",
+    hidden: true,
     img: "/me/thumbnail_digiagency.png",
     desc: "A strategic redesign for a digital agency ... a website that acts as credibility engine, storytelling platform and lead-generation system.",
     role: "UI/UX Designer",
     team: "Solo",
     timeframe: "2026"
   },
+  // Real Estate Dashboard — KoRnt.prm case study
+  {
+    num: "05",
+    name: "Real Estate Dashboard",
+    cat: "PropTech · Cairo",
+    tags: ["Product", "Dashboard"],
+    status: "CASE STUDY",
+    href: "/work/real-estate",
+    caseHref: "/work/real-estate",
+    img: "/me/thumbnail_realestate.webp",
+    desc: "KoRnt.prm, a workspace and brand for Cairo property teams ... one screen that tells an agent what's next, who's waiting and what money is on the line.",
+    role: "Product Designer",
+    team: "Solo",
+    timeframe: "2026"
+  },
+  // Archived — restore by removing `hidden: true` (same pattern as Sage below)
   {
     num: "06",
     name: "Blinkit Case Study",
@@ -139,6 +169,7 @@ export const projects: Project[] = [
     status: "IN PROGRESS",
     href: "#",
     locked: true,
+    hidden: true,
     img: "/me/locked_BlinkIT.png",
     desc: "A recovery system for the in-between moment when a UPI payment fails ... designed around the anxiety of not knowing where your money went.",
     role: "Product Designer, Researcher",

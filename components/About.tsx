@@ -334,28 +334,20 @@ function Journey() {
             ))}
           </div>
           <div className="journey__quote">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={q.iconKey}
-                className="journey__quoteInner"
-                initial={{ opacity: 0, scale: 1.03 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.99 }}
-                transition={{ duration: 0.48, ease: [0.4, 0, 0.2, 1] }}
-              >
-                <div
-                  className="journey__quoteSky"
-                  aria-hidden
-                  style={{ backgroundImage: `url(${q.bg})` }}
-                />
-                {/* text baked into the artwork — keep a semantic quote for a11y only */}
-                <blockquote className="journey__quoteText journey__quoteText--sr">
-                  {q.lead}
-                  <em>{q.emph}</em>
-                  {q.tail}
-                </blockquote>
-              </motion.div>
-            </AnimatePresence>
+            {/* Instant swap — no fade gap. Key change re-mounts the inner block. */}
+            <div key={q.iconKey} className="journey__quoteInner">
+              <div
+                className="journey__quoteSky"
+                aria-hidden
+                style={{ backgroundImage: `url(${q.bg})` }}
+              />
+              {/* text baked into the artwork — keep a semantic quote for a11y only */}
+              <blockquote className="journey__quoteText journey__quoteText--sr">
+                {q.lead}
+                <em>{q.emph}</em>
+                {q.tail}
+              </blockquote>
+            </div>
           </div>
         </div>
       </Reveal>

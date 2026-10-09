@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond, Playfair_Display, Open_Sans } from "next/font/google";
+import { Inter, Cormorant_Garamond, Playfair_Display, Open_Sans, Ruwudu } from "next/font/google";
 import localFont from "next/font/local";
 import { site } from "@/lib/data";
 import Shell from "@/components/Shell";
@@ -55,6 +55,15 @@ const opensans = Open_Sans({
   display: "swap"
 });
 
+// Ruwudu — used for the intro wordmark + Explore/Skip Intro buttons
+// (matches the Figma reference: 24px regular, 140% line-height, 0% tracking, #F4F8FF)
+const ruwudu = Ruwudu({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-ruwudu",
+  display: "swap"
+});
+
 export const metadata: Metadata = {
   title: `${site.name} — ${site.role}`,
   description: site.statement,
@@ -67,7 +76,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${serif.variable} ${royal.variable} ${opensans.variable} ${clash.variable}`}>
+    <html lang="en" className={`${inter.variable} ${serif.variable} ${royal.variable} ${opensans.variable} ${clash.variable} ${ruwudu.variable}`}>
       <body>
         <Shell>{children}</Shell>
       </body>

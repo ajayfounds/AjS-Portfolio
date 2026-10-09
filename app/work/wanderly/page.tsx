@@ -30,8 +30,18 @@ const TOC: Toc[] = SECTIONS.map(({ id, num, label }) => ({ id, num, label }));
 export default function WanderlyCaseStudy() {
   return (
     <CaseStudyLayout toc={TOC} accent={ACCENT}>
-      <section className="cs-hero cs-hero--cover">
-        <CaseImg className="cs-hero__cover" src={IMG("cover")} alt="" ratio="wide" />
+      <section className="cs-hero cs-hero--video">
+        <video
+          className="cs-hero__video"
+          src="/case/wanderly/cover.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          disablePictureInPicture
+          aria-label="Wanderly product overview"
+        />
       </section>
 
       <header className="cs-title">
