@@ -47,7 +47,7 @@ export const outbound: Outbound[] = [
 ];
 
 export const latestLog = {
-  date: "Jun 22, 2026",
+  date: "Sep 22, 2026",
   // bracketed names become styled inline links in LatestLog.tsx
   text: "Currently deep in a Blinkit feature case study... dissecting the edge cases most designers skip over: promo code conflicts when multiple offers stack or cancel each other out, and substitution logic when items go out of stock mid-order. The focus is on designing recovery flows that feel considered, not bolted on."
 };
