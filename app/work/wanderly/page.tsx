@@ -38,7 +38,7 @@ export default function WanderlyCaseStudy() {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           disablePictureInPicture
           aria-label="Wanderly product overview"
         />

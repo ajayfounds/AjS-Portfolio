@@ -239,7 +239,7 @@ function Plates({ items }: { items: Plate[] }) {
     <div className="cs-plates">
       {items.map(([n, alt]) => (
         <figure className="cs-plate" key={n}>
-          <img src={`/case/upi/plate-${String(n).padStart(2, "0")}.webp`} alt={alt} loading="lazy" />
+          <img src={`/case/upi/plate-${String(n).padStart(2, "0")}.webp`} alt={alt} loading="lazy" decoding="async" />
         </figure>
       ))}
     </div>
@@ -311,7 +311,7 @@ export default function UpiCaseStudy() {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           disablePictureInPicture
           aria-label="Payment Limbo product overview"
         />

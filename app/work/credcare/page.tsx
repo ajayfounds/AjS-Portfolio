@@ -35,12 +35,12 @@ const didntDesign = [
 ];
 
 /* ── User testimonials — pre-rendered card images (used as-is, no edit).
-       Files: /public/case/credcare/quote-{1..4}.png, each 1260×764.        */
+       Files: /public/case/credcare/quote-{1..4}.webp, each 1260×764.      */
 const testimonials = [
-  { src: "/case/credcare/quote-1.png", alt: "Prisha Raj (26, Teacher) — First time I actually understood why my score had dropped. The plan didn't feel like homework, more like someone was in it with me." },
-  { src: "/case/credcare/quote-2.png", alt: "Saksham Kuntal (29, Police SI Officer) — That Trust Meter thing helped me way more than my actual score ever did. First time an app told me I was making progress instead of just reminding me I'd screwed up." },
-  { src: "/case/credcare/quote-3.png", alt: "Rohit Sahu (31, Engineer) — Hadn't touched a credit app in like eight months. Logged into this one half expecting to get lectured, and it just… didn't. So I stuck around." },
-  { src: "/case/credcare/quote-4.png", alt: "Shivii Rai (21, Student) — Read a few of the Learn cards on the metro. Genuinely didn't know minimum payments were a trap until then. Nobody teaches you this stuff." }
+  { src: "/case/credcare/quote-1.webp", alt: "Prisha Raj (26, Teacher) — First time I actually understood why my score had dropped. The plan didn't feel like homework, more like someone was in it with me." },
+  { src: "/case/credcare/quote-2.webp", alt: "Saksham Kuntal (29, Police SI Officer) — That Trust Meter thing helped me way more than my actual score ever did. First time an app told me I was making progress instead of just reminding me I'd screwed up." },
+  { src: "/case/credcare/quote-3.webp", alt: "Rohit Sahu (31, Engineer) — Hadn't touched a credit app in like eight months. Logged into this one half expecting to get lectured, and it just… didn't. So I stuck around." },
+  { src: "/case/credcare/quote-4.webp", alt: "Shivii Rai (21, Student) — Read a few of the Learn cards on the metro. Genuinely didn't know minimum payments were a trap until then. Nobody teaches you this stuff." }
 ];
 
 /* ── Approach ────────────────────────────────────────────────── */
@@ -126,7 +126,7 @@ function FullScreens({ items }: { items: { img: string; title: string; cap: stri
       {items.map((s) => (
         <figure className="cs-full" key={s.img}>
           <div className="cs-full__frame">
-            <img src={`/case/credcare/${s.img}.webp`} alt={s.title} loading="lazy" />
+            <img src={`/case/credcare/${s.img}.webp`} alt={s.title} loading="lazy" decoding="async" />
           </div>
           <figcaption>
             <span className="cs-shot__t">{s.title}</span>
@@ -143,7 +143,7 @@ function ScreenGrid({ items }: { items: { img: string; title: string; cap: strin
     <div className="cs-grid">
       {items.map((s) => (
         <figure className="cs-shot" key={s.img}>
-          <img src={`/case/credcare/${s.img}.webp`} alt={s.title} loading="lazy" />
+          <img src={`/case/credcare/${s.img}.webp`} alt={s.title} loading="lazy" decoding="async" />
           <figcaption>
             <span className="cs-shot__t">{s.title}</span>
             {s.cap && <span className="cs-shot__c">{s.cap}</span>}
@@ -165,7 +165,7 @@ export default function CredCareCaseStudy() {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           disablePictureInPicture
           aria-label="CredCare product overview"
         />
@@ -208,7 +208,7 @@ export default function CredCareCaseStudy() {
           I designed for that avoidance instead of around it.
         </p>
         <figure className="cs-wide" style={{ marginTop: "1.6rem" }}>
-          <img src="/case/credcare/overview-problem.png" alt="Problem statement — the users credit apps aren’t built for" loading="lazy" />
+          <img src="/case/credcare/overview-problem.webp" alt="Problem statement — the users credit apps aren’t built for" loading="lazy" decoding="async" />
         </figure>
       </section>
 
@@ -224,7 +224,7 @@ export default function CredCareCaseStudy() {
           answers <em>“what’s my score?”</em>.
         </p>
         <figure className="cs-shot" style={{ maxWidth: "300px", margin: "1.6rem auto 0" }}>
-          <img src="/case/credcare/home.webp" alt="CredCare home screen: Trust Meter, Next Best Action, soft score snapshot" loading="lazy" />
+          <img src="/case/credcare/home.webp" alt="CredCare home screen: Trust Meter, Next Best Action, soft score snapshot" loading="lazy" decoding="async" />
           <figcaption>
             <span className="cs-shot__t">Home — reassurance before data</span>
             <span className="cs-shot__c">The full end-to-end flow lives in section 07.</span>
@@ -267,7 +267,7 @@ export default function CredCareCaseStudy() {
         </p>
 
         <figure className="cs-wide" style={{ marginTop: "1.8rem" }}>
-          <img src="/case/credcare/insight.png" alt="Key insight — people had hidden their credit app on page 3 of their phone" loading="lazy" />
+          <img src="/case/credcare/insight.webp" alt="Key insight — people had hidden their credit app on page 3 of their phone" loading="lazy" decoding="async" />
         </figure>
       </section>
 
@@ -277,13 +277,13 @@ export default function CredCareCaseStudy() {
         <h2 className="cs-h2">Three ways people get stuck.</h2>
         <div className="cs-personas cs-personas--images">
           <figure className="cs-wide">
-            <img src="/case/credcare/persona-rohit.png" alt="Rohit — the Anxious Avoider persona" loading="lazy" />
+            <img src="/case/credcare/persona-rohit.webp" alt="Rohit — the Anxious Avoider persona" loading="lazy" decoding="async" />
           </figure>
           <figure className="cs-wide">
-            <img src="/case/credcare/persona-neha.png" alt="Neha — the Confused Struggler persona" loading="lazy" />
+            <img src="/case/credcare/persona-neha.webp" alt="Neha — the Confused Struggler persona" loading="lazy" decoding="async" />
           </figure>
           <figure className="cs-wide">
-            <img src="/case/credcare/persona-amit.png" alt="Amit — the Cautious Rebuilder persona" loading="lazy" />
+            <img src="/case/credcare/persona-amit.webp" alt="Amit — the Cautious Rebuilder persona" loading="lazy" decoding="async" />
           </figure>
         </div>
       </section>
@@ -328,7 +328,7 @@ export default function CredCareCaseStudy() {
 
         <h3 className="cs-h3">Features I considered and cut</h3>
         <figure className="cs-wide">
-          <img src="/case/credcare/features-cut.png" alt="Features I considered and cut — AI chat coach, score prediction, streaks, danger bands" loading="lazy" />
+          <img src="/case/credcare/features-cut.webp" alt="Features I considered and cut — AI chat coach, score prediction, streaks, danger bands" loading="lazy" decoding="async" />
         </figure>
 
         {/* Restored: What I deliberately did NOT design */}
@@ -349,12 +349,12 @@ export default function CredCareCaseStudy() {
           Low-fi first, so tone problems surfaced before layout did.
         </p>
         <figure className="cs-wide">
-          <img src="/case/credcare/wireframes.webp" alt="Hand-drawn low-fidelity wireframes for CredCare" loading="lazy" />
+          <img src="/case/credcare/wireframes.webp" alt="Hand-drawn low-fidelity wireframes for CredCare" loading="lazy" decoding="async" />
         </figure>
 
         <h3 className="cs-h3">Information architecture</h3>
         <figure className="cs-wide cs-wide--dark">
-          <img src="/case/credcare/ia.webp" alt="CredCare information architecture map" loading="lazy" />
+          <img src="/case/credcare/ia.webp" alt="CredCare information architecture map" loading="lazy" decoding="async" />
         </figure>
 
         <h3 className="cs-h3">Onboarding &amp; trust setup</h3>
@@ -370,7 +370,7 @@ export default function CredCareCaseStudy() {
         </p>
         <div className="cs-duo">
           <figure className="cs-shot">
-            <img src="/case/credcare/home.webp" alt="Home" loading="lazy" />
+            <img src="/case/credcare/home.webp" alt="Home" loading="lazy" decoding="async" />
             <figcaption>
               <span className="cs-shot__t">{homeScreens[0].title}</span>
               <span className="cs-shot__c">{homeScreens[0].cap}</span>
@@ -378,7 +378,7 @@ export default function CredCareCaseStudy() {
           </figure>
           <figure className="cs-full">
             <div className="cs-full__frame">
-              <img src="/case/credcare/full-home.webp" alt={fullCore[0].title} loading="lazy" />
+              <img src="/case/credcare/full-home.webp" alt={fullCore[0].title} loading="lazy" decoding="async" />
             </div>
             <figcaption>
               <span className="cs-shot__t">{fullCore[0].title}</span>
@@ -459,7 +459,7 @@ export default function CredCareCaseStudy() {
 
         <h3 className="cs-h3">Three things I now believe</h3>
         <figure className="cs-wide">
-          <img src="/case/credcare/believes.png" alt="Three things I now believe — reflections from designing CredCare" loading="lazy" />
+          <img src="/case/credcare/believes.webp" alt="Three things I now believe — reflections from designing CredCare" loading="lazy" decoding="async" />
         </figure>
       </section>
     </CaseStudyLayout>

@@ -1,9 +1,39 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import Reveal from "./Reveal";
 import { projects } from "@/lib/data";
+
+function LazyVideo({ src, label }: { src: string; label: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setInView(true); io.disconnect(); } },
+      { rootMargin: "200px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={ref}
+      src={inView ? src : undefined}
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="none"
+      disablePictureInPicture
+      aria-label={label}
+    />
+  );
+}
 
 // Row unit for the masonry maths — small enough that a card's span rounds to
 // within a few pixels of its real height.
@@ -110,18 +140,9 @@ export default function Work() {
 
               <div className="card__media">
                 {/\.(mp4|webm|mov)$/i.test(p.img) ? (
-                  <video
-                    src={p.img}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="auto"
-                    disablePictureInPicture
-                    aria-label={p.name}
-                  />
+                  <LazyVideo src={p.img} label={p.name} />
                 ) : (
-                  <img src={p.img} alt={p.name} loading="lazy" />
+                  <img src={p.img} alt={p.name} loading="lazy" decoding="async" />
                 )}
               </div>
 
