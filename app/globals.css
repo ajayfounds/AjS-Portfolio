@@ -472,11 +472,12 @@ body.is-resizing * { cursor: col-resize !important; }
 .sidebar:hover::-webkit-scrollbar-thumb { background: var(--line-strong); background-clip: padding-box; }
 .sidebar__markrow {
   display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 1.75rem;
+  margin-bottom: .875rem;
 }
 .sidebar__mark {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 3px;
-  width: 22px; height: 22px;
+  width: 48px; height: 48px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 .sidebar__resume {
   display: inline-flex; align-items: center; justify-content: center; cursor: none;
@@ -492,11 +493,6 @@ body.is-resizing * { cursor: col-resize !important; }
   background: var(--accent); border-color: var(--accent);
   box-shadow: 0 12px 24px -8px rgba(203, 120, 54, 0.6);
 }
-.sidebar__mark span { border-radius: 2px; }
-.sidebar__mark span:nth-child(1) { background: var(--accent-pink); }
-.sidebar__mark span:nth-child(2) { background: var(--accent-teal); }
-.sidebar__mark span:nth-child(3) { background: var(--accent-yellow); }
-.sidebar__mark span:nth-child(4) { background: var(--accent); }
 
 .sidebar__name {
   font-family: var(--font-serif), serif;

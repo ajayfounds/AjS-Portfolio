@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import VisitorCardButton from "./VisitorCardButton";
@@ -77,7 +78,6 @@ function useClock() {
 export default function Sidebar() {
   const time = useClock();
   const pathname = usePathname();
-  const logoRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
 
   // close the mobile drawer whenever the route changes
@@ -117,12 +117,14 @@ export default function Sidebar() {
 
         <div className="sidebar__top">
           <div className="sidebar__markrow">
-            <div className="sidebar__mark" ref={logoRef} aria-hidden>
-              <span />
-              <span />
-              <span />
-              <span />
-            </div>
+            <Image
+              className="sidebar__mark"
+              src="/sun-logo.webp"
+              alt="Ajay Srivastava logo"
+              width={48}
+              height={48}
+              priority
+            />
             <a
               className="sidebar__resume"
               href={site.resume}
