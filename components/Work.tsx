@@ -20,6 +20,12 @@ function LazyVideo({ src, label }: { src: string; label: string }) {
     return () => io.disconnect();
   }, []);
 
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || !inView) return;
+    v.play().catch(() => {});
+  }, [inView]);
+
   return (
     <video
       ref={ref}
