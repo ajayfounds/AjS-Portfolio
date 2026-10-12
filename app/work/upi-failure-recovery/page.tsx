@@ -211,14 +211,14 @@ const plateGroups: { h: string; lead: string; items: Plate[] }[] = [
       [4, "Escalating ... still waiting for update"],
       [5, "Payment update notification"],
       [6, "Escalation to support"],
-      [11, "Support handoff"]
+      [7, "Resolution ... payment successful"]
     ]
   },
   {
     h: "How it ends",
     lead: "Two endings. Both open with where the money is.",
     items: [
-      [7, "Resolution ... payment successful"],
+      [11, "Support handoff"],
       [8, "Resolution ... money refunded"]
     ]
   },
@@ -239,7 +239,7 @@ function Plates({ items }: { items: Plate[] }) {
     <div className="cs-plates">
       {items.map(([n, alt]) => (
         <figure className="cs-plate" key={n}>
-          <img src={`/case/upi/plate-${String(n).padStart(2, "0")}.webp`} alt={alt} loading="lazy" decoding="async" />
+          <img src={`/case/upi/plate-${String(n).padStart(2, "0")}.png`} alt={alt} loading="lazy" decoding="async" />
         </figure>
       ))}
     </div>
@@ -344,6 +344,11 @@ export default function UpiCaseStudy() {
         <div className="cs-meta__col"><span className="cs-meta__k">Platform</span><span className="cs-meta__v">Mobile UPI app · Web prototype</span></div>
         <div className="cs-meta__col"><span className="cs-meta__k">Focus</span><span className="cs-meta__v">Failure states · UX writing · Trust</span></div>
       </div>
+
+      {/* ── Dark mode screens ── */}
+      <figure className="cs-plate cs-plate--full">
+        <img src="/case/upi/dark-mode.png" alt="All screens in dark mode" loading="lazy" decoding="async" />
+      </figure>
 
       {/* ── 01 Overview ── */}
       <section className="cs-sec" id="s-overview">
@@ -588,11 +593,16 @@ export default function UpiCaseStudy() {
         </p>
         {plateGroups.map((g) => (
           <div key={g.h}>
-            <h3 className="cs-h3">{g.h}</h3>
-            <p className="cs-lead cs-lead--sm">{g.lead}</p>
             <Plates items={g.items} />
           </div>
         ))}
+      </section>
+
+      {/* ── Light mode overview ── */}
+      <section className="cs-sec cs-sec--light-overview">
+        <figure className="cs-plate cs-plate--full">
+          <img src="/case/upi/light-mode.png" alt="All screens in light mode" loading="lazy" decoding="async" />
+        </figure>
       </section>
 
       {/* ── 07 Impact ── */}
