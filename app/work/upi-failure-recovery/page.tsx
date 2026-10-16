@@ -13,6 +13,7 @@ const ACCENT = "#0A6473";
 const LIVE = "https://payment-limbo-edgecase.vercel.app/";
 
 const TOC: Toc[] = [
+  { id: "s-origin", num: "00", label: "How it started" },
   { id: "s-overview", num: "01", label: "Overview" },
   { id: "s-problem", num: "02", label: "The Problem" },
   { id: "s-users", num: "03", label: "Users" },
@@ -54,6 +55,7 @@ const sources = [
 const personas = [
   {
     name: "Ravi",
+    img: "/case/upi/persona-ravi.png",
     tag: "Student paying for daily essentials",
     intro:
       "Ravi pays his share of rent, food and travel on UPI. His balance is thin, so a few hundred rupees stuck in limbo changes what he can do that day.",
@@ -64,6 +66,7 @@ const personas = [
   },
   {
     name: "Neha",
+    img: "/case/upi/persona-neha.png",
     tag: "Working professional splitting shared costs",
     intro:
       "Neha splits dinners and cabs and pays bills on UPI several times a day. She's confident with apps and has very little patience for vague ones.",
@@ -74,6 +77,7 @@ const personas = [
   },
   {
     name: "Mr. Sharma",
+    img: "/case/upi/persona-sharma.png",
     tag: "Careful parent who uses UPI for the important stuff",
     intro:
       "Mr. Sharma makes fewer, bigger payments on UPI: school fees, electricity, the gas cylinder. He knows the basics and steers clear of anything that looks risky.",
@@ -261,25 +265,30 @@ const testimonials = [
     quote:
       "I was about to just send it again, which would've meant paying twice. The duplicate warning stopped me. That's ₹8,000 I didn't lose.",
     name: "Rakesh Narwar",
-    meta: "38 · Small-shop Owner"
+    meta: "38 · Small-shop Owner",
+    img: "/case/upi/user-rakesh.webp"
   },
   {
     quote:
       "Usually you get 'transaction failed' and that's it. This one told me roughly when to expect the refund, so I finally stopped refreshing my bank app every two minutes.",
     name: "Neha Kumari",
-    meta: "29 · Teacher"
+    meta: "29 · Teacher",
+    img: "/case/upi/user-neha.png"
   },
   {
     quote:
       "When I hit escalate it didn't feel like shouting into nothing. Felt like someone was actually on it.",
     name: "Nandini Tiwari",
-    meta: "45 · Nutrition Consultant"
+    note: "(Ananya’s mom)",
+    meta: "45 · Nutrition Consultant",
+    img: "/case/upi/user-nandini.webp"
   },
   {
     quote:
       "Sent it to my mom a week later and she got it straight away. If my mom understands it, it's doing something right.",
     name: "Ananya Tiwari",
-    meta: "26 · Business Analyst"
+    meta: "26 · Business Analyst",
+    img: "/case/upi/user-ananya.webp"
   }
 ];
 
@@ -350,33 +359,31 @@ export default function UpiCaseStudy() {
         <img src="/case/upi/dark-mode.png" alt="All screens in dark mode" loading="lazy" decoding="async" />
       </figure>
 
+      {/* ── 00 How it started ── */}
+      <section className="cs-sec cs-sec--origin" id="s-origin">
+        <p className="cs-eyebrow">00 · How it started</p>
+        <h2 className="cs-h2">Ten minutes on WhatsApp.</h2>
+        <figure className="cs-origin-img">
+          <img
+            src="/case/upi/story.png"
+            alt="How it started — WhatsApp conversation with Raghav Senior that inspired this case study"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </section>
+
       {/* ── 01 Overview ── */}
       <section className="cs-sec" id="s-overview">
         <p className="cs-eyebrow">01 · Overview</p>
-        <h2 className="cs-h2">A payment that&rsquo;s neither paid nor failed.</h2>
-        <p className="cs-lead">
-          UPI is how India pays for groceries, rent, auto fares and chai. A tiny share of those payments hang: the money
-          is debited, and for a few minutes nobody can say whether it arrived. At UPI&rsquo;s scale, a tiny share is a
-          lot of people.
-        </p>
-        <div className="cs-features">
-          {scale.map((s) => (
-            <div className="cs-feature" key={s.k}>
-              <span className="cs-feature__n">{s.n}</span>
-              <span className="cs-feature__k">{s.k}</span>
-              <p className="cs-lead cs-lead--sm">{s.v}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="cs-callout">
-          <p className="cs-callout__label">The short version</p>
-          <ul className="cs-bullets">
-            <li>Most UPI apps treat a hung payment as an error toast. I designed it as a sequence of states, from the first second through to the refund.</li>
-            <li>Two rules run through every screen. The app never states an outcome the bank hasn&rsquo;t confirmed, and it never offers a retry while a double charge is still possible.</li>
-            <li>11 annotated screens and a working prototype. There&rsquo;s no production data, so the Impact section is a measurement plan, and the Reflection lists what I&rsquo;d still fix.</li>
-          </ul>
-        </div>
+        <figure className="cs-overview-img">
+          <img
+            src="/case/upi/overview.png"
+            alt="Overview — 24.07 billion UPI payments, 0.7–0.8% technical decline rate, ~6 million declines a day"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
       </section>
 
       {/* ── 02 The Problem ── */}
@@ -430,6 +437,9 @@ export default function UpiCaseStudy() {
         <h2 className="cs-h2">Three people, three ways of panicking.</h2>
         <div className="cs-personas">
           {personas.map((p) => (
+            p.img ? (
+              <img className="cs-persona cs-persona--img" key={p.name} src={p.img} alt={`${p.name} — ${p.tag}`} loading="lazy" decoding="async" />
+            ) : (
             <article className="cs-persona" key={p.name}>
               <div className="cs-persona__id">
                 <h3 className="cs-persona__name">{p.name}</h3>
@@ -453,30 +463,18 @@ export default function UpiCaseStudy() {
                 </dl>
               </div>
             </article>
+            )
           ))}
         </div>
 
-        <div className="cs-split">
-          <div>
-            <h3 className="cs-h3">What people say</h3>
-            <ul className="cs-quotes">
-              {painQuotes.map((q) => <li key={q}>{"“"}{q}{"”"}</li>)}
-            </ul>
-          </div>
-          <div>
-            <h3 className="cs-h3">What I noticed</h3>
-            <ul className="cs-bullets">
-              {observations.map((t) => <li key={t}>{t}</li>)}
-            </ul>
-          </div>
-        </div>
-
-        <h3 className="cs-h3">It reads the same on public complaint boards</h3>
-        <p className="cs-lead cs-lead--sm">
-          Two complaints from early 2026. One person paid at 12:39 AM and was still stuck on pending seven hours later.
-          Another person&rsquo;s bank showed the payment as successful while the merchant never got the money. In both,
-          the person had a debit, no timeline, and nobody telling them what was going on.
-        </p>
+        <figure className="cs-overview-img">
+          <img
+            src="/case/upi/core-needs.png"
+            alt="What people say, what I noticed, and public complaint board patterns"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
       </section>
 
       {/* ── 04 System reality ── */}
@@ -487,30 +485,23 @@ export default function UpiCaseStudy() {
           Before deciding what the screens should say, I looked at what an app can find out, and when. It&rsquo;s less
           than you&rsquo;d expect, and it arrives slower.
         </p>
-        <div className="cs-tablewrap" style={{ marginTop: "1.2rem" }}>
-          <table className="cs-table">
-            <thead><tr><th>The rule</th><th>What it means on screen</th></tr></thead>
-            <tbody>
-              {rules.map((r) => (
-                <tr key={r[0]}><td>{r[0]}</td><td>{r[1]}</td></tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="cs-note">
-          Sources: NPCI monthly UPI statistics; NPCI circular on API usage (April 2025); RBI circular on harmonisation of
-          turnaround time and customer compensation for failed transactions (September 2019).
-        </p>
+        <figure className="cs-overview-img">
+          <img
+            src="/case/upi/system-table.png"
+            alt="The rule vs what it means on screen — system reality table with sources"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
 
-        <h3 className="cs-h3">Constraints</h3>
-        <div className="cs-constraints">
-          {constraints.map((c) => (
-            <div className="cs-constraint" key={c.k}>
-              <span className="cs-constraint__k">{c.k}</span>
-              <ul className="cs-bullets cs-bullets--sm">{c.items.map((t) => <li key={t}>{t}</li>)}</ul>
-            </div>
-          ))}
-        </div>
+        <figure className="cs-overview-img">
+          <img
+            src="/case/upi/constraints.png"
+            alt="Constraints — Technical, Business, and User constraints"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
       </section>
 
       {/* ── 05 Decision thinking ── */}
@@ -628,14 +619,7 @@ export default function UpiCaseStudy() {
         <h3 className="cs-h3">What people said</h3>
         <div className="cs-testimonials">
           {testimonials.map((t) => (
-            <figure className="cs-testimonial" key={t.quote}>
-              <span className="cs-testimonial__mark" aria-hidden>&ldquo;</span>
-              <blockquote className="cs-testimonial__quote">{t.quote}</blockquote>
-              <figcaption className="cs-testimonial__by">
-                <span className="cs-testimonial__name">{t.name}</span>
-                <span className="cs-testimonial__meta">{t.meta}</span>
-              </figcaption>
-            </figure>
+            <img className="cs-testimonial" key={t.name} src={t.img} alt={`${t.name} — ${t.meta}`} loading="lazy" decoding="async" />
           ))}
         </div>
       </section>

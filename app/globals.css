@@ -2249,6 +2249,11 @@ body.pill-cursor .cursor { opacity: 0; }
   column-gap: clamp(1.5rem, 3vw, 3rem); row-gap: 1.2rem; align-items: start;
   transition: box-shadow .3s var(--ease), transform .3s var(--ease);
 }
+.cs-persona--img {
+  display: block; width: 100%; height: auto;
+  padding: 0; border: none; background: none; box-shadow: none;
+}
+.cs-persona--img:hover { box-shadow: none; transform: none; }
 .cs-persona__id { display: flex; flex-direction: column; gap: .3rem; }
 .cs-persona__detail { display: flex; flex-direction: column; gap: 1.2rem; min-width: 0; }
 .cs-persona__role { font-family: var(--font-inter), system-ui, sans-serif; font-size: .95rem; color: var(--cs-body); }
@@ -2336,6 +2341,17 @@ body.pill-cursor .cursor { opacity: 0; }
   color: #fff; background: rgba(20, 18, 14, .55);
   backdrop-filter: blur(2px);
   pointer-events: none; opacity: .85;
+}
+
+.cs-origin-img { margin: 0; }
+.cs-origin-img img {
+  width: 100%; height: auto; display: block;
+  border-radius: var(--cs-r-md);
+}
+.cs-overview-img { margin: 0; }
+.cs-overview-img img {
+  width: 100%; height: auto; display: block;
+  border-radius: var(--cs-r-md);
 }
 
 .cs-sec--light-overview { padding-top: 0; }
@@ -2483,22 +2499,13 @@ body.pill-cursor .cursor { opacity: 0; }
   font-size: .8rem; line-height: 1; top: .32em;
 }
 
-/* user testimonials — placeholder quotes in the Impact section */
-.cs-testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 1rem; }
+/* user testimonials — image-as-card, 2×2 desktop → 1-col mobile */
+.cs-testimonials { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-top: 1rem; }
 .cs-testimonial {
-  display: flex; flex-direction: column; gap: .4rem;
-  background: var(--cs-canvas); border: 1px solid var(--cs-hairline);
-  border-radius: var(--cs-r-md); padding: 1.25rem 1.35rem 1.15rem; box-shadow: var(--cs-shadow);
+  width: 100%; height: auto; display: block;
+  border-radius: var(--cs-r-md);
+  padding: 0; border: none; background: none; box-shadow: none;
 }
-/* mark sits tight against the quote — no phantom empty box above it */
-.cs-testimonial__mark {
-  font-family: Georgia, serif; font-size: 2rem; line-height: .7;
-  color: var(--cs-accent); margin-bottom: -.15rem;
-}
-.cs-testimonial__quote { font-family: var(--font-inter), system-ui, sans-serif; font-size: .95rem; font-weight: 500; line-height: 1.55; color: var(--cs-ink); margin: 0; }
-.cs-testimonial__by { display: flex; flex-direction: column; gap: .15rem; margin-top: auto; padding-top: .8rem; border-top: 1px solid var(--cs-hairline-soft); }
-.cs-testimonial__name { font-size: .9rem; font-weight: 600; color: var(--cs-ink); }
-.cs-testimonial__meta { font-family: var(--font-inter), sans-serif; font-size: .68rem; text-transform: uppercase; letter-spacing: .07em; color: var(--cs-muted); }
 
 /* design.md: all labels/eyebrows use Inter 600, not serif */
 .cs-eyebrow, .cs-tag, .cs-meta__k, .cs-obj__k, .cs-persona__tag, .cs-persona__k,
@@ -2697,7 +2704,7 @@ body.pill-cursor .cursor { opacity: 0; }
   .cs__backtop { display: none; }
 
   .cs-meta { grid-template-columns: repeat(2, 1fr); }
-  .cs-constraints, .cs-impact, .cs-testimonials { grid-template-columns: 1fr; }
+  .cs-constraints, .cs-impact { grid-template-columns: 1fr; }
   .cs-stats, .cs-features, .cs-pricing { grid-template-columns: 1fr; }
   .cs-timeline { grid-template-columns: repeat(2, 1fr); }
   .cs-swatches { grid-template-columns: repeat(2, 1fr); }
@@ -2733,7 +2740,8 @@ body.pill-cursor .cursor { opacity: 0; }
   .cs-meta { grid-template-columns: 1fr; gap: .9rem; }
   .cs-sec { padding: 2rem 0; }
   .cs-grid, .cs-fulls { grid-template-columns: repeat(2, 1fr); }
-  .cs-callout, .cs-persona, .cs-impact__card, .cs-testimonial,
+  .cs-testimonials { grid-template-columns: 1fr; }
+  .cs-callout, .cs-persona:not(.cs-persona--img), .cs-impact__card,
   .cs-constraint, .cs-obj__primary, .cs-obj__secondary { padding: 1.1rem; }
   .cs__toc-link { font-size: .8rem; padding: .45rem .5rem; }
   .cs-persona__cols { grid-template-columns: 1fr; }
