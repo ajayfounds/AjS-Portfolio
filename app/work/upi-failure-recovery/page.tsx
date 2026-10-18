@@ -571,17 +571,14 @@ export default function UpiCaseStudy() {
           This was a 7-day self-initiated project with a prototype, not a shipped feature, so I don&rsquo;t have outcome
           numbers. These are the numbers I&rsquo;d watch, and which way each one should move.
         </p>
-        <div className="cs-tablewrap" style={{ marginTop: "1.2rem" }}>
-          <table className="cs-table">
-            <thead><tr><th>Metric</th><th>Why it matters</th><th>Should go</th></tr></thead>
-            <tbody>
-              {metrics.map((m) => (
-                <tr key={m[0]}><td>{m[0]}</td><td>{m[1]}</td><td><strong>{m[2]}</strong></td></tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="cs-note">None of these have been measured yet.</p>
+        <figure className="cs-overview-img">
+          <img
+            src="/case/upi/impact-table.png"
+            alt="Impact metrics table — Metric, Why it matters, Output direction"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
 
         <h3 className="cs-h3">What people said</h3>
         <div className="cs-testimonials">
