@@ -594,33 +594,14 @@ export default function UpiCaseStudy() {
       {/* ── 08 Reflection ── */}
       <section className="cs-sec" id="s-reflection">
         <p className="cs-eyebrow">08 · Reflection</p>
-        <h2 className="cs-h2">What I&rsquo;d fix, and what I now believe about failure states.</h2>
-
-        <div className="cs-callout">
-          <p className="cs-callout__label">The honest bit</p>
-          <p className="cs-callout__quote">
-            Going back over the screens with the research above, I found three places where my own copy breaks my own
-            rules.
-          </p>
-          <ul className="cs-bullets cs-bullets--sm">
-            {ownGoals.map((t) => <li key={t}>{t}</li>)}
-          </ul>
-        </div>
-
-        <h3 className="cs-h3">What&rsquo;s still missing</h3>
-        <ul className="cs-bullets">
-          {stillMissing.map((t) => <li key={t}>{t}</li>)}
-        </ul>
-
-        <div className="cs-reflect">
-          <div className="cs-reflect__takeaways">
-            {takeaways.map((t) => <span key={t} className="cs-principle">{t}</span>)}
-          </div>
-          <blockquote className="cs-reflect__final">
-            Sometimes the most useful thing a payments app can say is &ldquo;we don&rsquo;t know yet&rdquo;, as long as
-            it also says when it will.
-          </blockquote>
-        </div>
+        <figure className="cs-overview-img">
+          <img
+            src="/case/upi/reflection.png"
+            alt="Reflection — What I'd fix and what I now believe about failure states. The honest bit, what's still missing, and takeaways."
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
       </section>
     </CaseStudyLayout>
   );
