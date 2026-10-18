@@ -389,46 +389,14 @@ export default function UpiCaseStudy() {
       {/* ── 02 The Problem ── */}
       <section className="cs-sec" id="s-problem">
         <p className="cs-eyebrow">02 · The Problem</p>
-        <h2 className="cs-h2">Pending is where people make their worst money decisions.</h2>
-        <p className="cs-lead">When a payment hangs, the user gets four answers from four places, and none of them agree.</p>
-        <div className="cs-tools">
-          {sources.map((s) => (
-            <div className="cs-tool" key={s.k}>
-              <span className="cs-tool__k">{s.k}</span>
-              <p className="cs-tool__v">{s.v}</p>
-            </div>
-          ))}
-        </div>
-        <p className="cs-lead">
-          None of those answers comes with a time. So people do the one thing still in their control and pay again. If
-          the first payment was going to go through after all, they&rsquo;ve now paid twice, and one of those payments
-          takes days to come back.
-        </p>
-
-        <div className="cs-callout">
-          <p className="cs-callout__label">The system panics the same way</p>
-          <p className="cs-callout__quote">
-            On 12 April 2025, UPI was down for close to five hours across Google Pay, PhonePe and Paytm. NPCI traced it to
-            some banks flooding the &ldquo;check transaction status&rdquo; API, asking again and again whether payments
-            had gone through. That&rsquo;s a person refreshing a pending screen, at the scale of a bank. NPCI&rsquo;s fix
-            was a rate limit. Mine is the interface version: give people a reason to stop asking.
-          </p>
-        </div>
-
-        <div className="cs-callout">
-          <p className="cs-callout__label">Problem</p>
-          <p className="cs-callout__quote">
-            When a UPI payment hangs, the user gets a debit with no outcome and no timeline. With neither, retrying feels
-            safer than waiting, and that retry is what turns a delay into a real loss.
-          </p>
-        </div>
-        <div className="cs-callout">
-          <p className="cs-callout__label">How might we</p>
-          <p className="cs-callout__quote">
-            &hellip;keep someone calm and still for the few minutes the bank needs to answer, and get them to a person
-            when it takes longer?
-          </p>
-        </div>
+        <figure className="cs-overview-img">
+          <img
+            src="/case/upi/problem.png"
+            alt="The Problem — Pending is where people make their worst money decisions. Four conflicting answers from app, bank SMS, merchant, and support. The system panics the same way. Problem and How Might We statements."
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
       </section>
 
       {/* ── 03 Users ── */}
