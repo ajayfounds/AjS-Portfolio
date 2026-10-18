@@ -532,15 +532,14 @@ export default function UpiCaseStudy() {
           ))}
         </div>
 
-        <h3 className="cs-h3">Principles</h3>
-        <div className="cs-principles">
-          {principles.map((t) => <span key={t} className="cs-principle">{t}</span>)}
-        </div>
-
-        <div className="cs-scope">
-          <span className="cs-impact__k">What I deliberately didn{"’"}t design</span>
-          <ul className="cs-bullets cs-bullets--sm cs-bullets--x">{didntDesign.map((t) => <li key={t}>{t}</li>)}</ul>
-        </div>
+        <figure className="cs-overview-img">
+          <img
+            src="/case/upi/principles.png"
+            alt="Principles — A time never an adjective, Retry only when it’s safe, Support comes to the user, Say where the money is. What I deliberately didn’t design."
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
       </section>
 
       {/* ── 06 Designs ── */}
