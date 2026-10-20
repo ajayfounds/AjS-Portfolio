@@ -475,14 +475,14 @@ export default function UpiCaseStudy() {
       {/* ── 05 Decision thinking ── */}
       <section className="cs-sec" id="s-decisions">
         <p className="cs-eyebrow">05 · Decision thinking</p>
-        <h2 className="cs-h2">Treat the wait as a set of states, then decide what each one is allowed to say.</h2>
-
-        <div className="cs-shift">
-          <p className="cs-shift__from">A hung payment is a few minutes of uncertainty the product has to carry for the user.</p>
-          <p className="cs-shift__to">
-            So I mapped it as a timeline. Each state gets its own tone and its own short list of things the user can do.
-          </p>
-        </div>
+        <figure className="cs-overview-img">
+          <img
+            src="/case/upi/decision-heading.png"
+            alt="Treat the wait as a set of states, then decide what each one is allowed to say. A hung payment is a few minutes of uncertainty the product has to carry for the user."
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
 
         <h3 className="cs-h3">The escalation ladder</h3>
         <p className="cs-lead cs-lead--sm">
