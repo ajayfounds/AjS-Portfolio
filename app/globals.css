@@ -2032,6 +2032,10 @@ body.pill-cursor .cursor { opacity: 0; }
   background: var(--cs-canvas); border: 1px solid var(--cs-hairline);
   border-radius: var(--cs-r-md); padding: clamp(1.1rem, 2.4vw, 1.6rem);
 }
+.cs-decision--img {
+  display: block; width: 100%; height: auto;
+  padding: 0; border: none; background: none; box-shadow: none;
+}
 .cs-decision__n {
   font-family: var(--font-inter), sans-serif; font-size: 1.6rem; font-weight: 600; line-height: 1;
   color: color-mix(in srgb, var(--cs-accent) 70%, var(--cs-muted)); font-variant-numeric: tabular-nums;

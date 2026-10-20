@@ -139,15 +139,17 @@ const ladder = [
 const decisions = [
   {
     t: "No verdict until the bank gives one",
+    img: "/case/upi/verdict-1.png",
     problem:
       "An early “Failed” is the biggest trigger for panic retries. If the bank later confirms the first payment, the user has paid twice.",
-    options: ["Show “Failed” after a timeout", "A bare spinner", "Say what's happening, in words"],
+    options: ["Show “Failed” after a timeout", "A bare spinner", "Say what’s happening, in words"],
     pick:
-      "“We're checking your payment. The bank hasn't confirmed the status yet.” Your-money-is-safe sits in the subtext, and there is no retry button on the screen.",
+      "“We’re checking your payment. The bank hasn’t confirmed the status yet.” Your-money-is-safe sits in the subtext, and there is no retry button on the screen.",
     cost: "Someone who wants a yes or no right now gets “not yet”. A wrong “Failed” would cost them a double payment."
   },
   {
     t: "A time in place of “pending”",
+    img: "/case/upi/verdict-2.png",
     problem: "“Pending” has no end, and an open-ended wait is what sends people back to the pay button.",
     options: ["Indefinite spinner", "Progress bar", "Named stages with an expected time"],
     pick:
@@ -156,6 +158,7 @@ const decisions = [
   },
   {
     t: "Retry has to be earned",
+    img: "/case/upi/verdict-3.png",
     problem: "A warning printed next to a retry button gets ignored by exactly the people who are panicking.",
     options: ["Retry button with a warning", "Hide retry entirely", "Retry only after a confirmed refund"],
     pick:
@@ -164,6 +167,7 @@ const decisions = [
   },
   {
     t: "Support shows up on a timer",
+    img: "/case/upi/verdict-4.png",
     problem:
       "If support is always one tap away, people write in at minute one about payments that would have cleared at minute two. If it's buried, the genuinely stuck ones never get help.",
     options: ["Support always visible", "Support inside the help centre", "Unlock support after a threshold"],
@@ -173,7 +177,8 @@ const decisions = [
   },
   {
     t: "Lead with where the money is",
-    problem: "“Payment failed” describes the system's mistake. The user wants to know where their ₹450 went.",
+    img: "/case/upi/verdict-5.png",
+    problem: "“Payment failed” describes the system’s mistake. The user wants to know where their ₹450 went.",
     options: [] as string[],
     pick:
       "“Money refunded”, with +₹450.00 shown against the failed original. On success, a green tick and “The money has reached the recipient” come before any receipt details.",
@@ -489,20 +494,21 @@ export default function UpiCaseStudy() {
           Every state answers two questions: how worried should I be, and what can I do? The tone only goes up when the
           product&rsquo;s own promise slips.
         </p>
-        <div className="cs-tablewrap">
-          <table className="cs-table">
-            <thead><tr><th>When</th><th>Screen</th><th>Tone</th><th>What the user can do</th></tr></thead>
-            <tbody>
-              {ladder.map((r) => (
-                <tr key={r[0]}><td><strong>{r[0]}</strong></td><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <figure className="cs-overview-img" style={{ marginTop: "1.5rem" }}>
+          <img
+            src="/case/upi/escalation-ladder.png"
+            alt="Escalation ladder — When, Screen, Tone, What the user can do across six states from 0-5 seconds to any attempt to pay again"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
 
         <h3 className="cs-h3">Five decisions, and what each one cost</h3>
         <div className="cs-decisions">
           {decisions.map((d, i) => (
+            d.img ? (
+              <img className="cs-decision cs-decision--img" key={d.t} src={d.img} alt={`Decision ${i + 1}: ${d.t}`} loading="lazy" decoding="async" />
+            ) : (
             <article className="cs-decision" key={d.t}>
               <span className="cs-decision__n">0{i + 1}</span>
               <div>
@@ -529,6 +535,7 @@ export default function UpiCaseStudy() {
                 </div>
               </div>
             </article>
+            )
           ))}
         </div>
 
