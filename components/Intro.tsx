@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Magnetic from "./Magnetic";
+import FlowField from "./FlowField";
 import { site, seedVisitors, VISITOR_COLORS, mulberry32 } from "@/lib/data";
 
 // deterministic hand-drawn-looking signature (matches the gallery)
@@ -369,6 +370,8 @@ export default function Intro() {
             <motion.div className="intro__cursor" style={{ x: ox, y: oy }} aria-hidden>
               <span className="intro__moon" />
             </motion.div>
+
+            {step === "intro" && <FlowField className="intro__wind" density={0.85} speed={1} />}
 
             <div className="intro__stars" aria-hidden>
               {stars.map((s) => (

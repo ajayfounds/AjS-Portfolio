@@ -31,8 +31,8 @@ export const explore: ExploreLink[] = [
   { num: "02", label: "About Me", href: "/about" },
   { num: "03", label: "Experience", href: "/experience" },
   { num: "04", label: "Skills", href: "/skills" },
-  { num: "05", label: "Services", href: "/services" },
-  { num: "06", label: "Visitor Gallery", href: "/visitor-gallery" }
+  // Services archived for now — page kept at /services, pulled from nav. Restore when reworked.
+  { num: "05", label: "Visitor Gallery", href: "/visitor-gallery" }
 ];
 
 export type Outbound = { label: string; href: string; icon: "email" | "linkedin" | "behance" | "x" | "instagram" };
@@ -369,6 +369,23 @@ export const stack: { label: string; items: StackItem[] }[] = [
       { icon: "a11y", name: "Accessibility / WCAG", desc: "Inclusive design, AA/AAA compliance, ARIA, contrast" }
     ]
   }
+];
+
+/* Design skills — a flat list (no per-item blurb), its own block on /skills */
+export const designSkills: string[] = [
+  "User Research",
+  "Design Systems",
+  "Usability Testing",
+  "Persona Hypothesis",
+  "Interaction Design",
+  "Journey Mapping",
+  "User Interface Design",
+  "Wireframing / Prototyping",
+  "Responsive Web Design",
+  "Visual Design",
+  "Information Architecture",
+  "Sitemapping",
+  "Product Thinking"
 ];
 
 export const socials = [

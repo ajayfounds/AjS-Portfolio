@@ -2,7 +2,7 @@
 
 import Reveal from "./Reveal";
 import StackIcon from "./StackIcon";
-import { stack } from "@/lib/data";
+import { stack, designSkills } from "@/lib/data";
 
 export default function Skills() {
   return (
@@ -35,6 +35,20 @@ export default function Skills() {
             </article>
           </Reveal>
         ))}
+
+        <Reveal delay={0.06 + stack.length * 0.06}>
+          <article className="stack__card">
+            <h2 className="stack__label">Design Skills</h2>
+            <ul className="stack__skills">
+              {designSkills.map((s) => (
+                <li className="stack__skill" key={s}>
+                  <span className="stack__skill-dot" aria-hidden />
+                  <span className="stack__skill-name">{s}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        </Reveal>
       </div>
     </section>
   );
