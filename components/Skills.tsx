@@ -8,7 +8,6 @@ export default function Skills() {
   return (
     <section className="stack" id="skills">
       <Reveal className="section-head section-head--flush">
-        <span className="section-head__index">04</span>
         <h2 className="section-head__title">Skills</h2>
       </Reveal>
       <Reveal delay={0.05}>

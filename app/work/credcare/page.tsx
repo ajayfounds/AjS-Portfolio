@@ -197,7 +197,7 @@ export default function CredCareCaseStudy() {
 
       {/* 01 Overview */}
       <section className="cs-sec" id="s-overview">
-        <p className="cs-eyebrow">01 · Overview</p>
+        <p className="cs-eyebrow">Overview</p>
         <h2 className="cs-h2">What if a credit app made people want to check it?</h2>
         <p className="cs-lead">
           Every credit app I could find treated a low score as a debt-collector problem: numbers,
@@ -211,7 +211,7 @@ export default function CredCareCaseStudy() {
 
       {/* 02 Solution — the product, up high */}
       <section className="cs-sec" id="s-solution">
-        <p className="cs-eyebrow">02 · Solution</p>
+        <p className="cs-eyebrow">Solution</p>
         <h2 className="cs-h2">
           CredCare: a mobile credit-recovery app that leads with tone, then guides one action at a time.
         </h2>
@@ -231,7 +231,7 @@ export default function CredCareCaseStudy() {
 
       {/* 03 Outcomes — real, qualitative, no fake metrics */}
       <section className="cs-sec" id="s-outcomes">
-        <p className="cs-eyebrow">03 · Outcomes</p>
+        <p className="cs-eyebrow">Outcomes</p>
         <h2 className="cs-h2">20+ users navigated the recovery flow without asking for help.</h2>
         <div className="cs-impact">
           <div className="cs-impact__card cs-impact__card--accent">
@@ -256,7 +256,7 @@ export default function CredCareCaseStudy() {
 
       {/* 04 The problem — key insight callout lives here */}
       <section className="cs-sec" id="s-problem">
-        <p className="cs-eyebrow">04 · The Problem</p>
+        <p className="cs-eyebrow">The Problem</p>
         <h2 className="cs-h2">Shame turns credit apps invisible.</h2>
         <p className="cs-lead">
           Users with a damaged score don’t need more data. They need a reason not to close the tab.
@@ -270,7 +270,7 @@ export default function CredCareCaseStudy() {
 
       {/* 05 Users — 3 personas */}
       <section className="cs-sec" id="s-users">
-        <p className="cs-eyebrow">05 · Users</p>
+        <p className="cs-eyebrow">Users</p>
         <h2 className="cs-h2">Three ways people get stuck.</h2>
         <div className="cs-personas cs-personas--images">
           <figure className="cs-wide">
@@ -287,7 +287,7 @@ export default function CredCareCaseStudy() {
 
       {/* 06 Decision thinking — HMW broad + narrow, principles, cut features */}
       <section className="cs-sec" id="s-approach">
-        <p className="cs-eyebrow">06 · Decision thinking</p>
+        <p className="cs-eyebrow">Decision thinking</p>
         <h2 className="cs-h2">Design for the moment before the reveal.</h2>
 
         <div className="cs-callout" style={{ marginBottom: "1.6rem" }}>
@@ -338,7 +338,7 @@ export default function CredCareCaseStudy() {
 
       {/* 08 Design — the whole flow, screens grouped by role */}
       <section className="cs-sec" id="s-design">
-        <p className="cs-eyebrow">07 · Design</p>
+        <p className="cs-eyebrow">Design</p>
         <h2 className="cs-h2">The whole flow, and one honest reason per section.</h2>
 
         <h3 className="cs-h3">Wireframes</h3>
@@ -409,7 +409,7 @@ export default function CredCareCaseStudy() {
 
       {/* 09 Impact — restored: user testimonials + final outcome (moved above Reflection) */}
       <section className="cs-sec" id="s-impact">
-        <p className="cs-eyebrow">08 · Impact</p>
+        <p className="cs-eyebrow">Impact</p>
         <h3 className="cs-h3">What users said</h3>
         <div className="cs-vquotes">
           {testimonials.map((t, i) => (
@@ -441,7 +441,7 @@ export default function CredCareCaseStudy() {
 
       {/* 10 Reflection — vulnerability + 2 contrarian + 1 practical (now last) */}
       <section className="cs-sec" id="s-reflection">
-        <p className="cs-eyebrow">09 · Reflection</p>
+        <p className="cs-eyebrow">Reflection</p>
         <h2 className="cs-h2">What CredCare taught me about designing for shame.</h2>
 
         {/* Vulnerability moment */}

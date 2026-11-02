@@ -360,7 +360,6 @@ export default function About() {
     <div className="about-page">
       {/* Intro */}
       <Reveal className="section-head section-head--flush">
-        <span className="section-head__index">02</span>
         <h2 className="section-head__title">About Me</h2>
       </Reveal>
       <Reveal>

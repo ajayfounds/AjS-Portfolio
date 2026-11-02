@@ -156,7 +156,7 @@ export default function DigiAgencyCaseStudy() {
 
       {/* 01 Overview */}
       <section className="cs-sec" id="s-overview">
-        <p className="cs-eyebrow">01 · Overview</p>
+        <p className="cs-eyebrow">Overview</p>
         <h2 className="cs-h2">A rebuild framed as a communication problem</h2>
         <div className="cs-callout">
           <p className="cs-callout__quote">
@@ -169,7 +169,7 @@ export default function DigiAgencyCaseStudy() {
 
       {/* 02 Problem */}
       <section className="cs-sec" id="s-problem">
-        <p className="cs-eyebrow">02 · Problem</p>
+        <p className="cs-eyebrow">Problem</p>
         <h2 className="cs-h2">Problem statement</h2>
         <p className="cs-lead">
           Their previous digital presence lacked clarity in positioning, inconsistent messaging, and weak information
@@ -193,7 +193,7 @@ export default function DigiAgencyCaseStudy() {
 
       {/* 03 Users & Goals */}
       <section className="cs-sec" id="s-users">
-        <p className="cs-eyebrow">03 · Users &amp; Goals</p>
+        <p className="cs-eyebrow">Users &amp; Goals</p>
         <h2 className="cs-h2">Two audiences, one page</h2>
         <div className="cs-constraints">
           <div className="cs-constraint">
@@ -219,7 +219,7 @@ export default function DigiAgencyCaseStudy() {
 
       {/* 04 Challenges */}
       <section className="cs-sec" id="s-challenges">
-        <p className="cs-eyebrow">04 · Challenges</p>
+        <p className="cs-eyebrow">Challenges</p>
         <h2 className="cs-h2">Key challenges</h2>
         <div className="cs-features">
           {challenges.map((t) => (
@@ -233,7 +233,7 @@ export default function DigiAgencyCaseStudy() {
 
       {/* 05 Strategy */}
       <section className="cs-sec" id="s-strategy">
-        <p className="cs-eyebrow">05 · Strategy</p>
+        <p className="cs-eyebrow">Strategy</p>
         <h2 className="cs-h2">Strategy &amp; approach</h2>
         <p className="cs-lead">
           The redesign follows five commitments — each traded ornamental design for a clearer reason to trust the
@@ -256,7 +256,7 @@ export default function DigiAgencyCaseStudy() {
 
       {/* 06 Wireframes */}
       <section className="cs-sec cs-sec--img" id="s-wireframes">
-        <p className="cs-eyebrow">06 · Wireframes</p>
+        <p className="cs-eyebrow">Wireframes</p>
         <h2 className="cs-h2">Wireframes</h2>
         <figure className="cs-wide">
           <CaseImg src={IMG("wireframes")} alt="DigiAgency wireframes" ratio="wide" />
@@ -265,7 +265,7 @@ export default function DigiAgencyCaseStudy() {
 
       {/* 07 Design System */}
       <section className="cs-sec cs-sec--img" id="s-designsystem">
-        <p className="cs-eyebrow">07 · Design System</p>
+        <p className="cs-eyebrow">Design System</p>
         <h2 className="cs-h2">Design system</h2>
         <p className="cs-lead">Colour palette, type scale, icon set, button states and componentry that carry the site's Clarity, Authority and Conversion pillars.</p>
         <figure className="cs-wide">
@@ -275,7 +275,7 @@ export default function DigiAgencyCaseStudy() {
 
       {/* 08 Designs */}
       <section className="cs-sec cs-sec--img" id="s-designs">
-        <p className="cs-eyebrow">08 · Designs</p>
+        <p className="cs-eyebrow">Designs</p>
         <h2 className="cs-h2">Final website UI</h2>
         <p className="cs-lead">The final screens ... landing hero, service tiles, projects grid, testimonials and the contact flow.</p>
         <figure className="cs-wide">
@@ -285,7 +285,7 @@ export default function DigiAgencyCaseStudy() {
 
       {/* 09 Impact */}
       <section className="cs-sec" id="s-impact">
-        <p className="cs-eyebrow">09 · Impact</p>
+        <p className="cs-eyebrow">Impact</p>
         <h2 className="cs-h2">Impact &amp; takeaways</h2>
         <div className="cs-impact">
           <div className="cs-impact__card cs-impact__card--accent">

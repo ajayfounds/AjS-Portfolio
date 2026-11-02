@@ -167,7 +167,7 @@ export default function MonalisaCaseStudy() {
 
       {/* 01 Overview — the top-line, tags, title, intro, one-liner and details all sit here per brief */}
       <section className="cs-sec" id="s-overview">
-        <p className="cs-eyebrow">01 · Overview</p>
+        <p className="cs-eyebrow">Overview</p>
 
         <div className="cs-callout">
           <p className="cs-callout__label">Top line</p>
@@ -206,7 +206,7 @@ export default function MonalisaCaseStudy() {
 
       {/* 02 Designs — every screen shown at full width, grouped like the brief */}
       <section className="cs-sec" id="s-designs">
-        <p className="cs-eyebrow">02 · Designs</p>
+        <p className="cs-eyebrow">Designs</p>
         <h2 className="cs-h2">Every screen, in the order someone would walk through them.</h2>
 
         <h3 className="cs-h3" style={{ marginTop: "2rem" }}>The shopping flow</h3>
@@ -236,7 +236,7 @@ export default function MonalisaCaseStudy() {
 
       {/* 03 Impact */}
       <section className="cs-sec" id="s-impact">
-        <p className="cs-eyebrow">03 · Impact</p>
+        <p className="cs-eyebrow">Impact</p>
         <ul className="cs-bullets">
           {impactPoints.map((t) => <li key={t}>{t}</li>)}
         </ul>

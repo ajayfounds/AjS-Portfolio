@@ -4,7 +4,7 @@ import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import VisitorCardButton from "./VisitorCardButton";
 import { site, explore, outbound } from "@/lib/data";
 import type { Outbound } from "@/lib/data";
@@ -98,23 +98,17 @@ function arcPoint(t: number) {
 const ARC_D = `M${ARC.x0} ${ARC.y0} Q${ARC.cx} ${ARC.cy} ${ARC.x1} ${ARC.y1}`;
 
 function Widget({ className = "", glow, children, as = "div", label }: { className?: string; glow?: string; children: ReactNode; as?: "div" | "nav"; label?: string }) {
-  const Tag = as === "nav" ? motion.nav : motion.div;
+  const Tag = as;
   return (
     <Tag
       className={`sb-w ${className}`}
       style={glow ? ({ "--glow": glow } as CSSProperties) : undefined}
-      variants={itemV}
       aria-label={label}
     >
       {children}
     </Tag>
   );
 }
-
-const itemV: Variants = {
-  hidden: { opacity: 0, y: 10, filter: "blur(4px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.5, ease: [0.23, 1, 0.32, 1] } }
-};
 
 export default function Sidebar() {
   const now = useIST();
@@ -162,12 +156,7 @@ export default function Sidebar() {
       <div className={`sidebar__backdrop${open ? " is-open" : ""}`} onClick={() => setOpen(false)} aria-hidden />
 
       <aside className={`sidebar${open ? " is-open" : ""}`} data-lenis-prevent>
-        <motion.div
-          className="sb-grid"
-          initial={reduce ? false : "hidden"}
-          animate="show"
-          variants={{ show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } } }}
-        >
+        <div className="sb-grid">
           {/* 1 · Identity */}
           <Widget className="sb-id" glow="var(--sb-gold)">
             <div className="sb-id__row">
@@ -219,13 +208,11 @@ export default function Sidebar() {
                         <motion.span
                           className="sb-nav__pill"
                           layoutId="sb-nav-pill"
-                          transition={reduce ? { duration: 0 } : { type: "spring", duration: 0.45, bounce: 0.15 }}
+                          transition={reduce ? { duration: 0 } : { type: "spring", duration: 0.4, bounce: 0 }}
                           aria-hidden
                         />
                       )}
-                      <span className="sb-nav__num">{item.num}</span>
                       <span className="sb-nav__label">{item.label}</span>
-                      <span className="sb-nav__arrow" aria-hidden>→</span>
                     </Link>
                   </li>
                 );
@@ -289,10 +276,10 @@ export default function Sidebar() {
           </Widget>
 
           {/* 6 · Visitor card */}
-          <motion.div className="sb-w sb-visitor" variants={itemV} style={{ "--glow": "var(--sb-teal)" } as CSSProperties}>
+          <div className="sb-w sb-visitor" style={{ "--glow": "var(--sb-teal)" } as CSSProperties}>
             <VisitorCardButton />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </aside>
     </>
   );

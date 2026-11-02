@@ -363,7 +363,7 @@ export default function UpiCaseStudy() {
 
       {/* ── 00 How it started ── */}
       <section className="cs-sec cs-sec--origin" id="s-origin">
-        <p className="cs-eyebrow">00 · How it started</p>
+        <p className="cs-eyebrow">How it started</p>
         <h2 className="cs-h2">Ten minutes on WhatsApp.</h2>
         <figure className="cs-origin-img">
           <img
@@ -377,7 +377,7 @@ export default function UpiCaseStudy() {
 
       {/* ── 01 Overview ── */}
       <section className="cs-sec" id="s-overview">
-        <p className="cs-eyebrow">01 · Overview</p>
+        <p className="cs-eyebrow">Overview</p>
         <figure className="cs-overview-img">
           <img
             src="/case/upi/overview.png"
@@ -390,7 +390,7 @@ export default function UpiCaseStudy() {
 
       {/* ── 02 The Problem ── */}
       <section className="cs-sec" id="s-problem">
-        <p className="cs-eyebrow">02 · The Problem</p>
+        <p className="cs-eyebrow">The Problem</p>
         <figure className="cs-overview-img">
           <img
             src="/case/upi/problem.png"
@@ -403,7 +403,7 @@ export default function UpiCaseStudy() {
 
       {/* ── 03 Users ── */}
       <section className="cs-sec" id="s-users">
-        <p className="cs-eyebrow">03 · Users</p>
+        <p className="cs-eyebrow">Users</p>
         <h2 className="cs-h2">Three people, three ways of panicking.</h2>
         <div className="cs-personas">
           {personas.map((p) => (
@@ -449,7 +449,7 @@ export default function UpiCaseStudy() {
 
       {/* ── 04 System reality ── */}
       <section className="cs-sec" id="s-system">
-        <p className="cs-eyebrow">04 · System reality</p>
+        <p className="cs-eyebrow">System reality</p>
         <h2 className="cs-h2">What a UPI app is actually allowed to know.</h2>
         <p className="cs-lead">
           Before deciding what the screens should say, I looked at what an app can find out, and when. It&rsquo;s less
@@ -476,7 +476,7 @@ export default function UpiCaseStudy() {
 
       {/* ── 05 Decision thinking ── */}
       <section className="cs-sec" id="s-decisions">
-        <p className="cs-eyebrow">05 · Decision thinking</p>
+        <p className="cs-eyebrow">Decision thinking</p>
         <figure className="cs-overview-img">
           <img
             src="/case/upi/decision-heading.png"
@@ -548,7 +548,7 @@ export default function UpiCaseStudy() {
 
       {/* ── 06 Designs ── */}
       <section className="cs-sec" id="s-designs">
-        <p className="cs-eyebrow">06 · Designs</p>
+        <p className="cs-eyebrow">Designs</p>
         <h2 className="cs-h2">Eleven screens, in the order the wait plays out.</h2>
         <p className="cs-lead cs-lead--sm">
           Each plate carries its own notes. I&rsquo;ve grouped them by what the user is going through at that point.
@@ -569,7 +569,7 @@ export default function UpiCaseStudy() {
 
       {/* ── 07 Impact ── */}
       <section className="cs-sec" id="s-impact">
-        <p className="cs-eyebrow">07 · Impact</p>
+        <p className="cs-eyebrow">Impact</p>
         <h2 className="cs-h2">How I&rsquo;d know it worked.</h2>
         <p className="cs-lead">
           This was a 7-day self-initiated project with a prototype, not a shipped feature, so I don&rsquo;t have outcome
@@ -594,7 +594,7 @@ export default function UpiCaseStudy() {
 
       {/* ── 08 Reflection ── */}
       <section className="cs-sec" id="s-reflection">
-        <p className="cs-eyebrow">08 · Reflection</p>
+        <p className="cs-eyebrow">Reflection</p>
         <figure className="cs-overview-img">
           <img
             src="/case/upi/reflection.png"

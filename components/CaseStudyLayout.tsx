@@ -107,7 +107,6 @@ export default function CaseStudyLayout({
                   href={`#${t.id}`}
                   className={`cs__toc-link${active === t.id ? " is-active" : ""}${t.sub ? " cs__toc-link--sub" : ""}`}
                 >
-                  <span className="cs__toc-num">{t.num}</span>
                   <span className="cs__toc-label">{t.label}</span>
                 </a>
               ))}
@@ -159,9 +158,7 @@ export default function CaseStudyLayout({
               className={`cs-menu__toc-link${active === t.id ? " is-active" : ""}${t.sub ? " cs-menu__toc-link--sub" : ""}`}
               onClick={() => setMenuOpen(false)}
             >
-              <span className="cs-menu__toc-num">{t.num}</span>
               <span className="cs-menu__toc-label">{t.label}</span>
-              <span className="cs-menu__toc-arrow" aria-hidden>→</span>
             </a>
           ))}
         </nav>

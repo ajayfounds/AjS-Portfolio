@@ -71,7 +71,7 @@ export default function WanderlyCaseStudy() {
       {/* One or more full-width images per Table-of-Contents section */}
       {SECTIONS.map((s) => (
         <section className="cs-sec cs-sec--img" id={s.id} key={s.id}>
-          <p className="cs-eyebrow">{s.num} · {s.label}</p>
+          <p className="cs-eyebrow">{s.label}</p>
           {s.files.map((f) => (
             <figure className="cs-wide" key={f}>
               <CaseImg src={IMG(f)} alt={`${s.label} ... Wanderly case study`} ratio="wide" />

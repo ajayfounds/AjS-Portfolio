@@ -8,7 +8,6 @@ export default function Experience() {
   return (
     <section className="experience" id="experience">
       <Reveal className="section-head">
-        <span className="section-head__index">03</span>
         <h2 className="section-head__title">Experience</h2>
       </Reveal>
 

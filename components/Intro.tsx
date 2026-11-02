@@ -359,7 +359,7 @@ export default function Intro() {
     setSwatch(pick(SWATCHES));
   };
 
-  const fadeUp = { initial: { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 } };
+  const fadeUp = { initial: { opacity: 0, filter: "blur(6px)" }, animate: { opacity: 1, filter: "blur(0px)" } };
 
   return (
     <>
@@ -441,7 +441,7 @@ export default function Intro() {
 
             <motion.div
               className="welcome__inner"
-              initial={{ opacity: 0, y: 18, scale: 0.97 }}
+              initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ type: "spring", stiffness: 130, damping: 18, delay: 0.26 }}
             >
@@ -459,7 +459,7 @@ export default function Intro() {
 
               <motion.div
                 className="vcard-float"
-                initial={{ opacity: 0, scale: 0.8, y: 24 }}
+                initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ type: "spring", stiffness: 170, damping: 17, delay: 0.42 }}
               >
@@ -515,7 +515,7 @@ export default function Intro() {
                 <button className="welcome__tool" onClick={clearInk} aria-label="Erase signature"><EraserIcon /></button>
               </div>
 
-              <Magnetic strength={0.35}><button className="welcome__enter" onClick={beginEnter}>Enter <span aria-hidden>→</span></button></Magnetic>
+              <Magnetic strength={0.35}><button className="welcome__enter" onClick={beginEnter}>Enter</button></Magnetic>
 
               <p className="welcome__note">Your card will appear in the visitor gallery after review.</p>
             </motion.div>

@@ -57,7 +57,7 @@ export type Project = {
   name: string;
   cat: string;
   tags: string[];
-  status: "SHIPPED" | "IN PROGRESS" | "CASE STUDY";
+  status: "Shipped" | "In progress" | "Case study";
   href: string;
   caseHref?: string; // internal case-study route, if one exists
   live?: boolean;    // has a live, interactive experience — shows an "Experience LIVE" badge
@@ -76,7 +76,7 @@ export const projects: Project[] = [
     name: "Wanderly",
     cat: "Travel & Tourism Planner",
     tags: ["UX/UI"],
-    status: "CASE STUDY",
+    status: "Case study",
     href: "https://www.behance.net/gallery/247912507/Wanderly",
     caseHref: "/work/wanderly",
     img: "/me/thumbnail_wanderly.gif",
@@ -90,7 +90,7 @@ export const projects: Project[] = [
     name: "CredCare",
     cat: "FinTech Credit Recovery",
     tags: ["Product"],
-    status: "CASE STUDY",
+    status: "Case study",
     href: "https://www.behance.net/gallery/246375825/Credcare-FinTech-Credit-Recovery-App",
     caseHref: "/work/credcare",
     live: true,
@@ -105,7 +105,7 @@ export const projects: Project[] = [
     name: "Payment Limbo",
     cat: "UPI Failure & Anxiety Recovery",
     tags: ["Product", "Research"],
-    status: "CASE STUDY",
+    status: "Case study",
     href: "https://www.behance.net/gallery/245200333/UPI-Failure-Recovery-System",
     caseHref: "/work/upi-failure-recovery",
     live: true,
@@ -120,7 +120,7 @@ export const projects: Project[] = [
     name: "MONALISA",
     cat: "Fashion Ecommerce",
     tags: ["UX/UI", "Web"],
-    status: "CASE STUDY",
+    status: "Case study",
     href: "/work/monalisa",
     caseHref: "/work/monalisa",
     img: "/me/thumbnail_monalisa.webp",
@@ -135,7 +135,7 @@ export const projects: Project[] = [
     name: "DigiAgency",
     cat: "Digital Agency Website",
     tags: ["UX/UI", "Web"],
-    status: "CASE STUDY",
+    status: "Case study",
     href: "https://www.behance.net/gallery/244405129/Digital-Agency-Website",
     caseHref: "/work/digiagency",
     hidden: true,
@@ -151,7 +151,7 @@ export const projects: Project[] = [
     name: "Real Estate Dashboard",
     cat: "PropTech · Cairo",
     tags: ["Product", "Dashboard"],
-    status: "CASE STUDY",
+    status: "Case study",
     href: "/work/real-estate",
     caseHref: "/work/real-estate",
     img: "/me/thumbnail_realestate.webp",
@@ -166,7 +166,7 @@ export const projects: Project[] = [
     name: "Blinkit Case Study",
     cat: "New category addition",
     tags: ["Product", "Research"],
-    status: "IN PROGRESS",
+    status: "In progress",
     href: "#",
     locked: true,
     hidden: true,
@@ -182,7 +182,7 @@ export const projects: Project[] = [
     name: "Sage",
     cat: "Finance Management App",
     tags: ["Product"],
-    status: "CASE STUDY",
+    status: "Case study",
     href: "https://www.figma.com/deck/B6zOrRY4Hy4307YfHVDWbO/STRsage?node-id=1-96&t=xCvQR6O70cwHLAHk-1",
     hidden: true,
     img: "/me/thumbnail_Sage.webp",

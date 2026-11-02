@@ -108,7 +108,6 @@ export default function Work() {
   return (
     <section className="work" id="work" onMouseMove={onMove}>
       <Reveal className="section-head section-head--with-aside">
-        <span className="section-head__index">01</span>
         <h2 className="section-head__title">My Work</h2>
         <StatusChip />
       </Reveal>
@@ -142,7 +141,7 @@ export default function Work() {
             <Tag className="card__link" {...(linkProps as Record<string, unknown>)}>
               <div className="card__head">
                 <span className="card__dot" aria-hidden />
-                <span className="card__num">No. {p.num}</span>
+                <span className="card__num">{p.cat}</span>
                 {p.locked && <span className="card__locked">In progress</span>}
               </div>
 

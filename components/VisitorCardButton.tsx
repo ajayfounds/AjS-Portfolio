@@ -78,7 +78,6 @@ export default function VisitorCardButton() {
           <span className="vctile__k">Visitor card</span>
           <span className="vctile__v">{card?.name || "View yours"}</span>
         </span>
-        <span className="vctile__go" aria-hidden>→</span>
       </button>
 
       {mounted && createPortal(
@@ -94,7 +93,7 @@ export default function VisitorCardButton() {
           >
             <motion.div
               className="vcmodal__card-wrap"
-              initial={{ opacity: 0, y: 24, scale: 0.96 }}
+              initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 16, scale: 0.97 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}

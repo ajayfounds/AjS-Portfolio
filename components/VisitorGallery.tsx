@@ -53,8 +53,8 @@ function GalleryCard({ card, i }: { card: Card; i: number }) {
     <motion.article
       className="vcard gcard"
       style={{ background: c.bg, color: c.fg }}
-      initial={{ opacity: 0, y: 26 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, scale: 0.97 }}
+      whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: "-6% 0px" }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: (i % 3) * 0.05 }}
     >
@@ -152,7 +152,6 @@ export default function VisitorGallery() {
       <div className="vgal__head">
         <div>
           <div className="section-head section-head--flush">
-            <span className="section-head__index">05</span>
             <h2 className="section-head__title">Visitor Gallery</h2>
           </div>
           <p className="vgal__count">{count.toLocaleString()} guests have signed in</p>
@@ -184,7 +183,7 @@ export default function VisitorGallery() {
       </AnimatePresence>
 
       <button className="vgal__guestbook" onClick={signGuestbook}>
-        Sign the guestbook <span aria-hidden>→</span>
+        Sign the guestbook
       </button>
 
       <div className="vgal__grid">

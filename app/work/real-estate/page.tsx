@@ -210,7 +210,7 @@ export default function RealEstateCaseStudy() {
 
       {/* 01 Overview */}
       <section className="cs-sec" id="s-overview">
-        <p className="cs-eyebrow">01 · Overview</p>
+        <p className="cs-eyebrow">Overview</p>
         <h2 className="cs-h2">Deals were dying somewhere between the first call and the contract.</h2>
         <p className="cs-lead">
           A Cairo brokerage asked me for two things: one place where its agents could run listings,
@@ -228,7 +228,7 @@ export default function RealEstateCaseStudy() {
 
       {/* 02 Brand */}
       <section className="cs-sec" id="s-brand">
-        <p className="cs-eyebrow">02 · Brand</p>
+        <p className="cs-eyebrow">Brand</p>
         <h2 className="cs-h2">The name is the finish line.</h2>
         <p className="cs-lead">
           KoRnt is a stylised &ldquo;contract&rdquo;, the moment every deal is chasing. &ldquo;.prm&rdquo; stands for
@@ -257,7 +257,7 @@ export default function RealEstateCaseStudy() {
 
       {/* 03 The Problem */}
       <section className="cs-sec" id="s-problem">
-        <p className="cs-eyebrow">03 · The Problem</p>
+        <p className="cs-eyebrow">The Problem</p>
         <h2 className="cs-h2">In Egypt, a stalled deal is unpaid work.</h2>
         <p className="cs-lead">
           A lot of Cairo brokerages still run on WhatsApp, spreadsheets and phone calls. Before KoRnt, an
@@ -304,7 +304,7 @@ export default function RealEstateCaseStudy() {
 
       {/* 04 Solution */}
       <section className="cs-sec" id="s-solution">
-        <p className="cs-eyebrow">04 · Solution</p>
+        <p className="cs-eyebrow">Solution</p>
         <h2 className="cs-h2">One screen that tells an agent what to do next.</h2>
         <p className="cs-lead">
           KoRnt.prm opens on the agent&rsquo;s day, not on a wall of charts. The greeting already counts what
@@ -332,7 +332,7 @@ export default function RealEstateCaseStudy() {
 
       {/* 05 Users & research */}
       <section className="cs-sec" id="s-users">
-        <p className="cs-eyebrow">05 · Users</p>
+        <p className="cs-eyebrow">Users</p>
         <h2 className="cs-h2">Wahby is an educated guess.</h2>
         <p className="cs-lead">
           Wahby is a senior property consultant and team lead. He sells compound units across East Cairo
@@ -394,7 +394,7 @@ export default function RealEstateCaseStudy() {
 
       {/* 06 Decision thinking */}
       <section className="cs-sec" id="s-decisions">
-        <p className="cs-eyebrow">06 · Decision thinking</p>
+        <p className="cs-eyebrow">Decision thinking</p>
         <h2 className="cs-h2">Four decisions, and what each one cost.</h2>
         <p className="cs-lead">
           Every one of these had an easier option sitting right next to it. Here&rsquo;s what I picked, and
@@ -438,7 +438,7 @@ export default function RealEstateCaseStudy() {
 
       {/* 07 The audit */}
       <section className="cs-sec" id="s-audit">
-        <p className="cs-eyebrow">07 · The audit</p>
+        <p className="cs-eyebrow">The audit</p>
         <h2 className="cs-h2">v1 looked finished. The data didn&rsquo;t hold up.</h2>
         <p className="cs-lead">
           Before publishing this, I went back through every screen the way a Cairo broker would read it.
@@ -506,7 +506,7 @@ export default function RealEstateCaseStudy() {
 
       {/* 08 Design system */}
       <section className="cs-sec" id="s-system">
-        <p className="cs-eyebrow">08 · Design system</p>
+        <p className="cs-eyebrow">Design system</p>
         <h2 className="cs-h2">A palette borrowed from Cairo&rsquo;s new compounds.</h2>
         <p className="cs-lead">
           The blue comes from the glass facades going up across the new compounds. It sits on warm
@@ -544,7 +544,7 @@ export default function RealEstateCaseStudy() {
 
       {/* 09 Screens & devices */}
       <section className="cs-sec" id="s-screens">
-        <p className="cs-eyebrow">09 · Screens</p>
+        <p className="cs-eyebrow">Screens</p>
         <h2 className="cs-h2">Read it top to bottom. Today first, inventory second.</h2>
         <ol className="cs-steps">
           {walkthrough.map((s) => (
@@ -612,7 +612,7 @@ export default function RealEstateCaseStudy() {
 
       {/* 10 Reflection */}
       <section className="cs-sec" id="s-reflection">
-        <p className="cs-eyebrow">10 · Reflection</p>
+        <p className="cs-eyebrow">Reflection</p>
         <h2 className="cs-h2">What I&rsquo;d keep, and what this project still owes.</h2>
 
         <div className="cs-impact cs-impact--pair">
