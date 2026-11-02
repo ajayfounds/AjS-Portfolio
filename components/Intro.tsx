@@ -378,7 +378,7 @@ export default function Intro() {
               <span className="intro__moon" />
             </motion.div>
 
-            {step === "intro" && <FlowField className="intro__wind" density={0.85} speed={1} />}
+            {step === "intro" && <FlowField className="intro__wind" density={0.128} speed={1} />}
 
             <div className="intro__stars" aria-hidden>
               {stars.map((s) => (
