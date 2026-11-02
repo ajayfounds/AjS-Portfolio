@@ -31,16 +31,13 @@ export default function WanderlyCaseStudy() {
   return (
     <CaseStudyLayout toc={TOC} accent={ACCENT}>
       <section className="cs-hero cs-hero--video">
-        <video
+        {/* animated gif plays itself — no decoder, no autoplay quirks */}
+        <img
           className="cs-hero__video"
-          src="/case/wanderly/cover.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          disablePictureInPicture
-          aria-label="Wanderly product overview"
+          src="/case/wanderly/cover.gif"
+          alt="Wanderly product overview"
+          loading="eager"
+          decoding="async"
         />
       </section>
 

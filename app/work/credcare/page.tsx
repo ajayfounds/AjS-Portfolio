@@ -158,16 +158,13 @@ export default function CredCareCaseStudy() {
   return (
     <CaseStudyLayout toc={TOC} accent={ACCENT}>
       <section className="cs-hero cs-hero--video">
-        <video
+        {/* animated gif plays itself — no decoder, no autoplay quirks */}
+        <img
           className="cs-hero__video"
-          src="/case/credcare/cover.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          disablePictureInPicture
-          aria-label="CredCare product overview"
+          src="/case/credcare/cover.gif"
+          alt="CredCare product overview"
+          loading="eager"
+          decoding="async"
         />
       </section>
 

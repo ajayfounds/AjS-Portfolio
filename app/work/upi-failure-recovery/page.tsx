@@ -318,16 +318,13 @@ export default function UpiCaseStudy() {
     <CaseStudyLayout toc={TOC} accent={ACCENT}>
       {/* ── Hero ── */}
       <section className="cs-hero cs-hero--video">
-        <video
+        {/* animated gif plays itself — no decoder, no autoplay quirks */}
+        <img
           className="cs-hero__video"
-          src="/case/upi/cover.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          disablePictureInPicture
-          aria-label="Payment Limbo product overview"
+          src="/case/upi/cover.gif"
+          alt="Payment Limbo product overview"
+          loading="eager"
+          decoding="async"
         />
       </section>
 

@@ -79,7 +79,7 @@ export const projects: Project[] = [
     status: "CASE STUDY",
     href: "https://www.behance.net/gallery/247912507/Wanderly",
     caseHref: "/work/wanderly",
-    img: "/me/thumbnail_wanderly.mp4",
+    img: "/me/thumbnail_wanderly.gif",
     desc: "An end-to-end travel planning app that turns scattered research into a single itinerary ... from discovery to day-by-day planning.",
     role: "Product Designer",
     team: "Solo",
