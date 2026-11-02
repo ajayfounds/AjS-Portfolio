@@ -151,7 +151,10 @@ export default function VisitorGallery() {
     <div className="vgal">
       <div className="vgal__head">
         <div>
-          <h1 className="vgal__title">Visitor Gallery</h1>
+          <div className="section-head section-head--flush">
+            <span className="section-head__index">05</span>
+            <h2 className="section-head__title">Visitor Gallery</h2>
+          </div>
           <p className="vgal__count">{count.toLocaleString()} guests have signed in</p>
         </div>
         <button className="vgal__shuffle" onClick={shuffle}>

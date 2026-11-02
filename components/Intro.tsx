@@ -161,7 +161,14 @@ export default function Intro() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (!sessionStorage.getItem("intro-seen")) setShow(true);
+    if (sessionStorage.getItem("intro-seen")) return;
+    // A shared project link (/work/...) should open straight into that case
+    // study: no intro, no detour via home. Mark the intro seen for this session.
+    if (window.location.pathname.startsWith("/work/")) {
+      sessionStorage.setItem("intro-seen", "1");
+      return;
+    }
+    setShow(true);
   }, []);
 
   // "Sign the guestbook" (from the Visitor Gallery) opens the card step directly

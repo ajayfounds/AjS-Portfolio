@@ -7,8 +7,9 @@ import { stack, designSkills } from "@/lib/data";
 export default function Skills() {
   return (
     <section className="stack" id="skills">
-      <Reveal>
-        <h1 className="stack__title">_//my.current.stack//_</h1>
+      <Reveal className="section-head section-head--flush">
+        <span className="section-head__index">04</span>
+        <h2 className="section-head__title">Skills</h2>
       </Reveal>
       <Reveal delay={0.05}>
         <p className="stack__sub">tools, methods &amp; systems I&apos;m running</p>

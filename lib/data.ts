@@ -20,7 +20,7 @@ export const site = {
       "GSSoC '24"
     ]
   },
-  resume: "https://drive.google.com/file/d/1_ghrKRNOP7hjKbNmJB3p8ZznBYGnWJIx/view?usp=sharing"
+  resume: "https://drive.google.com/drive/folders/1ubwRKMBcEwVtMqChtsGpimKhS2QcK10x"
 };
 
 export type ExploreLink = { num: string; label: string; href: string };

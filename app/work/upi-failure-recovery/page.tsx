@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 // calm deep teal: clarity and safety without alarm, the opposite of a red error
 // state. 5.5:1 on the card surface, so labels and small text stay legible.
 const ACCENT = "#0A6473";
-const LIVE = "https://payment-limbo-edgecase.vercel.app/";
+const LIVE = "https://upirecovery.vercel.app/";
 
 const TOC: Toc[] = [
   { id: "s-origin", num: "00", label: "How it started" },

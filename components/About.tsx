@@ -359,11 +359,15 @@ export default function About() {
   return (
     <div className="about-page">
       {/* Intro */}
+      <Reveal className="section-head section-head--flush">
+        <span className="section-head__index">02</span>
+        <h2 className="section-head__title">About Me</h2>
+      </Reveal>
       <Reveal>
-        <h1 className="about__greeting">
+        <p className="about__greeting">
           {aboutIntro.greeting}
           <span className="about__quack" title="certified overthinker" aria-label="certified overthinker">🦆</span>
-        </h1>
+        </p>
       </Reveal>
       <Reveal delay={0.05}>
         <div className="about__intro">

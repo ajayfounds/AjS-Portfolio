@@ -68,16 +68,17 @@ export default function VisitorCardButton() {
 
   return (
     <>
-      <button className="vcbtn" onClick={openModal} aria-label="View my visitor card">
-        <span className="vcbtn__avatar" aria-hidden>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <rect x="3" y="4" width="10" height="9" rx="1.5" />
-            <rect x="6.5" y="1.5" width="3" height="3" rx="0.6" />
-            <rect x="5" y="7" width="2" height="2" rx="0.4" fill="#f3f1eb" />
-            <rect x="9" y="7" width="2" height="2" rx="0.4" fill="#f3f1eb" />
-          </svg>
+      <button className="vctile" onClick={openModal} aria-label="View my visitor card">
+        <span className="vctile__stack" aria-hidden>
+          <i style={{ background: COLORS.pink.bg }} />
+          <i style={{ background: COLORS.teal.bg }} />
+          <i style={{ background: card ? c.bg : COLORS.green.bg }} />
         </span>
-        <span className="vcbtn__label">My Visitor Card</span>
+        <span className="vctile__text">
+          <span className="vctile__k">Visitor card</span>
+          <span className="vctile__v">{card?.name || "View yours"}</span>
+        </span>
+        <span className="vctile__go" aria-hidden>→</span>
       </button>
 
       {mounted && createPortal(

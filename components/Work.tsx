@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import Reveal from "./Reveal";
+import StatusChip from "./StatusChip";
 import { projects } from "@/lib/data";
 
 function LazyVideo({ src, label }: { src: string; label: string }) {
@@ -106,9 +107,10 @@ export default function Work() {
 
   return (
     <section className="work" id="work" onMouseMove={onMove}>
-      <Reveal className="section-head">
+      <Reveal className="section-head section-head--with-aside">
         <span className="section-head__index">01</span>
         <h2 className="section-head__title">My Work</h2>
+        <StatusChip />
       </Reveal>
 
       <ul className="work__grid" ref={gridRef}>

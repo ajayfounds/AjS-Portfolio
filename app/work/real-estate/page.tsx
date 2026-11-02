@@ -78,6 +78,7 @@ const fiveSeconds = [
 const decisions = [
   {
     t: "The brand promise became a feature",
+    img: "/case/real-estate/decision-1.png",
     problem:
       "“A clear answer, not a waiting list” is a nice line. It means nothing unless the product actually holds you to it.",
     options: ["Notification list", "Separate inbox page", "A count in the greeting"],
@@ -87,6 +88,7 @@ const decisions = [
   },
   {
     t: "The next viewing gets the biggest card",
+    img: "/case/real-estate/decision-2.png",
     problem: "The largest card on the screen showed a listing. It looked great and had no clear job.",
     options: ["Revenue as the hero", "A featured listing", "The agent's next action"],
     pick: "The next viewing: the property, the time, the price and the installment plan.",
@@ -94,6 +96,7 @@ const decisions = [
   },
   {
     t: "Collected and pipeline in one chart",
+    img: "/case/real-estate/decision-3.png",
     problem: "A single revenue number hides money that's signed but not paid yet.",
     options: ["Two separate charts", "Stacked bars", "A fill pattern"],
     pick: "Same bar, two fills. Solid is collected, hatched is pipeline.",
@@ -101,6 +104,7 @@ const decisions = [
   },
   {
     t: "Every device gets one job",
+    img: "/case/real-estate/decision-4.png",
     problem: "My tablet and watch screens were just the desktop, shrunk down.",
     options: [] as string[],
     pick: "Desktop plans. Tablet shows clients. Mobile acts. Watch glances.",
@@ -398,6 +402,9 @@ export default function RealEstateCaseStudy() {
         </p>
         <div className="cs-decisions">
           {decisions.map((d, i) => (
+            d.img ? (
+              <img className="cs-decision cs-decision--img" key={d.t} src={d.img} alt={`Decision ${i + 1}: ${d.t}`} loading="lazy" decoding="async" />
+            ) : (
             <article className="cs-decision" key={d.t}>
               <span className="cs-decision__n">0{i + 1}</span>
               <div>
@@ -424,6 +431,7 @@ export default function RealEstateCaseStudy() {
                 </div>
               </div>
             </article>
+            )
           ))}
         </div>
       </section>

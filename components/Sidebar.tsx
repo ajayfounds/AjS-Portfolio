@@ -1,15 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import VisitorCardButton from "./VisitorCardButton";
 import { site, explore, outbound } from "@/lib/data";
 import type { Outbound } from "@/lib/data";
 
-// Minimal single-path glyphs (24×24). Line style for a consistent stroke weight
-// with the rest of the sidebar; each icon is instantly recognisable at 16–18px.
 function OutboundIcon({ kind }: { kind: Outbound["icon"] }) {
   const common = {
     width: 18,
@@ -61,37 +60,103 @@ function OutboundIcon({ kind }: { kind: Outbound["icon"] }) {
   }
 }
 
-function useClock() {
-  const [time, setTime] = useState("");
+// Each outbound tile tints toward its own brand-ish accent on hover.
+const BRAND: Record<Outbound["icon"], string> = {
+  email: "var(--sb-gold)",
+  linkedin: "var(--sb-teal)",
+  behance: "var(--sb-sienna)",
+  x: "#242424",
+  instagram: "var(--sb-pink)"
+};
 
+// Pinned to IST so the widget reads as "my local time", whoever is visiting.
+function useIST() {
+  const [now, setNow] = useState<{ hm: string; ap: string; hours: number } | null>(null);
   useEffect(() => {
-    const fmt = () =>
-      new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true });
-    setTime(fmt());
-    const id = setInterval(() => setTime(fmt()), 1000);
+    const fmt = new Intl.DateTimeFormat("en-US", { hour: "2-digit", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata" });
+    const fmt24 = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Kolkata" });
+    const tick = () => {
+      const d = new Date();
+      const parts = fmt.formatToParts(d);
+      const get = (t: string) => parts.find((p) => p.type === t)?.value ?? "";
+      const [h, m] = fmt24.format(d).split(":").map(Number);
+      setNow({ hm: `${get("hour")}:${get("minute")}`, ap: get("dayPeriod"), hours: (h % 24) + m / 60 });
+    };
+    tick();
+    const id = setInterval(tick, 15000);
     return () => clearInterval(id);
   }, []);
-
-  return time;
+  return now;
 }
 
+// Rough sky phases for Noida — decorative, so fixed hours are close enough.
+function phaseOf(h: number) {
+  if (h >= 5 && h < 7) return { label: "Dawn", glow: "var(--sb-pink)" };
+  if (h >= 7 && h < 17) return { label: "Daylight", glow: "var(--sb-gold)" };
+  if (h >= 17 && h < 19.5) return { label: "Golden hour", glow: "var(--sb-sienna)" };
+  return { label: "Night", glow: "var(--sb-teal)" };
+}
+
+// Quadratic Bézier the sun rides along (viewBox 0 0 300 64).
+const ARC = { x0: 8, y0: 54, cx: 150, cy: -6, x1: 292, y1: 44 };
+function arcPoint(t: number) {
+  const u = 1 - t;
+  return {
+    x: u * u * ARC.x0 + 2 * u * t * ARC.cx + t * t * ARC.x1,
+    y: u * u * ARC.y0 + 2 * u * t * ARC.cy + t * t * ARC.y1
+  };
+}
+const ARC_D = `M${ARC.x0} ${ARC.y0} Q${ARC.cx} ${ARC.cy} ${ARC.x1} ${ARC.y1}`;
+
+function Widget({ className = "", glow, children, as = "div", label }: { className?: string; glow?: string; children: ReactNode; as?: "div" | "nav"; label?: string }) {
+  const Tag = as === "nav" ? motion.nav : motion.div;
+  return (
+    <Tag
+      className={`sb-w ${className}`}
+      style={glow ? ({ "--glow": glow } as CSSProperties) : undefined}
+      variants={itemV}
+      aria-label={label}
+    >
+      {children}
+    </Tag>
+  );
+}
+
+const itemV: Variants = {
+  hidden: { opacity: 0, y: 10, filter: "blur(4px)" },
+  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.5, ease: [0.23, 1, 0.32, 1] } }
+};
+
 export default function Sidebar() {
-  const time = useClock();
+  const now = useIST();
   const pathname = usePathname();
+  const reduce = useReducedMotion();
   const [open, setOpen] = useState(false);
+  const [drawn, setDrawn] = useState(false);
 
   // close the mobile drawer whenever the route changes
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
+  // let the arc / sparkline paint at 0 first, then transition to their value
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setDrawn(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  const t = now ? now.hours / 24 : 0;
+  const sun = arcPoint(drawn ? t : 0);
+  const phase = now ? phaseOf(now.hours) : { label: "—", glow: "var(--sb-gold)" };
+
   return (
     <>
-      {/* mobile-only: left-edge tab that opens the drawer */}
+      {/* mobile-only: edge tab — sits on the screen edge when closed, rides the
+          drawer's edge when open and points back in to close it */}
       <button
-        className={`sidebar__handle${open ? " is-hidden" : ""}`}
-        onClick={() => setOpen(true)}
-        aria-label="Open menu"
+        className={`sidebar__handle${open ? " is-open" : ""}`}
+        onClick={() => setOpen((v) => !v)}
+        aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
       >
         <span className="sidebar__grip" aria-hidden>
@@ -108,109 +173,137 @@ export default function Sidebar() {
       <div className={`sidebar__backdrop${open ? " is-open" : ""}`} onClick={() => setOpen(false)} aria-hidden />
 
       <aside className={`sidebar${open ? " is-open" : ""}`} data-lenis-prevent>
-        {/* mobile-only: close button */}
-        <button className="sidebar__close" onClick={() => setOpen(false)} aria-label="Close menu">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
-            <path d="M6 6l12 12M18 6L6 18" />
-          </svg>
-        </button>
-
-        <div className="sidebar__top">
-          <div className="sidebar__markrow">
-            <Image
-              className="sidebar__mark"
-              src="/sun-logo.webp"
-              alt="Ajay Srivastava logo"
-              width={48}
-              height={48}
-              priority
-            />
-            <a
-              className="sidebar__resume"
-              href={site.resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-link
-            >
-              Resume
-            </a>
-          </div>
-
-          <h1 className="sidebar__name">{site.name}</h1>
-          <p className="sidebar__role">
-            {site.role.toUpperCase()}
-            <br />
-            {site.affiliation.toUpperCase()}
-          </p>
-
-          <p className="sidebar__bio">{site.statement}</p>
-
-          <div className="sidebar__prev" aria-label={site.previous.label}>
-            <p className="sidebar__prev-label">{site.previous.label}</p>
-            <div className="sidebar__prev-orgs">
-              {site.previous.orgs.map((org) => (
-                <span className="sidebar__prev-item" key={org}>
-                  <span className="sidebar__prev-at" aria-hidden>@</span>
-                  <span className="sidebar__prev-org">{org}</span>
-                </span>
-              ))}
+        <motion.div
+          className="sb-grid"
+          initial={reduce ? false : "hidden"}
+          animate="show"
+          variants={{ show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } } }}
+        >
+          {/* 1 · Identity */}
+          <Widget className="sb-id" glow="var(--sb-gold)">
+            <div className="sb-id__row">
+              <span className="sb-id__mark">
+                <Image src="/sun-logo.webp" alt="Ajay Srivastava logo" width={44} height={44} priority />
+              </span>
+              <a className="sb-pill" href={site.resume} target="_blank" rel="noopener noreferrer" data-link>
+                Resume
+              </a>
             </div>
-          </div>
+            <h1 className="sb-id__name">{site.name}</h1>
+            <p className="sb-id__role">
+              {site.role}
+              <br />
+              {site.affiliation}
+            </p>
+            <p className="sb-id__bio">{site.statement}</p>
+          </Widget>
 
-          <nav className="sidebar__section sidebar__explore" aria-label="Explore">
-            <h2 className="sidebar__heading">Explore</h2>
-            <ul className="sidebar__nav">
-              {explore.map((item) => (
-                <li key={item.num}>
-                  <Link
-                    href={item.href}
-                    className={pathname === item.href ? "is-active" : ""}
-                    data-link
-                    onClick={() => setOpen(false)}
-                  >
-                    <span className="sidebar__nav-num">{item.num}.</span>
-                    <span className="sidebar__nav-label">{item.label}</span>
-                    <span className="sidebar__nav-arrow">→</span>
-                  </Link>
+          {/* 2 · Previous intern */}
+          <Widget className="sb-prev" glow="var(--sb-pink)">
+            <h2 className="sb-k">{site.previous.label}</h2>
+            <ul className="sb-chips">
+              {site.previous.orgs.map((org) => (
+                <li className="sb-chip" key={org}>
+                  <span aria-hidden>@</span>
+                  {org}
                 </li>
               ))}
             </ul>
-          </nav>
+          </Widget>
 
-          <div className="sidebar__section sidebar__outbound-section">
-            <h2 className="sidebar__heading">Outbound</h2>
-            <ul className="sidebar__outbound-grid">
+          {/* 3 · Explore */}
+          <Widget as="nav" className="sb-nav" label="Explore">
+            <h2 className="sb-k">Explore</h2>
+            <ul className="sb-nav__list">
+              {explore.map((item) => {
+                const active = pathname === item.href;
+                return (
+                  <li key={item.num}>
+                    <Link
+                      href={item.href}
+                      className={`sb-nav__a${active ? " is-active" : ""}`}
+                      aria-current={active ? "page" : undefined}
+                      data-link
+                      onClick={() => setOpen(false)}
+                    >
+                      {active && (
+                        <motion.span
+                          className="sb-nav__pill"
+                          layoutId="sb-nav-pill"
+                          transition={reduce ? { duration: 0 } : { type: "spring", duration: 0.45, bounce: 0.15 }}
+                          aria-hidden
+                        />
+                      )}
+                      <span className="sb-nav__num">{item.num}</span>
+                      <span className="sb-nav__label">{item.label}</span>
+                      <span className="sb-nav__arrow" aria-hidden>→</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </Widget>
+
+          {/* 4 · Outbound */}
+          <Widget className="sb-out">
+            <h2 className="sb-k">Outbound</h2>
+            <a className="sb-resume" href={site.resume} target="_blank" rel="noopener noreferrer" data-link>
+              <span className="sb-resume__glow" aria-hidden />
+              <span className="sb-resume__k">Resume</span>
+              <span className="sb-resume__go" aria-hidden>↗</span>
+              <svg className="sb-resume__arc" viewBox="0 0 200 16" preserveAspectRatio="none" aria-hidden>
+                <path d="M4 13 Q100 1 196 9" />
+                <path className="sb-resume__lit" d="M4 13 Q100 1 196 9" pathLength="1" />
+              </svg>
+            </a>
+            <ul className="sb-social">
               {outbound.map((link) => (
                 <li key={link.label}>
                   <a
-                    className="sidebar__outbound-tile"
+                    className="sb-social__a"
                     href={link.href}
                     target={link.href.startsWith("http") ? "_blank" : undefined}
                     rel="noopener noreferrer"
                     data-link
                     aria-label={link.label}
+                    style={{ "--brand": BRAND[link.icon] } as CSSProperties}
                   >
-                    <span className="sidebar__outbound-icon" aria-hidden>
-                      <OutboundIcon kind={link.icon} />
-                    </span>
-                    <span className="sidebar__outbound-label">{link.label}</span>
+                    <OutboundIcon kind={link.icon} />
+                    <span className="sb-social__label">{link.label}</span>
                   </a>
                 </li>
               ))}
             </ul>
-          </div>
-        </div>
+          </Widget>
 
-        <div className="sidebar__bottom">
-          <VisitorCardButton />
-          <div className="sidebar__status">
-            <span className="sidebar__time">{time || "—"}</span>
-            <span className="sidebar__system">
-              <i className="sidebar__dot" />
-              {site.status.toUpperCase()}
-            </span>
-          </div>
-        </div>
+          {/* 5 · Local time — the sun rides an arc across the day */}
+          <Widget className="sb-time" glow={phase.glow}>
+            <div className="sb-time__top">
+              <span className="sb-time__clock">
+                <b>{now?.hm ?? "--:--"}</b>
+                <i>{now?.ap}</i>
+              </span>
+              <span className="sb-time__phase">{phase.label}</span>
+            </div>
+            <svg className="sb-time__arc" viewBox="0 0 300 64" aria-hidden>
+              <path className="sb-time__track" d={ARC_D} />
+              <path className="sb-time__lit" d={ARC_D} pathLength="1" style={{ strokeDashoffset: 1 - (drawn ? t : 0) }} />
+              <g className="sb-time__sun" style={{ transform: `translate(${sun.x}px, ${sun.y}px)` }}>
+                <circle r="11" className="sb-time__halo" />
+                <circle r="5" className="sb-time__dot" />
+              </g>
+            </svg>
+            <div className="sb-time__foot">
+              <span>{site.location.split(" / ")[0]} · IST</span>
+              <span>Local time</span>
+            </div>
+          </Widget>
+
+          {/* 6 · Visitor card */}
+          <motion.div className="sb-w sb-visitor" variants={itemV} style={{ "--glow": "var(--sb-teal)" } as CSSProperties}>
+            <VisitorCardButton />
+          </motion.div>
+        </motion.div>
       </aside>
     </>
   );
