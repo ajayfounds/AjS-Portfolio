@@ -195,7 +195,8 @@ b, strong { font-weight: 600; }
 .intro__explore,
 .intro__skip {
   font-family: var(--font-ruwudu), "Clash Grotesk", system-ui, sans-serif;
-  font-size: 0.9rem; font-weight: 700; letter-spacing: 0; line-height: 1;
+  font-size: 0.9rem; font-weight: 700; letter-spacing: 0.04em; line-height: 1;
+  text-transform: uppercase;
   padding-block: 1.07rem 0.33rem; /* 17.1 px top / 5.3 px bottom → caps centred */
   padding-inline: 1.5rem;
   text-indent: 0;
