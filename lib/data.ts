@@ -398,7 +398,7 @@ export const socials = [
 /* ── ABOUT PAGE CONTENT ───────────────────────────────────── */
 
 export const aboutIntro = {
-  greeting: "Hi, I'm Ajay!",
+  greeting: "Hi, I'm Ajay",
   paragraphs: [
     "I grew up in India and now spend most of my time turning fuzzy product ideas into clear, intentional interfaces. I started out making posters and event creatives, and these days I mostly live inside Figma, Framer, and the occasional Spline scene.",
     "When I'm not dreaming up product ideas, you can find me:"

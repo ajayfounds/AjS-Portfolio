@@ -136,7 +136,7 @@ export default function DigiAgencyCaseStudy() {
           <span className="cs-tag">UX/UI</span>
         </div>
         <h1 className="cs-title__h">
-          <span className="cs-star" aria-hidden>✱</span> DigiAgency ... Digital Agency Website
+          DigiAgency ... Digital Agency Website
         </h1>
         <p className="cs-title__lead">
           A strategic redesign for a digital agency operating in a saturated market. The previous site was visually

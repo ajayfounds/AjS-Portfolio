@@ -336,7 +336,7 @@ export default function UpiCaseStudy() {
           <span className="cs-tag">Self-initiated · Live prototype</span>
         </div>
         <h1 className="cs-title__h">
-          <span className="cs-star" aria-hidden>✱</span> Payment Limbo: the minutes after a UPI payment hangs
+          Payment Limbo: the minutes after a UPI payment hangs
         </h1>
         <p className="cs-title__lead">
           Money leaves your account, the app says pending, and nothing tells you what happens next. So people pay
@@ -364,7 +364,7 @@ export default function UpiCaseStudy() {
       {/* ── 00 How it started ── */}
       <section className="cs-sec cs-sec--origin" id="s-origin">
         <p className="cs-eyebrow">How it started</p>
-        <h2 className="cs-h2">Ten minutes on WhatsApp.</h2>
+        <h2 className="cs-h2">Ten minutes on WhatsApp</h2>
         <figure className="cs-origin-img">
           <img
             src="/case/upi/story.png"
@@ -404,7 +404,7 @@ export default function UpiCaseStudy() {
       {/* ── 03 Users ── */}
       <section className="cs-sec" id="s-users">
         <p className="cs-eyebrow">Users</p>
-        <h2 className="cs-h2">Three people, three ways of panicking.</h2>
+        <h2 className="cs-h2">Three people, three ways of panicking</h2>
         <div className="cs-personas">
           {personas.map((p) => (
             p.img ? (
@@ -450,7 +450,7 @@ export default function UpiCaseStudy() {
       {/* ── 04 System reality ── */}
       <section className="cs-sec" id="s-system">
         <p className="cs-eyebrow">System reality</p>
-        <h2 className="cs-h2">What a UPI app is actually allowed to know.</h2>
+        <h2 className="cs-h2">What a UPI app is actually allowed to know</h2>
         <p className="cs-lead">
           Before deciding what the screens should say, I looked at what an app can find out, and when. It&rsquo;s less
           than you&rsquo;d expect, and it arrives slower.
@@ -549,7 +549,7 @@ export default function UpiCaseStudy() {
       {/* ── 06 Designs ── */}
       <section className="cs-sec" id="s-designs">
         <p className="cs-eyebrow">Designs</p>
-        <h2 className="cs-h2">Eleven screens, in the order the wait plays out.</h2>
+        <h2 className="cs-h2">Eleven screens, in the order the wait plays out</h2>
         <p className="cs-lead cs-lead--sm">
           Each plate carries its own notes. I&rsquo;ve grouped them by what the user is going through at that point.
         </p>
@@ -570,7 +570,7 @@ export default function UpiCaseStudy() {
       {/* ── 07 Impact ── */}
       <section className="cs-sec" id="s-impact">
         <p className="cs-eyebrow">Impact</p>
-        <h2 className="cs-h2">How I&rsquo;d know it worked.</h2>
+        <h2 className="cs-h2">How I&rsquo;d know it worked</h2>
         <p className="cs-lead">
           This was a 7-day self-initiated project with a prototype, not a shipped feature, so I don&rsquo;t have outcome
           numbers. These are the numbers I&rsquo;d watch, and which way each one should move.

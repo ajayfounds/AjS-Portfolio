@@ -25,15 +25,6 @@ const inter = Inter({
   display: "swap"
 });
 
-// real italic for <em> (no synthesized slant); one weight is all emphasis needs
-const interItalic = Inter({
-  subsets: ["latin"],
-  weight: "400",
-  style: "italic",
-  variable: "--font-inter-italic",
-  display: "swap"
-});
-
 // Ruwudu — used for the intro wordmark + Explore/Skip Intro buttons
 // (matches the Figma reference: 24px regular, 140% line-height, 0% tracking, #F4F8FF)
 const ruwudu = Ruwudu({
@@ -55,7 +46,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${interItalic.variable} ${clash.variable} ${ruwudu.variable}`}>
+    <html lang="en" className={`${inter.variable} ${clash.variable} ${ruwudu.variable}`}>
       <body>
         <Shell>{children}</Shell>
       </body>

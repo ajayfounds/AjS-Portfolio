@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useLenis } from "lenis/react";
-import Magnetic from "./Magnetic";
 import Reveal from "./Reveal";
 import { site, explore, outbound } from "@/lib/data";
 
@@ -49,11 +48,9 @@ export default function Footer() {
 
       <div className="footer__bottom">
         <span className="footer__copy">© 2026 {site.name} ... Clarity &amp; purpose</span>
-        <Magnetic strength={0.2}>
-          <a href="#top" className="footer__back" data-link onClick={toTop}>
-            ✦ Back to top
-          </a>
-        </Magnetic>
+        <a href="#top" className="footer__back" data-link onClick={toTop}>
+          Back to top
+        </a>
       </div>
     </footer>
   );

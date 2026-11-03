@@ -191,7 +191,7 @@ export default function RealEstateCaseStudy() {
           <span className="cs-tag">Product + Brand</span>
         </div>
         <h1 className="cs-title__h">
-          <span className="cs-star" aria-hidden>✱</span> KoRnt.prm, a workspace for Cairo property teams
+          KoRnt.prm, a workspace for Cairo property teams
         </h1>
         <p className="cs-title__lead">
           From the first call to the signed contract. I designed the product and the brand for a Cairo
@@ -211,7 +211,7 @@ export default function RealEstateCaseStudy() {
       {/* 01 Overview */}
       <section className="cs-sec" id="s-overview">
         <p className="cs-eyebrow">Overview</p>
-        <h2 className="cs-h2">Deals were dying somewhere between the first call and the contract.</h2>
+        <h2 className="cs-h2">Deals were dying somewhere between the first call and the contract</h2>
         <p className="cs-lead">
           A Cairo brokerage asked me for two things: one place where its agents could run listings,
           viewings and clients, and a brand to launch it under. Four weeks, just me.
@@ -229,7 +229,7 @@ export default function RealEstateCaseStudy() {
       {/* 02 Brand */}
       <section className="cs-sec" id="s-brand">
         <p className="cs-eyebrow">Brand</p>
-        <h2 className="cs-h2">The name is the finish line.</h2>
+        <h2 className="cs-h2">The name is the finish line</h2>
         <p className="cs-lead">
           KoRnt is a stylised &ldquo;contract&rdquo;, the moment every deal is chasing. &ldquo;.prm&rdquo; stands for
           Property Relationship Management. The mark is a K whose arm breaks forward: momentum toward closing.
@@ -258,7 +258,7 @@ export default function RealEstateCaseStudy() {
       {/* 03 The Problem */}
       <section className="cs-sec" id="s-problem">
         <p className="cs-eyebrow">The Problem</p>
-        <h2 className="cs-h2">In Egypt, a stalled deal is unpaid work.</h2>
+        <h2 className="cs-h2">In Egypt, a stalled deal is unpaid work</h2>
         <p className="cs-lead">
           A lot of Cairo brokerages still run on WhatsApp, spreadsheets and phone calls. Before KoRnt, an
           agent&rsquo;s day lived in four places at once:
@@ -305,7 +305,7 @@ export default function RealEstateCaseStudy() {
       {/* 04 Solution */}
       <section className="cs-sec" id="s-solution">
         <p className="cs-eyebrow">Solution</p>
-        <h2 className="cs-h2">One screen that tells an agent what to do next.</h2>
+        <h2 className="cs-h2">One screen that tells an agent what to do next</h2>
         <p className="cs-lead">
           KoRnt.prm opens on the agent&rsquo;s day, not on a wall of charts. The greeting already counts what
           needs attention. The biggest card is the next viewing. Money sits right next to it, split into
@@ -333,7 +333,7 @@ export default function RealEstateCaseStudy() {
       {/* 05 Users & research */}
       <section className="cs-sec" id="s-users">
         <p className="cs-eyebrow">Users</p>
-        <h2 className="cs-h2">Wahby is an educated guess.</h2>
+        <h2 className="cs-h2">Wahby is an educated guess</h2>
         <p className="cs-lead">
           Wahby is a senior property consultant and team lead. He sells compound units across East Cairo
           (New Cairo, Madinaty, Taj City) and West Cairo (New Giza). He&rsquo;s also a proto-persona I built
@@ -395,7 +395,7 @@ export default function RealEstateCaseStudy() {
       {/* 06 Decision thinking */}
       <section className="cs-sec" id="s-decisions">
         <p className="cs-eyebrow">Decision thinking</p>
-        <h2 className="cs-h2">Four decisions, and what each one cost.</h2>
+        <h2 className="cs-h2">Four decisions, and what each one cost</h2>
         <p className="cs-lead">
           Every one of these had an easier option sitting right next to it. Here&rsquo;s what I picked, and
           what I gave up for it.
@@ -439,7 +439,7 @@ export default function RealEstateCaseStudy() {
       {/* 07 The audit */}
       <section className="cs-sec" id="s-audit">
         <p className="cs-eyebrow">The audit</p>
-        <h2 className="cs-h2">v1 looked finished. The data didn&rsquo;t hold up.</h2>
+        <h2 className="cs-h2">v1 looked finished. The data didn&rsquo;t hold up</h2>
         <p className="cs-lead">
           Before publishing this, I went back through every screen the way a Cairo broker would read it.
           It didn&rsquo;t take long to find problems, and they were the embarrassing kind.
@@ -507,7 +507,7 @@ export default function RealEstateCaseStudy() {
       {/* 08 Design system */}
       <section className="cs-sec" id="s-system">
         <p className="cs-eyebrow">Design system</p>
-        <h2 className="cs-h2">A palette borrowed from Cairo&rsquo;s new compounds.</h2>
+        <h2 className="cs-h2">A palette borrowed from Cairo&rsquo;s new compounds</h2>
         <p className="cs-lead">
           The blue comes from the glass facades going up across the new compounds. It sits on warm
           neutrals in light mode and navy-black surfaces in dark. Every colour is a token with a light and a
@@ -545,7 +545,7 @@ export default function RealEstateCaseStudy() {
       {/* 09 Screens & devices */}
       <section className="cs-sec" id="s-screens">
         <p className="cs-eyebrow">Screens</p>
-        <h2 className="cs-h2">Read it top to bottom. Today first, inventory second.</h2>
+        <h2 className="cs-h2">Read it top to bottom. Today first, inventory second</h2>
         <ol className="cs-steps">
           {walkthrough.map((s) => (
             <li key={s[0]}><b>{s[0]}</b><span>{s[1]}</span></li>
@@ -613,7 +613,7 @@ export default function RealEstateCaseStudy() {
       {/* 10 Reflection */}
       <section className="cs-sec" id="s-reflection">
         <p className="cs-eyebrow">Reflection</p>
-        <h2 className="cs-h2">What I&rsquo;d keep, and what this project still owes.</h2>
+        <h2 className="cs-h2">What I&rsquo;d keep, and what this project still owes</h2>
 
         <div className="cs-impact cs-impact--pair">
           <div className="cs-impact__card cs-impact__card--accent">

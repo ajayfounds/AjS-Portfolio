@@ -132,15 +132,13 @@ export default function Work() {
           // node's style attribute, so a span set there gets wiped on re-render.
           <li className="card-cell" key={p.num}>
           <Reveal className={`card${p.locked ? " is-locked" : ""}${p.live ? " is-live" : ""}`} delay={(i % 2) * 0.06}>
-            {p.live && (
-              <span className="card__live" aria-label="Live experience available">
-                <span className="card__live-burst" aria-hidden />
-                <span className="card__live-word">LIVE</span>
-              </span>
-            )}
             <Tag className="card__link" {...(linkProps as Record<string, unknown>)}>
               <div className="card__head">
-                <span className="card__dot" aria-hidden />
+                {p.live ? (
+                  <span className="card__live-tag"><i aria-hidden />Live prototype</span>
+                ) : (
+                  <span className="card__dot" aria-hidden />
+                )}
                 <span className="card__num">{p.cat}</span>
                 {p.locked && <span className="card__locked">In progress</span>}
               </div>

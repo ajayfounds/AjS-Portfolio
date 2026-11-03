@@ -176,7 +176,7 @@ export default function CredCareCaseStudy() {
         </div>
         {/* Hero headline: what it IS, in ≤10 words, true. */}
         <h1 className="cs-title__h">
-          <span className="cs-star" aria-hidden>✱</span> A credit-recovery app that hides the score.
+          A credit-recovery app that hides the score
         </h1>
         <p className="cs-title__lead">
           CredCare is a mobile credit-recovery product for the people credit apps aren’t built for —
@@ -213,7 +213,7 @@ export default function CredCareCaseStudy() {
       <section className="cs-sec" id="s-solution">
         <p className="cs-eyebrow">Solution</p>
         <h2 className="cs-h2">
-          CredCare: a mobile credit-recovery app that leads with tone, then guides one action at a time.
+          CredCare: a mobile credit-recovery app that leads with tone, then guides one action at a time
         </h2>
         <p className="cs-lead">
           Three moves define the product: the score is <em>de-emphasised</em>, a Trust Meter shows
@@ -232,7 +232,7 @@ export default function CredCareCaseStudy() {
       {/* 03 Outcomes — real, qualitative, no fake metrics */}
       <section className="cs-sec" id="s-outcomes">
         <p className="cs-eyebrow">Outcomes</p>
-        <h2 className="cs-h2">20+ users navigated the recovery flow without asking for help.</h2>
+        <h2 className="cs-h2">20+ users navigated the recovery flow without asking for help</h2>
         <div className="cs-impact">
           <div className="cs-impact__card cs-impact__card--accent">
             <span className="cs-impact__k">What the prototype earned</span>
@@ -257,7 +257,7 @@ export default function CredCareCaseStudy() {
       {/* 04 The problem — key insight callout lives here */}
       <section className="cs-sec" id="s-problem">
         <p className="cs-eyebrow">The Problem</p>
-        <h2 className="cs-h2">Shame turns credit apps invisible.</h2>
+        <h2 className="cs-h2">Shame turns credit apps invisible</h2>
         <p className="cs-lead">
           Users with a damaged score don’t need more data. They need a reason not to close the tab.
           Existing products lead with the number the user is most afraid of.
@@ -271,7 +271,7 @@ export default function CredCareCaseStudy() {
       {/* 05 Users — 3 personas */}
       <section className="cs-sec" id="s-users">
         <p className="cs-eyebrow">Users</p>
-        <h2 className="cs-h2">Three ways people get stuck.</h2>
+        <h2 className="cs-h2">Three ways people get stuck</h2>
         <div className="cs-personas cs-personas--images">
           <figure className="cs-wide">
             <img src="/case/credcare/persona-rohit.webp" alt="Rohit — the Anxious Avoider persona" loading="lazy" decoding="async" />
@@ -288,7 +288,7 @@ export default function CredCareCaseStudy() {
       {/* 06 Decision thinking — HMW broad + narrow, principles, cut features */}
       <section className="cs-sec" id="s-approach">
         <p className="cs-eyebrow">Decision thinking</p>
-        <h2 className="cs-h2">Design for the moment before the reveal.</h2>
+        <h2 className="cs-h2">Design for the moment before the reveal</h2>
 
         <div className="cs-callout" style={{ marginBottom: "1.6rem" }}>
           <p className="cs-callout__label">HMW — broad</p>
@@ -339,7 +339,7 @@ export default function CredCareCaseStudy() {
       {/* 08 Design — the whole flow, screens grouped by role */}
       <section className="cs-sec" id="s-design">
         <p className="cs-eyebrow">Design</p>
-        <h2 className="cs-h2">The whole flow, and one honest reason per section.</h2>
+        <h2 className="cs-h2">The whole flow, and one honest reason per section</h2>
 
         <h3 className="cs-h3">Wireframes</h3>
         <p className="cs-lead cs-lead--sm">
@@ -442,7 +442,7 @@ export default function CredCareCaseStudy() {
       {/* 10 Reflection — vulnerability + 2 contrarian + 1 practical (now last) */}
       <section className="cs-sec" id="s-reflection">
         <p className="cs-eyebrow">Reflection</p>
-        <h2 className="cs-h2">What CredCare taught me about designing for shame.</h2>
+        <h2 className="cs-h2">What CredCare taught me about designing for shame</h2>
 
         {/* Vulnerability moment */}
         <div className="cs-callout" style={{ marginTop: "1rem" }}>

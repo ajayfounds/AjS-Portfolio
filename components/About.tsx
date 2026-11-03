@@ -81,7 +81,7 @@ function FaveDeck() {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.34, ease: [0.4, 0, 0.2, 1] }}
+              transition={{ duration: 0.34, ease: [0.23, 1, 0.32, 1] }}
               onAnimationComplete={() => requestAnimationFrame(updateTilt)}
             >
               <h3 className="favedeck__title">{cat.label}</h3>
@@ -288,7 +288,7 @@ function Journey() {
               onClick={() => setActive(realIdx)}
               className={`journey__slot ${isBig ? "is-big" : "is-mini"}`}
               style={{ "--accent": e.accent, "--chip-fg": e.fg } as React.CSSProperties}
-              transition={{ layout: { duration: 0.55, ease: [0.32, 0.72, 0, 1] } }}
+              transition={{ layout: { duration: 0.55, ease: [0.23, 1, 0.32, 1] } }}
               aria-pressed={isBig}
             >
               {isBig ? (

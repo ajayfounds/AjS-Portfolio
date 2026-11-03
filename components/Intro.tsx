@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
 import { useRouter } from "next/navigation";
-import Magnetic from "./Magnetic";
 import FlowField from "./FlowField";
 import { site, seedVisitors, VISITOR_COLORS, mulberry32 } from "@/lib/data";
 
@@ -34,8 +33,8 @@ function EnterCard({ d, dx, center, phase }: { d: EnterCardData; dx: number; cen
       animate={
         phase === "out"
           ? center
-            ? { opacity: 0, scale: 0.97, y: -6, transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1], delay: 0.12 } } // lingers, fades last
-            : { opacity: 0, scale: 0.9, y: 12, transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] } } // gently recede
+            ? { opacity: 0, scale: 0.97, y: -6, transition: { duration: 0.8, ease: [0.23, 1, 0.32, 1], delay: 0.12 } } // lingers, fades last
+            : { opacity: 0, scale: 0.9, y: 12, transition: { duration: 0.5, ease: [0.23, 1, 0.32, 1] } } // gently recede
           : { opacity: 1, x: 0, y: 0, scale: center ? 1.04 : 0.92, transition: { type: "spring", stiffness: 200, damping: 24, delay: center ? 0.05 : 0.16 } }
       }
     >
@@ -371,8 +370,8 @@ export default function Intro() {
             className="intro"
             initial={{ opacity: 0 }}
             animate={{ opacity: step === "enter" && enterPhase === "out" ? 0 : 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] } }}
-            transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+            exit={{ opacity: 0, transition: { duration: 0.55, ease: [0.23, 1, 0.32, 1] } }}
+            transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
           >
             <motion.div className="intro__cursor" style={{ x: ox, y: oy }} aria-hidden>
               <span className="intro__moon" />
@@ -402,9 +401,7 @@ export default function Intro() {
               <motion.p className="intro__eyebrow" {...fadeUp} transition={{ duration: 0.6, delay: 0.2 }}>Welcome to</motion.p>
               <motion.h1 className="intro__title brandmark" {...fadeUp} transition={{ duration: 0.7, delay: 0.3 }}>{site.brand}</motion.h1>
               <motion.div {...fadeUp} transition={{ duration: 0.6, delay: 0.5 }}>
-                <Magnetic strength={0.4}>
-                  <button className="intro__explore" onClick={() => setStep("card")}>Explore</button>
-                </Magnetic>
+                <button className="intro__explore" onClick={() => setStep("card")}>Explore</button>
               </motion.div>
               <motion.button className="intro__skip" onClick={dismiss} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.7 }}>Skip Intro</motion.button>
               <motion.p ref={taglineRef} className="intro__tagline" {...fadeUp} transition={{ duration: 0.6, delay: 0.85 }}>
@@ -435,7 +432,7 @@ export default function Intro() {
             initial={{ clipPath: "circle(0% at 50% 47%)" }}
             animate={{ clipPath: "circle(150% at 50% 47%)" }}
             exit={{ opacity: 0 }}
-            transition={{ clipPath: { duration: 0.7, ease: [0.16, 1, 0.3, 1] }, opacity: { duration: 0.4 } }}
+            transition={{ clipPath: { duration: 0.7, ease: [0.23, 1, 0.32, 1] }, opacity: { duration: 0.4 } }}
           >
             <button className="welcome__back" onClick={() => setStep("intro")}>← Back</button>
 
@@ -463,11 +460,7 @@ export default function Intro() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ type: "spring", stiffness: 170, damping: 17, delay: 0.42 }}
               >
-                <motion.div
-                  className="vcard-float__bob"
-                  animate={{ y: [0, -7, 0] }}
-                  transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-                >
+                <div className="vcard-float__bob">
                   <motion.div
                     ref={cardRef}
                     className="vcard"
@@ -504,7 +497,7 @@ export default function Intro() {
                       onPointerLeave={endDraw}
                     />
                   </motion.div>
-                </motion.div>
+                </div>
               </motion.div>
 
               <div className="welcome__swatches">
@@ -515,7 +508,7 @@ export default function Intro() {
                 <button className="welcome__tool" onClick={clearInk} aria-label="Erase signature"><EraserIcon /></button>
               </div>
 
-              <Magnetic strength={0.35}><button className="welcome__enter" onClick={beginEnter}>Enter</button></Magnetic>
+              <button className="welcome__enter" onClick={beginEnter}>Enter</button>
 
               <p className="welcome__note">Your card will appear in the visitor gallery after review.</p>
             </motion.div>
@@ -537,7 +530,7 @@ export default function Intro() {
             initial={{ opacity: 1, scale: 1 }}
             animate={{ opacity: enterPhase === "out" ? 0 : 1, scale: enterPhase === "out" ? 1.015 : 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.75, ease: [0.4, 0, 0.2, 1], delay: enterPhase === "out" ? 0.15 : 0 }}
+            transition={{ duration: 0.75, ease: [0.23, 1, 0.32, 1], delay: enterPhase === "out" ? 0.15 : 0 }}
           >
             <div className="entrow">
               <EnterCard d={enterSet.left} dx={-72} phase={enterPhase} />

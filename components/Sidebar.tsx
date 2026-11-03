@@ -49,15 +49,6 @@ function OutboundIcon({ kind }: { kind: Outbound["icon"] }) {
   }
 }
 
-// Each outbound tile tints toward its own brand-ish accent on hover.
-const BRAND: Record<Outbound["icon"], string> = {
-  email: "var(--sb-gold)",
-  linkedin: "var(--sb-teal)",
-  behance: "var(--sb-sienna)",
-  x: "#242424",
-  instagram: "var(--sb-pink)"
-};
-
 // Pinned to IST so the widget reads as "my local time", whoever is visiting.
 function useIST() {
   const [now, setNow] = useState<{ hm: string; ap: string; hours: number } | null>(null);
@@ -80,10 +71,10 @@ function useIST() {
 
 // Rough sky phases for Noida — decorative, so fixed hours are close enough.
 function phaseOf(h: number) {
-  if (h >= 5 && h < 7) return { label: "Dawn", glow: "var(--sb-pink)" };
-  if (h >= 7 && h < 17) return { label: "Daylight", glow: "var(--sb-gold)" };
-  if (h >= 17 && h < 19.5) return { label: "Golden hour", glow: "var(--sb-sienna)" };
-  return { label: "Night", glow: "var(--sb-teal)" };
+  if (h >= 5 && h < 7) return "Dawn";
+  if (h >= 7 && h < 17) return "Daylight";
+  if (h >= 17 && h < 19.5) return "Golden hour";
+  return "Night";
 }
 
 // Quadratic Bézier the sun rides along (viewBox 0 0 300 64).
@@ -97,12 +88,11 @@ function arcPoint(t: number) {
 }
 const ARC_D = `M${ARC.x0} ${ARC.y0} Q${ARC.cx} ${ARC.cy} ${ARC.x1} ${ARC.y1}`;
 
-function Widget({ className = "", glow, children, as = "div", label }: { className?: string; glow?: string; children: ReactNode; as?: "div" | "nav"; label?: string }) {
+function Widget({ className = "", children, as = "div", label }: { className?: string; children: ReactNode; as?: "div" | "nav"; label?: string }) {
   const Tag = as;
   return (
     <Tag
       className={`sb-w ${className}`}
-      style={glow ? ({ "--glow": glow } as CSSProperties) : undefined}
       aria-label={label}
     >
       {children}
@@ -130,7 +120,7 @@ export default function Sidebar() {
 
   const t = now ? now.hours / 24 : 0;
   const sun = arcPoint(drawn ? t : 0);
-  const phase = now ? phaseOf(now.hours) : { label: "—", glow: "var(--sb-gold)" };
+  const phase = now ? phaseOf(now.hours) : "—";
 
   return (
     <>
@@ -158,7 +148,7 @@ export default function Sidebar() {
       <aside className={`sidebar${open ? " is-open" : ""}`} data-lenis-prevent>
         <div className="sb-grid">
           {/* 1 · Identity */}
-          <Widget className="sb-id" glow="var(--sb-gold)">
+          <Widget className="sb-id">
             <div className="sb-id__row">
               <span className="sb-id__mark">
                 <Image src="/sun-logo.webp" alt="Ajay Srivastava logo" width={64} height={64} priority />
@@ -177,7 +167,7 @@ export default function Sidebar() {
           </Widget>
 
           {/* 2 · Previous intern */}
-          <Widget className="sb-prev" glow="var(--sb-pink)">
+          <Widget className="sb-prev">
             <h2 className="sb-k">{site.previous.label}</h2>
             <ul className="sb-chips">
               {site.previous.orgs.map((org) => (
@@ -224,7 +214,6 @@ export default function Sidebar() {
           <Widget className="sb-out">
             <h2 className="sb-k">Outbound</h2>
             <a className="sb-resume" href={site.resume} target="_blank" rel="noopener noreferrer" data-link>
-              <span className="sb-resume__glow" aria-hidden />
               <span className="sb-resume__k">Resume</span>
               <span className="sb-resume__go" aria-hidden>↗</span>
               <svg className="sb-resume__arc" viewBox="0 0 200 16" preserveAspectRatio="none" aria-hidden>
@@ -242,7 +231,6 @@ export default function Sidebar() {
                     rel="noopener noreferrer"
                     data-link
                     aria-label={link.label}
-                    style={{ "--brand": BRAND[link.icon] } as CSSProperties}
                   >
                     <OutboundIcon kind={link.icon} />
                     <span className="sb-social__label">{link.label}</span>
@@ -253,13 +241,13 @@ export default function Sidebar() {
           </Widget>
 
           {/* 5 · Local time — the sun rides an arc across the day */}
-          <Widget className="sb-time" glow={phase.glow}>
+          <Widget className="sb-time">
             <div className="sb-time__top">
               <span className="sb-time__clock">
                 <b>{now?.hm ?? "--:--"}</b>
                 <i>{now?.ap}</i>
               </span>
-              <span className="sb-time__phase">{phase.label}</span>
+              <span className="sb-time__phase">{phase}</span>
             </div>
             <svg className="sb-time__arc" viewBox="0 0 300 64" aria-hidden>
               <path className="sb-time__track" d={ARC_D} />
@@ -276,7 +264,7 @@ export default function Sidebar() {
           </Widget>
 
           {/* 6 · Visitor card */}
-          <div className="sb-w sb-visitor" style={{ "--glow": "var(--sb-teal)" } as CSSProperties}>
+          <div className="sb-w sb-visitor">
             <VisitorCardButton />
           </div>
         </div>

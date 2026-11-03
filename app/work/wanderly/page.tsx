@@ -48,7 +48,7 @@ export default function WanderlyCaseStudy() {
           <span className="cs-tag">AI · UX/UI</span>
         </div>
         <h1 className="cs-title__h">
-          <span className="cs-star" aria-hidden>✱</span> Wanderly ... AI Travel Itinerary Planner
+          Wanderly ... AI Travel Itinerary Planner
         </h1>
         <p className="cs-title__lead">
           Wanderly is a travel itinerary platform for explorers who crave more than just a destination. Powered by AI,

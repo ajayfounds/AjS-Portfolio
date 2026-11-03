@@ -183,7 +183,7 @@ export default function MonalisaCaseStudy() {
             <span className="cs-tag">Ecommerce</span>
           </div>
           <h1 className="cs-title__h">
-            <span className="cs-star" aria-hidden>&#10033;</span> MONALISA, a fashion ecommerce experience
+            MONALISA, a fashion ecommerce experience
           </h1>
           <p className="cs-title__lead">
             A full storefront for a modern clothing brand. 15 screens, from the home page to the order confirmation,
@@ -207,7 +207,7 @@ export default function MonalisaCaseStudy() {
       {/* 02 Designs — every screen shown at full width, grouped like the brief */}
       <section className="cs-sec" id="s-designs">
         <p className="cs-eyebrow">Designs</p>
-        <h2 className="cs-h2">Every screen, in the order someone would walk through them.</h2>
+        <h2 className="cs-h2">Every screen, in the order someone would walk through them</h2>
 
         <h3 className="cs-h3" style={{ marginTop: "2rem" }}>The shopping flow</h3>
         <div className="cs-screens">
