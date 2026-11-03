@@ -5,37 +5,21 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import Reveal from "./Reveal";
 import StatusChip from "./StatusChip";
 import { projects } from "@/lib/data";
+import { CASE_HEROES, warm } from "@/lib/media";
 
-function LazyVideo({ src, label }: { src: string; label: string }) {
-  const ref = useRef<HTMLVideoElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); io.disconnect(); } },
-      { rootMargin: "200px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const v = ref.current;
-    if (!v || !inView) return;
-    v.play().catch(() => {});
-  }, [inView]);
-
+// Card loops start downloading on first paint (they sit under the intro), with the
+// box sized from the file's real dimensions so nothing jumps when it arrives.
+function CardVideo({ src, label }: { src: string; label: string }) {
   return (
     <video
-      ref={ref}
-      src={inView ? src : undefined}
+      src={src}
+      width={1440}
+      height={1080}
       autoPlay
       loop
       muted
       playsInline
-      preload="none"
+      preload="auto"
       disablePictureInPicture
       aria-label={label}
     />
@@ -122,7 +106,9 @@ export default function Work() {
                 href: p.caseHref ?? p.href,
                 target: p.caseHref ? undefined : "_blank",
                 rel: p.caseHref ? undefined : "noopener noreferrer",
-                onMouseEnter: enter,
+                onMouseEnter: () => { enter(); warm(p.caseHref && CASE_HEROES[p.caseHref], "high"); },
+                onFocus: () => warm(p.caseHref && CASE_HEROES[p.caseHref], "high"),
+                onTouchStart: () => warm(p.caseHref && CASE_HEROES[p.caseHref], "high"),
                 onMouseLeave: leave,
                 "data-project": true
               };
@@ -145,9 +131,9 @@ export default function Work() {
 
               <div className="card__media">
                 {/\.(mp4|webm|mov)$/i.test(p.img) ? (
-                  <LazyVideo src={p.img} label={p.name} />
+                  <CardVideo src={p.img} label={p.name} />
                 ) : (
-                  <img src={p.img} alt={p.name} loading="lazy" decoding="async" />
+                  <img src={p.img} alt={p.name} loading={i < 4 ? "eager" : "lazy"} fetchPriority={i < 2 ? "high" : "auto"} decoding="async" />
                 )}
               </div>
 

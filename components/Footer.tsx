@@ -47,7 +47,7 @@ export default function Footer() {
       </div>
 
       <div className="footer__bottom">
-        <span className="footer__copy">© 2026 {site.name} ... Clarity &amp; purpose</span>
+        <span className="footer__copy">{site.name}, 2026 ... Clarity &amp; purpose</span>
         <a href="#top" className="footer__back" data-link onClick={toTop}>
           Back to top
         </a>

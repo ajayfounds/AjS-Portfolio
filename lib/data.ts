@@ -222,7 +222,7 @@ export const experience: Experience[] = [
     short: "Shyphan AI",
     accent: "#ea580c",
     fg: "#ffffff",
-    icon: "✦",
+    icon: "S",
     logo: "/logos/shyphan.jpg"
   },
   {
@@ -275,7 +275,7 @@ export const experience: Experience[] = [
     short: "Photo & Films Club",
     accent: "#7c3aed",
     fg: "#ffffff",
-    icon: "❒",
+    icon: "P",
     logo: "/logos/jssaten-pfc.jpg"
   },
   {
@@ -292,7 +292,7 @@ export const experience: Experience[] = [
     short: "Winter of Blockchain",
     accent: "#334155",
     fg: "#ffffff",
-    icon: "❄",
+    icon: "W",
     logo: "/logos/wob.jpg"
   },
   {
@@ -422,21 +422,21 @@ export type Community = { name: string; icon: string; desc: string; img: string;
 export const communities: Community[] = [
   {
     name: "JSSATEN Photography & Films Club",
-    icon: "📷",
+    icon: "P",
     desc: "",
     img: "/me/community-jssaten-pfc.jpg",
     logo: "/logos/jssaten-pfc.jpg"
   },
   {
     name: "GDG (formerly GDSC) - New Delhi",
-    icon: "🟢",
+    icon: "G",
     desc: "",
     img: "/me/community-gdg-delhi.jpg",
     logo: "/logos/gdg.jpg"
   },
   {
     name: "Designare",
-    icon: "✦",
+    icon: "D",
     desc: "",
     img: "/me/community-designare.jpg",
     logo: "/logos/designare.jpg"

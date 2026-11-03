@@ -44,20 +44,13 @@ function sigPath(seed: number) {
 
 type Card = VisitorEntry & { sig?: string | null; isYou?: boolean };
 
-function GalleryCard({ card, i }: { card: Card; i: number }) {
+function GalleryCard({ card }: { card: Card }) {
   const c = VISITOR_COLORS[card.color] ?? VISITOR_COLORS.green;
   const matrix = useMemo(() => genMatrix(card.seed), [card.seed]);
   const path = useMemo(() => sigPath(card.seed), [card.seed]);
 
   return (
-    <motion.article
-      className="vcard gcard"
-      style={{ background: c.bg, color: c.fg }}
-      initial={{ opacity: 0, scale: 0.97 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, margin: "-6% 0px" }}
-      transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1], delay: (i % 3) * 0.05 }}
-    >
+    <article className="vcard gcard" style={{ background: c.bg, color: c.fg }}>
       {card.isYou && <span className="gcard__you">You</span>}
       <pre className="vcard__matrix" aria-hidden>{matrix}</pre>
 
@@ -82,7 +75,7 @@ function GalleryCard({ card, i }: { card: Card; i: number }) {
           </svg>
         )
       )}
-    </motion.article>
+    </article>
   );
 }
 
@@ -187,8 +180,8 @@ export default function VisitorGallery() {
       </button>
 
       <div className="vgal__grid">
-        {shown.map((card, i) => (
-          <GalleryCard key={card.isYou ? "you" : card.seed} card={card} i={i} />
+        {shown.map((card) => (
+          <GalleryCard key={card.isYou ? "you" : card.seed} card={card} />
         ))}
       </div>
 

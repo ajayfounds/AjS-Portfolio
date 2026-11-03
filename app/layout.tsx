@@ -46,7 +46,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${clash.variable} ${ruwudu.variable}`}>
+    <html lang="en" className={`${inter.variable} ${clash.variable} ${ruwudu.variable}`} suppressHydrationWarning>
+      <head>
+        {/* hide media until fully loaded; MediaReady reveals it */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.setAttribute('data-mr','')" }} />
+      </head>
       <body>
         <Shell>{children}</Shell>
       </body>

@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { MotionConfig } from "framer-motion";
 import SmoothScroll from "./SmoothScroll";
 import ScrollReset from "./ScrollReset";
 import Cursor from "./Cursor";
@@ -9,6 +10,7 @@ import Sidebar from "./Sidebar";
 import Resizer from "./Resizer";
 import Footer from "./Footer";
 import Buddy from "./Buddy";
+import MediaReady from "./MediaReady";
 
 // Persistent app shell. The sidebar, footer, cursor and preloader stay mounted
 // across client-side route changes — only the page content ({children}) swaps.
@@ -19,7 +21,8 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   const caseStudy = pathname?.startsWith("/work/") ?? false;
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
+      <MediaReady />
       <Cursor />
       <Intro />
       <SmoothScroll>
@@ -34,6 +37,6 @@ export default function Shell({ children }: { children: React.ReactNode }) {
         </div>
         <Buddy />
       </SmoothScroll>
-    </>
+    </MotionConfig>
   );
 }

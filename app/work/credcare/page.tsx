@@ -164,6 +164,9 @@ export default function CredCareCaseStudy() {
           src="/case/credcare/cover.gif"
           alt="CredCare product overview"
           loading="eager"
+          fetchPriority="high"
+          width={800}
+          height={200}
           decoding="async"
         />
       </section>

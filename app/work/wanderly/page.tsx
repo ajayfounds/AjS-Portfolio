@@ -37,6 +37,9 @@ export default function WanderlyCaseStudy() {
           src="/case/wanderly/cover.gif"
           alt="Wanderly product overview"
           loading="eager"
+          fetchPriority="high"
+          width={800}
+          height={200}
           decoding="async"
         />
       </section>

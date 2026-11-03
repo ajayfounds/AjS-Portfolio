@@ -324,6 +324,9 @@ export default function UpiCaseStudy() {
           src="/case/upi/cover.gif"
           alt="Payment Limbo product overview"
           loading="eager"
+          fetchPriority="high"
+          width={800}
+          height={200}
           decoding="async"
         />
       </section>

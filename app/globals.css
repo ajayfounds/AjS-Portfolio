@@ -195,7 +195,7 @@ b, strong { font-weight: 600; }
 .intro__explore,
 .intro__skip {
   font-family: var(--font-ruwudu), "Clash Grotesk", system-ui, sans-serif;
-  font-size: 0.9rem; font-weight: 700; letter-spacing: 0.04em; line-height: 1;
+  font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1;
   text-transform: uppercase;
   padding-block: 1.07rem 0.33rem; /* 17.1 px top / 5.3 px bottom → caps centred */
   padding-inline: 1.5rem;
@@ -312,7 +312,7 @@ body.orb-active .cursor { display: none; }
 .welcome__input {
   flex: 1; border: none; outline: none; background: none; cursor: none;
   font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.8rem;
-  text-transform: uppercase; letter-spacing: 0.06em; color: var(--fg);
+  text-transform: uppercase; letter-spacing: 0.02em; color: var(--fg);
   padding: 0.5rem 0;
 }
 .welcome__shuffle {
@@ -345,13 +345,13 @@ body.orb-active .cursor { display: none; }
 .vcard__brand { font-family: var(--font-ruwudu), Georgia, serif; font-size: 1.2rem; font-weight: 700; font-style: normal; }
 .vcard__clear {
   background: rgba(243, 241, 235, 0.18); border: none; cursor: none; color: currentColor;
-  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.56rem; letter-spacing: 0.12em;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.56rem; letter-spacing: 0.02em;
   text-transform: uppercase; padding: 0.25rem 0.5rem; border-radius: 5px;
 }
 .vcard__mid { margin-top: auto; display: flex; flex-direction: column; gap: 0.7rem; position: relative; z-index: 1; }
 .vcard__label {
   font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.58rem; font-style: normal;
-  text-transform: uppercase; letter-spacing: 0.16em; opacity: 0.7;
+  text-transform: uppercase; letter-spacing: 0.02em; opacity: 0.7;
   display: block; margin-bottom: 0.2rem;
 }
 .vcard__value { font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.92rem; letter-spacing: 0.04em; }
@@ -913,9 +913,10 @@ body.is-resizing * { cursor: col-resize !important; }
 .card__live-tag {
   display: inline-flex; align-items: center; gap: .5rem;
   font-family: var(--font-clash), "Clash Grotesk", sans-serif;
-  font-size: var(--fs-2xs); font-weight: 500; letter-spacing: .06em;
+  font-size: var(--fs-2xs); font-weight: 500; letter-spacing: .02em;
   text-transform: uppercase;
   color: var(--ink-2);
+  white-space: nowrap; flex-shrink: 0;
 }
 .card__live-tag i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-green); flex-shrink: 0; }
 
@@ -934,7 +935,7 @@ body.is-resizing * { cursor: col-resize !important; }
 }
 .card__num {
   font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: var(--fs-2xs); letter-spacing: .01em; color: var(--muted);
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: tabular-nums; text-align: right; min-width: 0;
 }
 
 .card__media { aspect-ratio: 16/10; border-radius: var(--r-xs); overflow: hidden; background: var(--bg-2); }
@@ -960,7 +961,7 @@ body.is-resizing * { cursor: col-resize !important; }
 .card__name { font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 500; letter-spacing: -0.01em; }
 .card__tags { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: flex-end; min-width: 0; }
 .pill {
-  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: var(--fs-2xs); letter-spacing: .01em;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: var(--fs-2xs); letter-spacing: .02em; text-transform: uppercase;
   padding: .25rem .5rem; border-radius: var(--r-pill);
   border: 1px solid var(--line-strong); color: var(--muted);
   white-space: nowrap;
@@ -1394,14 +1395,14 @@ body.pill-cursor .cursor { opacity: 0; }
 .journey__slot.is-big {
   flex: 0 0 100%; min-height: 192px; padding: clamp(1.4rem, 2.4vw, 1.9rem);
   /* solid 100%-opacity fill with complementary light text, like the mini cards */
-  background: var(--accent); border-color: transparent;
+  background: color-mix(in srgb, var(--accent) 82%, #111); border-color: transparent;
   box-shadow: 0 12px 26px -16px rgba(36, 36, 36, 0.45);
 }
 /* vibrant filled mini cards with complementary light text — grow to fill any trailing gap */
 .journey__slot.is-mini {
   flex: 1 1 calc(33.333% - .48rem); min-width: 128px; min-height: 104px;
   padding: .75rem;
-  background: var(--accent); border-color: transparent;
+  background: color-mix(in srgb, var(--accent) 82%, #111); border-color: transparent;
   box-shadow: 0 10px 22px -14px rgba(36, 36, 36, 0.45);
   transition: transform .3s var(--ease), box-shadow .3s var(--ease);
 }
@@ -1611,7 +1612,7 @@ body.pill-cursor .cursor { opacity: 0; }
 .gcard__sigimg { position: absolute; right: 0.6rem; bottom: 0.4rem; width: 56%; height: 46%; object-fit: contain; z-index: 2; pointer-events: none; }
 .gcard__you {
   position: absolute; top: 0.7rem; right: 0.7rem; z-index: 3;
-  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.56rem; text-transform: uppercase; letter-spacing: 0.12em;
+  font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: 0.56rem; text-transform: uppercase; letter-spacing: 0.02em;
   background: rgba(243, 241, 235, 0.22); color: currentColor; padding: 0.2rem 0.5rem; border-radius: 100px;
 }
 
@@ -2801,3 +2802,40 @@ body.pill-cursor .cursor { opacity: 0; }
   @media (max-width: 1200px) { .stack__grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 760px)  { .stack__grid { grid-template-columns: 1fr; } }
 }
+
+/* interaction baseline */
+:where(a, button, [role="button"], input, textarea, select, summary):focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+.intro__explore:active, .intro__skip:active, .welcome__enter:active,
+.vgal__shuffle:active, .vgal__guestbook:active, .vgal__more:active,
+.vcmodal__close:active, .cs-zoom__close:active {
+  scale: .97;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 404 */
+.notfound { padding: clamp(3rem, 10vw, 7rem) var(--pad); display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; }
+.notfound__code { font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: var(--fs-sm); color: var(--muted); }
+.notfound__title { font-family: var(--font-clash), "Clash Grotesk", sans-serif; font-size: clamp(1.6rem, 4vw, 2.6rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1.05; }
+.notfound__text { color: var(--muted); font-size: var(--fs-base); }
+.notfound__home {
+  margin-top: .75rem; padding: .625rem 1rem; border-radius: var(--r-pill);
+  background: var(--fg); color: var(--bg); font-size: var(--fs-sm); font-weight: 500;
+  transition: opacity .2s var(--ease);
+}
+.notfound__home:hover { opacity: .88; }
+.notfound__home:active { scale: .97; }
+
+/* media reveal — nothing paints half-downloaded; it fades in once complete */
+[data-mr] img:not([data-ready]), [data-mr] video:not([data-ready]) { opacity: 0; }
+:where([data-mr]) :where(img, video)[data-ready] { animation: media-in .32s var(--ease) both; }
+@keyframes media-in { from { opacity: 0; } to { opacity: 1; } }
+.cs-hero.cs-hero--video { background: var(--cs-soft); }
