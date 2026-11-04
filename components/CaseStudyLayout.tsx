@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ProjectDock from "./ProjectDock";
 
 export type Toc = { id: string; num: string; label: string; sub?: boolean };
 
@@ -118,6 +119,8 @@ export default function CaseStudyLayout({
         </div>
       </aside>
       <div className="cs__body">{children}</div>
+
+      <ProjectDock />
 
       {/* Hamburger — fixed top-right. On mobile the sticky TOC rail collapses
           and the drawer carries the only copy of the Table of Contents. */}

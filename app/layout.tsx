@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Ruwudu } from "next/font/google";
+import { Inter, Ruwudu, Instrument_Serif } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import localFont from "next/font/local";
 import { site } from "@/lib/data";
 import Shell from "@/components/Shell";
@@ -14,7 +15,7 @@ const clash = localFont({
     { path: "./fonts/ClashGrotesk-Semibold.woff2", weight: "600", style: "normal" },
     { path: "./fonts/ClashGrotesk-Bold.woff2", weight: "700", style: "normal" }
   ],
-  variable: "--font-clash",
+  variable: "--font-clash-face",
   display: "swap"
 });
 
@@ -34,6 +35,15 @@ const ruwudu = Ruwudu({
   display: "swap"
 });
 
+// Instrument Serif — the one editorial italic accent
+const serif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument",
+  display: "swap"
+});
+
 export const metadata: Metadata = {
   title: `${site.name} — ${site.role}`,
   description: site.statement,
@@ -46,7 +56,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${clash.variable} ${ruwudu.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${clash.variable} ${ruwudu.variable} ${GeistSans.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
         {/* hide media until fully loaded; MediaReady reveals it */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.setAttribute('data-mr','')" }} />
