@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { useLenis } from "lenis/react";
+import { openContactLetter } from "./ContactLetter";
 
 const EASE = [0.23, 1, 0.32, 1] as const;
 
@@ -60,7 +60,6 @@ function useRadius() {
 export default function ProjectDock() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const lenis = useLenis();
   const trigger = useRef<HTMLButtonElement>(null);
   const R = useRadius();
 
@@ -77,12 +76,10 @@ export default function ProjectDock() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  // the letter flies out of the dock button itself
   const toContact = () => {
     setOpen(false);
-    const el = document.getElementById("contact-footer");
-    if (!el) return;
-    if (lenis) lenis.scrollTo(el, { duration: 1.2 });
-    else el.scrollIntoView({ behavior: "smooth" });
+    openContactLetter(trigger.current);
   };
 
   return (

@@ -3,7 +3,16 @@
 import Link from "next/link";
 import { useLenis } from "lenis/react";
 import Reveal from "./Reveal";
-import { site, explore, outbound } from "@/lib/data";
+import ContactLetter from "./ContactLetter";
+import { OutboundIcon } from "./Sidebar";
+import { site, outbound } from "@/lib/data";
+
+const PAGES = [
+  { label: "About me", href: "/about" },
+  { label: "Skills", href: "/skills" },
+  { label: "Experience", href: "/experience" },
+  { label: "Services", href: "/services" }
+];
 
 export default function Footer() {
   const lenis = useLenis();
@@ -17,32 +26,47 @@ export default function Footer() {
   return (
     <footer className="footer" id="contact-footer">
       <div className="footer__inner">
-        <Reveal as="p" className="footer__line">
-          Good design is a quiet conversation
-          <br />
-          between people and purpose.
-          <br />
-          <em>Let&apos;s start one.</em>
-        </Reveal>
+        <div className="footer__lead">
+          <Reveal as="p" className="footer__line">
+            Good design is a quiet conversation
+            <br />
+            between people and purpose.
+            <br />
+            <em>Let&apos;s start one.</em>
+          </Reveal>
 
-        <div className="footer__cols">
-          <ul className="footer__col">
-            {outbound.map((link) => (
-              <li key={link.label}>
-                <a href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" data-link>
-                  {link.label}
+          <ul className="footer__socials">
+            {outbound.filter((l) => l.icon !== "email").map((l) => (
+              <li key={l.label}>
+                <a
+                  className="footer__social"
+                  data-brand={l.icon}
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={l.label}
+                  title={l.label}
+                >
+                  <OutboundIcon kind={l.icon} />
                 </a>
               </li>
             ))}
           </ul>
 
-          <ul className="footer__col">
-            {explore.map((item) => (
-              <li key={item.num}>
-                <Link href={item.href} data-link>{item.label}</Link>
-              </li>
-            ))}
-          </ul>
+          <nav className="footer__pages" aria-label="Pages">
+            <ul>
+              {PAGES.map((p) => (
+                <li key={p.href}>
+                  <Link href={p.href}>{p.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        {/* email lives in the envelope */}
+        <div className="footer__contact">
+          <ContactLetter />
         </div>
       </div>
 
