@@ -3,8 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import Reveal from "./Reveal";
-import StatusChip from "./StatusChip";
-import { projects } from "@/lib/data";
+import { projects, site } from "@/lib/data";
 import { CASE_HEROES, warm } from "@/lib/media";
 
 // Card loops start downloading on first paint (they sit under the intro), with the
@@ -91,9 +90,17 @@ export default function Work() {
 
   return (
     <section className="work" id="work" onMouseMove={onMove}>
+      {/* sticky rail: the Resume button rides along while the work scrolls */}
+      <div className="work__resume-rail">
+        <a className="work__resume" href={site.resume} target="_blank" rel="noopener noreferrer">
+          Resume
+          <span className="work__resume-go" aria-hidden>
+            <svg viewBox="0 0 24 24"><path d="M8 16 16 8M9.5 8H16v6.5" /></svg>
+          </span>
+        </a>
+      </div>
       <Reveal className="section-head section-head--with-aside">
         <h2 className="section-head__title">My Work</h2>
-        <StatusChip />
       </Reveal>
 
       <ul className="work__grid" ref={gridRef}>
@@ -125,7 +132,6 @@ export default function Work() {
                 ) : (
                   <span className="card__dot" aria-hidden />
                 )}
-                <span className="card__num">{p.cat}</span>
                 {p.locked && <span className="card__locked">In progress</span>}
               </div>
 
@@ -143,7 +149,6 @@ export default function Work() {
                   {p.tags.map((t) => (
                     <span className="pill" key={t}>{t}</span>
                   ))}
-                  <span className="pill pill--status">{p.status}</span>
                 </div>
               </div>
 

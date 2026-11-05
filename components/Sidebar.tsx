@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useId, useState, type CSSProperties, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -12,7 +12,40 @@ import type { Outbound } from "@/lib/data";
 // Official brand marks, filled in currentColor so the hover-colour transition
 // (muted → brand) still applies. Each is the mark the brand itself uses as
 // its square avatar/button on third-party sites.
-export function OutboundIcon({ kind }: { kind: Outbound["icon"] }) {
+export function OutboundIcon({ kind, colored = false }: { kind: Outbound["icon"]; colored?: boolean }) {
+  const gid = useId().replace(/:/g, "");
+  if (colored) {
+    const brand: Partial<Record<Outbound["icon"], string>> = { linkedin: "#0a66c2", behance: "#1769ff", x: "#000000" };
+    if (kind === "email") {
+      return (
+        <svg width={18} height={18} viewBox="0 0 24 24" aria-hidden>
+          <path fill="#4285f4" d="M3.6 19H6.4V11.2L2 7.9V17.4C2 18.3 2.7 19 3.6 19Z" />
+          <path fill="#34a853" d="M17.6 19H20.4C21.3 19 22 18.3 22 17.4V7.9L17.6 11.2Z" />
+          <path fill="#fbbc04" d="M17.6 5.5V11.2L22 7.9V6.1C22 4.5 20.2 3.6 18.9 4.6Z" />
+          <path fill="#ea4335" d="M6.4 11.2V5.5L12 9.7L17.6 5.5V11.2L12 15.4Z" />
+          <path fill="#c5221f" d="M2 6.1V7.9L6.4 11.2V5.5L5.1 4.6C3.8 3.6 2 4.5 2 6.1Z" />
+        </svg>
+      );
+    }
+    if (kind === "instagram") {
+      return (
+        <span className="ig-mark" style={{ "--ig": `url(#${gid})` } as CSSProperties}>
+          <svg width={0} height={0} aria-hidden style={{ position: "absolute" }}>
+            <defs>
+              <radialGradient id={gid} cx="0.3" cy="1.07" r="1.3">
+                <stop offset="0" stopColor="#ffdd55" />
+                <stop offset=".1" stopColor="#ffdd55" />
+                <stop offset=".5" stopColor="#ff543e" />
+                <stop offset="1" stopColor="#c837ab" />
+              </radialGradient>
+            </defs>
+          </svg>
+          <OutboundIcon kind="instagram" />
+        </span>
+      );
+    }
+    return <span className="brand-mark" style={{ color: brand[kind] }}><OutboundIcon kind={kind} /></span>;
+  }
   const common = { width: 18, height: 18, viewBox: "0 0 24 24", fill: "currentColor", "aria-hidden": true };
   switch (kind) {
     case "email":
@@ -159,9 +192,10 @@ export default function Sidebar() {
               <span className="sb-id__mark">
                 <Image src="/sun-logo.webp" alt="Ajay Srivastava logo" width={64} height={64} priority />
               </span>
-              <a className="sb-pill" href={site.resume} target="_blank" rel="noopener noreferrer" data-link>
-                Resume
-              </a>
+              <p className="sb-status">
+                <i aria-hidden />
+                {site.status}
+              </p>
             </div>
             <h1 className="sb-id__name">{site.name}</h1>
             <p className="sb-id__role">
@@ -238,7 +272,7 @@ export default function Sidebar() {
                     data-link
                     aria-label={link.label}
                   >
-                    <OutboundIcon kind={link.icon} />
+                    <OutboundIcon kind={link.icon} colored />
                     <span className="sb-social__label">{link.label}</span>
                   </a>
                 </li>

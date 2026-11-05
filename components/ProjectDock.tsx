@@ -107,28 +107,20 @@ export default function ProjectDock() {
               const inner = (
                 <>
                   {Icons[it.key]}
-                  <motion.span
-                    className={`pdock__label pdock__label--${i === ITEMS.length - 1 ? "top" : "left"}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1, transition: { duration: 0.24, ease: EASE, delay: 0.16 + i * 0.035 } }}
-                    exit={{ opacity: 0, transition: { duration: 0.1 } }}
-                  >
-                    {it.label}
-                  </motion.span>
                 </>
               );
               return (
                 <motion.div
                   key={it.key}
                   className="pdock__slot"
-                  initial={{ x: 0, y: 0, scale: 0.4, opacity: 0 }}
+                  initial={{ x: 0, y: 0, scale: 0.4, opacity: 0, rotateY: -160, rotateX: 40 }}
                   animate={{
-                    x, y, scale: 1, opacity: 1,
-                    transition: { type: "spring", bounce: 0, duration: 0.46, delay: i * 0.035 }
+                    x, y, scale: 1, opacity: 1, rotateY: 0, rotateX: 0,
+                    transition: { type: "spring", bounce: 0, duration: 0.6, delay: i * 0.045 }
                   }}
                   exit={{
-                    x: 0, y: 0, scale: 0.4, opacity: 0,
-                    transition: { duration: 0.22, ease: EASE, delay: (ITEMS.length - 1 - i) * 0.025 }
+                    x: 0, y: 0, scale: 0.4, opacity: 0, rotateY: 160, rotateX: -30,
+                    transition: { duration: 0.28, ease: EASE, delay: (ITEMS.length - 1 - i) * 0.03 }
                   }}
                 >
                   {it.href ? (
@@ -162,7 +154,7 @@ export default function ProjectDock() {
           <motion.span
             className="pdock__glyph"
             initial={false}
-            animate={{ opacity: open ? 0 : 1, rotate: open ? -45 : 0, scale: open ? 0.6 : 1 }}
+            animate={{ opacity: open ? 0 : 1, rotateY: open ? 180 : 0, scale: open ? 0.7 : 1 }}
             transition={{ duration: 0.24, ease: EASE }}
           >
             {Icons.work}
@@ -170,7 +162,7 @@ export default function ProjectDock() {
           <motion.span
             className="pdock__glyph"
             initial={false}
-            animate={{ opacity: open ? 1 : 0, rotate: open ? 0 : 45, scale: open ? 1 : 0.6 }}
+            animate={{ opacity: open ? 1 : 0, rotateY: open ? 0 : -180, scale: open ? 1 : 0.7 }}
             transition={{ duration: 0.24, ease: EASE }}
           >
             {Icons.close}

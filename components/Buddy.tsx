@@ -104,12 +104,71 @@ export default function Buddy() {
     mode: "idle", modeUntil: 0, targetX: 40,
     px: 0, py: 0, plx: 0, ply: 0, pt: 0, pvx: 0, pvy: 0,
     grabX: 0, grabY: 0, downCX: 0, downCY: 0,
-    cursorX: 0, cursorY: 0, lastMove: -9999
+    cursorX: 0, cursorY: 0, lastMove: -9999, rot: 0, spin: 0
   }).current;
 
   useEffect(() => {
     const PET_W = 44, PET_H = 52, M = 8;
-    const G = 2400, REST = 0.5, FR = 0.86, AIR = 0.99, WALK = 60;
+    const G = 2400, REST = 0.5, FR = 0.86, AIR = 0.99, WALK = 85, RUN = 230;
+    let plats: { l: number; r: number; top: number; el: Element }[] = [];
+
+    // what is Buddy standing on or next to? answers with a line about it
+    const CARD_LINES: Record<string, string[]> = {
+      "Wanderly": ["wanna plan a trip?", "day-by-day plans!", "pack your bags"],
+      "CredCare": ["no red banners here", "trust meter going up", "your score is safe"],
+      "Payment Limbo": ["did my payment go through?", "pending… pending…", "don't pay twice!"],
+      "MONALISA": ["ooh, fashion", "add to cart?", "15 screens, wow"],
+      "Real Estate Dashboard": ["who's waiting?", "signed contract!", "what's next, agent?"]
+    };
+    const PAGE_LINES: [string, string[]][] = [
+      ["/work/", ["reading the case study?", "the good part is coming", "take notes"]],
+      ["/about", ["meet Ajay", "quack?", "try on a hat"]],
+      ["/experience", ["real teams, real work", "scroll for more"]],
+      ["/skills", ["figma, figma, figma", "so many tools"]],
+      ["/visitor-gallery", ["sign the guestbook!", "find your card"]]
+    ];
+    const contextLine = (): string | null => {
+      const cxp = s.x + PET_W / 2;
+      const probes: [number, number][] = [[cxp, s.y + PET_H + 6], [cxp - 46, s.y + PET_H / 2], [cxp + 46, s.y + PET_H / 2]];
+      let el = s.supportEl as Element | null;
+      for (const [px, py] of probes) {
+        if (el) break;
+        const hit = document.elementFromPoint(px, py);
+        if (hit && !hit.closest(".buddy-stage")) el = hit;
+      }
+      if (el) {
+        const card = el.closest(".card");
+        if (card) {
+          const n = card.querySelector(".card__name")?.textContent?.trim() ?? "";
+          return CARD_LINES[n] ? pick(CARD_LINES[n]) : `${n}? nice one`;
+        }
+        if (el.closest(".work__resume")) return pick(["grab the resume!", "hire him :)"]);
+        if (el.closest(".log")) return pick(["read the latest log!", "what's he up to?"]);
+        if (el.closest(".footer")) return pick(["pick an envelope!", "say hello :)", "write to him!"]);
+        if (el.closest(".sidebar")) return pick(["he's open to work!", "check the resume", "that sun is his logo"]);
+        if (el.closest(".journey")) return pick(["look at that journey", "so many hats"]);
+      }
+      const path = window.location.pathname;
+      const page = PAGE_LINES.find(([k]) => path.startsWith(k));
+      return page ? pick(page[1]) : null;
+    };
+
+    // a ballistic jump that lands on a visible card
+    const leap = () => {
+      const here = s.supportEl;
+      const options = plats.filter((p) => p.el !== here && p.r - p.l > PET_W + 12 && p.top > 60);
+      if (!options.length) return false;
+      const p = options[Math.floor(Math.random() * options.length)];
+      const tx = clamp(rand(p.l + 6, p.r - PET_W - 6), M, maxX());
+      const dx = tx - s.x, dy = p.top - PET_H - s.y;
+      const T = clamp(Math.hypot(dx, dy) / 900, 0.5, 0.95);
+      s.vx = dx / T;
+      s.vy = (dy - 0.5 * G * T * T) / T;
+      s.grounded = false; s.supportEl = null;
+      if (Math.random() < 0.4) s.spin = (360 / T) * Math.sign(dx || 1);
+      say(pick(["geronimo!", "wheee", "here i go!", "parkour!"]), 1200);
+      return true;
+    };
 
     const floorY = () => window.innerHeight - PET_H - M;
     const maxX = () => window.innerWidth - PET_W - M;
@@ -142,20 +201,28 @@ export default function Buddy() {
       }
       const r = Math.random();
       // clingy: chase the cursor whenever it has moved recently
-      if (cursorFresh && r < 0.5) {
+      if (cursorFresh && r < 0.38) {
         s.mode = "walk";
         s.targetX = clamp(s.cursorX - PET_W / 2, M, mx);
         s.modeUntil = now + 6000;
         if (Math.random() > 0.45) say(pick(CLINGY), 1600);
-      } else if (r < 0.74) {
+      } else if (r < 0.56) {
         s.mode = "walk";
         s.targetX = clamp(rand(lo, hi), M, mx);
         s.modeUntil = now + 7000;
-      } else if (r < 0.86) {
+      } else if (r < 0.66) {
+        s.mode = "run";
+        s.targetX = clamp(rand(M, mx), M, mx);
+        s.modeUntil = now + 5000;
+        if (Math.random() > 0.5) say(pick(["zoom!", "race you", "gotta go fast"]), 1200);
+      } else if (r < 0.8 && leap()) {
         s.mode = "idle";
-        s.modeUntil = now + rand(900, 2200);
-        if (Math.random() > 0.45) say(pick(IDLE_PHRASES));
-      } else if (r < 0.95) {
+        s.modeUntil = now + 1600;
+      } else if (r < 0.92) {
+        s.mode = "idle";
+        s.modeUntil = now + rand(800, 1800);
+        if (Math.random() > 0.25) say(contextLine() ?? pick(IDLE_PHRASES), 2400);
+      } else if (r < 0.97) {
         s.mode = "idle";
         s.vy = -760; // hop
         s.grounded = false;
@@ -192,7 +259,7 @@ export default function Buddy() {
 
       // build current platform rects (viewport coords; refresh each frame so the
       // pet rides cards as the page scrolls)
-      const plats: { l: number; r: number; top: number; el: Element }[] = [];
+      plats = [];
       for (const el of surfaces) {
         const r = el.getBoundingClientRect();
         if (r.width > 40 && r.bottom > 0 && r.top < H) plats.push({ l: r.left, r: r.right, top: r.top, el });
@@ -242,7 +309,7 @@ export default function Buddy() {
                 s.vy = 0;
                 if (!s.grounded) {
                   doSquash();
-                  if (bestEl) { s.mode = "idle"; s.modeUntil = now + rand(1800, 3200); say("comfy!", 1400); } // landed on a card → chill on it
+                  if (bestEl) { s.mode = "idle"; s.modeUntil = now + rand(1400, 2600); s.supportEl = bestEl; say(contextLine() ?? "comfy!", 1800); } // landed on a card: talk about it
                 }
                 s.grounded = true; s.supportEl = bestEl;
               }
@@ -254,8 +321,9 @@ export default function Buddy() {
         // ---- behaviour FSM (only while grounded) ----
         if (s.grounded && !menuOpenRef.current) {
           if (now > s.modeUntil) chooseAction(now);
-          if (s.mode === "walk") {
+          if (s.mode === "walk" || s.mode === "run") {
             const d = s.targetX - s.x;
+            const speed = s.mode === "run" ? RUN : WALK;
             if (Math.abs(d) < 3) {
               s.vx = 0; s.mode = "idle"; s.modeUntil = now + rand(900, 2200);
               cls("is-walking", false);
@@ -266,7 +334,7 @@ export default function Buddy() {
               cls("is-walking", false); say(pick(CLUMSY), 1200);
             } else {
               s.facing = d > 0 ? 1 : -1;
-              s.vx = Math.sign(d) * WALK;
+              s.vx = Math.sign(d) * speed;
               cls("is-walking", true); cls("is-sitting", false);
             }
           } else if (s.mode === "sit") {
@@ -282,8 +350,12 @@ export default function Buddy() {
         }
       }
 
+      // spin while flying, then settle upright on landing
+      if (!s.grounded && !s.held) s.rot += s.spin * dt;
+      else { s.spin = 0; s.rot = ((s.rot % 360) + 540) % 360 - 180; s.rot *= 0.8; if (Math.abs(s.rot) < 0.5) s.rot = 0; }
+
       const root = rootRef.current, flip = flipRef.current;
-      if (root) root.style.transform = `translate3d(${s.x}px, ${s.y}px, 0)`;
+      if (root) root.style.transform = `translate3d(${s.x}px, ${s.y}px, 0) rotate(${s.rot}deg)`;
       if (flip && s.facing !== s.lastFacing) {
         flip.style.transform = `scaleX(${s.facing})`;
         s.lastFacing = s.facing;
@@ -343,6 +415,10 @@ export default function Buddy() {
     if (s.dragging) {
       s.vx = clamp(s.pvx, -1500, 1500);
       s.vy = clamp(s.pvy, -1700, 1700);
+      // thrown hard: tumble through the air
+      const speed = Math.hypot(s.vx, s.vy);
+      s.spin = speed > 650 ? clamp(s.vx * 0.9, -900, 900) || 540 : 0;
+      if (speed > 650) say(pick(["aaaah!", "weee!", "i can fly!"]), 1400);
       s.mode = "idle";
       s.modeUntil = performance.now() + 700;
     } else {
