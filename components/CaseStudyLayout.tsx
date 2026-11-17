@@ -1,9 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ProjectDock from "./ProjectDock";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export type Toc = { id: string; num: string; label: string; sub?: boolean };
 
@@ -24,6 +29,25 @@ export default function CaseStudyLayout({
   // hamburger drawer — on mobile this holds the only copy of the TOC
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const root = useRef<HTMLDivElement>(null);
+
+  // the contents box's left edge fills as you read; re-measured as images arrive
+  useGSAP(() => {
+    const body = root.current?.querySelector<HTMLElement>(".cs__body");
+    if (!body) return;
+    gsap.fromTo(".cs__toc-fill", { scaleY: 0 }, {
+      scaleY: 1,
+      ease: "none",
+      scrollTrigger: { trigger: body, start: "top top", end: "bottom bottom", scrub: 0.3 }
+    });
+    let t = 0;
+    const ro = new ResizeObserver(() => {
+      window.clearTimeout(t);
+      t = window.setTimeout(() => ScrollTrigger.refresh(), 200);
+    });
+    ro.observe(body);
+    return () => { window.clearTimeout(t); ro.disconnect(); };
+  }, { scope: root });
 
   // lock scroll while the menu drawer is open, and close on Escape
   useEffect(() => {
@@ -92,7 +116,7 @@ export default function CaseStudyLayout({
   }, [toc]);
 
   return (
-    <div className="cs" id="cs-top" style={{ "--cs-accent": accent } as React.CSSProperties}>
+    <div className="cs" id="cs-top" ref={root} style={{ "--cs-accent": accent } as React.CSSProperties}>
       <aside className="cs__rail">
         <div className="cs__rail-inner">
           <Link href="/" className="cs__home" aria-label="Back to home">
@@ -100,6 +124,7 @@ export default function CaseStudyLayout({
             <span className="cs__home-label">Home</span>
           </Link>
           <div className="cs__toc-box">
+            <span className="cs__toc-track" aria-hidden><span className="cs__toc-fill" /></span>
             <p className="cs__toc-head">Table of Contents</p>
             <nav className="cs__toc">
               {toc.map((t) => (

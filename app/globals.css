@@ -1602,8 +1602,9 @@ body.pill-cursor .cursor { opacity: 0; }
 @media (max-width: 600px) { .vgal__grid { grid-template-columns: 1fr; } }
 
 /* gallery card (reuses .vcard base) */
-.gcard { padding: 1.1rem 1.2rem; cursor: none; transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease); }
-.gcard:hover { transform: translateY(-5px); box-shadow: 0 30px 55px -28px rgba(36, 36, 36, 0.6); }
+.gcard { padding: 1.1rem 1.2rem; cursor: none; transition: box-shadow 0.45s var(--ease); }
+.gcard:hover { box-shadow: 0 30px 55px -28px rgba(36, 36, 36, 0.6); }
+.gcard__sheen { position: absolute; inset: 0; z-index: 4; pointer-events: none; mix-blend-mode: soft-light; }
 .gcard .vcard__brand { font-size: 1rem; }
 .gcard .vcard__value { font-size: 0.8rem; }
 .gcard .vcard__name { font-size: 0.92rem; }
@@ -3266,3 +3267,14 @@ body.pill-cursor .cursor { opacity: 0; }
 .footer__pages { max-width: 440px; }
 .footer__pages ul { gap: 18px 48px; }
 .footer__pages a { font-size: 1.1875rem; letter-spacing: -0.01em; }
+
+/* 3D planet — rises behind the intro copy, above the wind lines */
+.intro__planet { position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0; transition: opacity 1.6s var(--ease); }
+.intro__planet.is-ready { opacity: 1; }
+.intro__planet canvas { display: block; }
+.intro__status { text-shadow: 0 1px 10px rgba(12, 11, 8, .85), 0 0 2px rgba(12, 11, 8, .6); }
+
+/* case-study reading progress — the contents box's left edge fills as you read */
+.cs__toc-box { position: relative; }
+.cs__toc-track { position: absolute; left: -1px; top: 12px; bottom: 12px; width: 2px; border-radius: 2px; overflow: hidden; pointer-events: none; }
+.cs__toc-fill { display: block; width: 100%; height: 100%; background: var(--cs-accent); transform-origin: top; transform: scaleY(0); }

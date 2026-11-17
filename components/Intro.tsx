@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -121,6 +122,8 @@ const EraserIcon = () => (
     <path d="M7 21h10M5 13l6-6 7 7-5 5H8z" />
   </svg>
 );
+
+const IntroPlanet = dynamic(() => import("./IntroPlanet"), { ssr: false });
 
 export default function Intro() {
   const [show, setShow] = useState(false);
@@ -378,6 +381,7 @@ export default function Intro() {
             </motion.div>
 
             {step === "intro" && <FlowField className="intro__wind" density={0.128} speed={1} />}
+            <IntroPlanet dive={step !== "intro"} />
 
             <div className="intro__stars" aria-hidden>
               {stars.map((s) => (

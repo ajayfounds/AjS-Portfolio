@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
 import { site, seedVisitors, guestCount, VISITOR_COLORS, mulberry32, type VisitorEntry } from "@/lib/data";
 
 // deterministic dot-matrix burst per card seed
@@ -44,13 +44,45 @@ function sigPath(seed: number) {
 
 type Card = VisitorEntry & { sig?: string | null; isYou?: boolean };
 
+const SPRING = { stiffness: 220, damping: 24 };
+
 function GalleryCard({ card }: { card: Card }) {
   const c = VISITOR_COLORS[card.color] ?? VISITOR_COLORS.green;
   const matrix = useMemo(() => genMatrix(card.seed), [card.seed]);
   const path = useMemo(() => sigPath(card.seed), [card.seed]);
 
+  // the card leans toward the pointer and a sheen tracks it, like tilting a real pass
+  const ref = useRef<HTMLElement>(null);
+  const rotateX = useSpring(useMotionValue(0), SPRING);
+  const rotateY = useSpring(useMotionValue(0), SPRING);
+  const sheenOn = useSpring(useMotionValue(0), SPRING);
+  const sx = useMotionValue(50);
+  const sy = useMotionValue(50);
+  const sheen = useMotionTemplate`radial-gradient(circle at ${sx}% ${sy}%, rgba(255, 255, 255, 0.3), transparent 56%)`;
+
+  const onMove = (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse" || !ref.current) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const r = ref.current.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    rotateY.set((px - 0.5) * 14);
+    rotateX.set((0.5 - py) * 11);
+    sx.set(px * 100);
+    sy.set(py * 100);
+    sheenOn.set(1);
+  };
+  const onLeave = () => { rotateX.set(0); rotateY.set(0); sheenOn.set(0); };
+
   return (
-    <article className="vcard gcard" style={{ background: c.bg, color: c.fg }}>
+    <motion.article
+      ref={ref}
+      className="vcard gcard"
+      style={{ background: c.bg, color: c.fg, rotateX, rotateY, transformPerspective: 900 }}
+      onPointerMove={onMove}
+      onPointerLeave={onLeave}
+    >
+      <motion.span className="gcard__sheen" style={{ background: sheen, opacity: sheenOn }} aria-hidden />
       {card.isYou && <span className="gcard__you">You</span>}
       <pre className="vcard__matrix" aria-hidden>{matrix}</pre>
 
@@ -75,7 +107,7 @@ function GalleryCard({ card }: { card: Card }) {
           </svg>
         )
       )}
-    </article>
+    </motion.article>
   );
 }
 
