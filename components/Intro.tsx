@@ -135,7 +135,7 @@ export default function Intro() {
   const [no] = useState(() => randNo());
   const [swatch, setSwatch] = useState<Swatch>(SWATCHES[1]);
   const [matrix, setMatrix] = useState(genMatrix);
-  const [penMode, setPenMode] = useState(true); // pen pre-selected — visitors can sign right away
+  const [tool, setTool] = useState<"tilt" | "pen" | "eraser">("pen"); // pen pre-selected — visitors can sign right away
   const [hasInk, setHasInk] = useState(false);
   const router = useRouter();
 
@@ -239,7 +239,7 @@ export default function Intro() {
   }, []);
 
   const onCardMove = (e: React.MouseEvent) => {
-    if (penMode) return;
+    if (tool !== "tilt") return;
     const el = cardRef.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
@@ -260,26 +260,34 @@ export default function Intro() {
     return { x: (e.clientX - r.left) * (c.width / r.width), y: (e.clientY - r.top) * (c.height / r.height) };
   };
   const startDraw = (e: React.PointerEvent) => {
-    if (!penMode) return;
+    if (tool === "tilt") return;
     drawing.current = true;
     last.current = canvasPoint(e);
     (e.target as Element).setPointerCapture?.(e.pointerId);
   };
   const moveDraw = (e: React.PointerEvent) => {
-    if (!penMode || !drawing.current) return;
+    if (tool === "tilt" || !drawing.current) return;
     const c = canvasRef.current!;
     const ctx = c.getContext("2d")!;
     const p = canvasPoint(e);
-    ctx.strokeStyle = swatch.fg;
-    ctx.lineWidth = 2.5;
+    if (tool === "eraser") {
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.strokeStyle = "rgba(0,0,0,1)";
+      ctx.lineWidth = 14;
+    } else {
+      ctx.globalCompositeOperation = "source-over";
+      ctx.strokeStyle = swatch.fg;
+      ctx.lineWidth = 2.5;
+    }
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.beginPath();
     ctx.moveTo(last.current!.x, last.current!.y);
     ctx.lineTo(p.x, p.y);
     ctx.stroke();
+    ctx.globalCompositeOperation = "source-over";
     last.current = p;
-    if (!hasInk) setHasInk(true);
+    if (tool === "pen" && !hasInk) setHasInk(true);
   };
   const endDraw = () => {
     drawing.current = false;
@@ -476,7 +484,7 @@ export default function Intro() {
 
                     <div className="vcard__brand-row">
                       <span className="vcard__brand">{site.brand}</span>
-                      {penMode && hasInk && (
+                      {hasInk && (
                         <button className="vcard__clear" onClick={clearInk}>Clear</button>
                       )}
                     </div>
@@ -494,7 +502,7 @@ export default function Intro() {
                     <canvas
                       ref={canvasRef}
                       className="vcard__canvas"
-                      style={{ pointerEvents: penMode ? "auto" : "none", cursor: penMode ? "crosshair" : "auto" }}
+                      style={{ pointerEvents: tool !== "tilt" ? "auto" : "none", cursor: tool === "pen" ? "crosshair" : tool === "eraser" ? "grab" : "auto" }}
                       onPointerDown={startDraw}
                       onPointerMove={moveDraw}
                       onPointerUp={endDraw}
@@ -508,8 +516,8 @@ export default function Intro() {
                 {SWATCHES.map((s) => (
                   <button key={s.key} className={`swatch${swatch.key === s.key ? " is-active" : ""}`} style={{ background: s.bg }} onClick={() => setSwatch(s)} aria-label={`${s.key} card`} />
                 ))}
-                <button className={`welcome__tool${penMode ? " is-active" : ""}`} onClick={() => setPenMode((v) => !v)} aria-label="Sign the card"><PenIcon /></button>
-                <button className="welcome__tool" onClick={clearInk} aria-label="Erase signature"><EraserIcon /></button>
+                <button className={`welcome__tool${tool === "pen" ? " is-active" : ""}`} onClick={() => setTool((t) => t === "pen" ? "tilt" : "pen")} aria-label="Sign the card"><PenIcon /></button>
+                <button className={`welcome__tool${tool === "eraser" ? " is-active" : ""}`} onClick={() => setTool((t) => t === "eraser" ? "tilt" : "eraser")} aria-label="Erase strokes"><EraserIcon /></button>
               </div>
 
               <button className="welcome__enter" onClick={beginEnter}>Enter</button>

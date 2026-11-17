@@ -341,7 +341,7 @@ body.orb-active .cursor { display: none; }
   white-space: pre; color: currentColor; opacity: 0.32;
   pointer-events: none; text-align: right; overflow: hidden;
 }
-.vcard__brand-row { display: flex; align-items: flex-start; justify-content: space-between; position: relative; z-index: 1; }
+.vcard__brand-row { display: flex; align-items: flex-start; justify-content: space-between; position: relative; z-index: 3; }
 .vcard__brand { font-family: var(--font-ruwudu), Georgia, serif; font-size: 1.2rem; font-weight: 700; font-style: normal; }
 .vcard__clear {
   background: rgba(243, 241, 235, 0.18); border: none; cursor: none; color: currentColor;
